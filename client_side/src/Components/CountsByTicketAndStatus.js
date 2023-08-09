@@ -58,21 +58,14 @@ function CountsByTicketAndStatus() {
     const MyDocument = ({ funnelData, candidateCounts }) => (
       <Document>
         <Page style={styles.page}>
-          <Text style={styles.title}>Funnel Chart Data</Text>
+        <Text style={styles.title}>Report:</Text>
           {funnelData.map((entry, index) => (
-            <Text key={`pdf-funnel-${index}`} style={styles.content}>
-              {`${entry.name}: ${entry.value}`}
-            </Text>
+            entry.value > 0 && (
+              <Text key={`pdf-funnel-${index}`} style={{ ...styles.content, color: funnelColors[index % funnelColors.length] }}>
+                {`${entry.name}: ${entry.value}`}
+              </Text>
+            )
           ))}
-
-          <Text style={styles.title}>Candidate Count Data</Text>
-          <Text style={styles.content}>Total Candidates: {candidateCounts.totalnumber_of_candidates}</Text>
-          <Text style={styles.content}>Rejected by Aroha: {candidateCounts.rejectedbyaroha}</Text>
-          <Text style={styles.content}>Selected by Client: {candidateCounts.selectedbyclient}</Text>
-          <Text style={styles.content}>Rejected by Client: {candidateCounts.rejectededbyclient}</Text>
-          <Text style={styles.content}>Feedback Pending: {candidateCounts.FeedBack}</Text>
-
-          <Text style={styles.title}>Funnel Chart</Text>
           <Image src={funnelImage} style={styles.image} />
         </Page>
       </Document>
@@ -100,6 +93,7 @@ function CountsByTicketAndStatus() {
     const pdfBlob = await pdf(<MyDocument funnelData={funnelData} candidateCounts={candidateCounts} />).toBlob();
     saveAs(pdfBlob, `CandidateCounts_Ticket_${candidateCounts.ticketNumber}.pdf`);
   };
+  const sortedFunnelData = [...funnelData].sort((a, b) => b.value - a.value);
 
   return (
     <Container className="mt-5">
@@ -129,24 +123,24 @@ function CountsByTicketAndStatus() {
           {candidateCounts && (
             <div>
               <h3>Candidate Counts for Ticket {candidateCounts.ticketNumber}</h3>
-              <p>Total Candidates: {candidateCounts.totalnumber_of_candidates}</p>
-              <p>Rejected by Aroha: {candidateCounts.rejectedbyaroha}</p>
-              <p>Selected by Client: {candidateCounts.selectedbyclient}</p>
-              <p>Rejected by Client: {candidateCounts.rejectededbyclient}</p>
-              <p>Feedback Pending: {candidateCounts.FeedBack}</p>
-              <Button variant="primary" onClick={downloadPDF}>
-                Download PDF with Funnel Chart
+              <h4>Total Candidates: {candidateCounts.totalnumber_of_candidates}</h4>
+              <h4>Rejected by Aroha: {candidateCounts.rejectedbyaroha}</h4>
+              <h4>Selected by Client: {candidateCounts.selectedbyclient}</h4>
+              <h4>Rejected by Client: {candidateCounts.rejectededbyclient}</h4>
+              <h4>Feedback Pending: {candidateCounts.FeedBack}</h4>
+              <Button variant="warning" onClick={downloadPDF}>
+                Download PDF
               </Button>
             </div>
           )}
         </Col>
-        <Col xs={12} md={6}>
+        <Col xs={12} md={6} className='pt-5'>
           <div className="d-flex flex-row align-items-center">
             <div ref={funnelChartRef}>
-              <FunnelChart width={400} height={300}>
-                <Tooltip />
-                <Funnel dataKey="value" data={funnelData}>
-                  {funnelData.map((entry, index) => (
+            <FunnelChart width={400} height={300}>
+            <Tooltip />
+                <Funnel dataKey="value" data={sortedFunnelData}>
+                  {sortedFunnelData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={funnelColors[index % funnelColors.length]} />
                   ))}
                 </Funnel>

@@ -38,9 +38,6 @@ export const UserSchema=new mongoose.Schema({
     Current_location: { 
         type: String
     },
-    Current_Company:{
-        type: String
-    },
     Preffered_location: { 
         type: String
     },
