@@ -1,0 +1,43 @@
+.side-navbar {
+  background-color: #36393b;
+  width: 230px; /* Adjust the width as needed */
+  height: 100%; /* Adjust the height as needed */
+  padding: 20px;
+  position: fixed;
+  left: 0; /* Position the side navbar on the left */
+}
+  
+  .side-navbar .row {
+    margin-bottom: 10px;
+  }
+  
+  .side-navbar .nav-link-row {
+  
+    flex-direction: column;
+  }
+  
+  .side-navbar .nav-link-title {
+    color: white;
+    font-weight: bold;
+    display: flex;
+    
+    margin-bottom: 10px;
+  }
+  
+  .side-navbar .nav-link {
+    color: white;
+    
+   
+   
+  }
+  
+  .side-navbar .nav-link-icon {
+    margin-right: 5px;
+  }
+  
+  .side-navbar .nav-link:hover  {
+    color: rgb(19, 211, 192); 
+    background-color: rgb(8, 31, 41);/* Change to your desired color */
+  }
+  
+  
