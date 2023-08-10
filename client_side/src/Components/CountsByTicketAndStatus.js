@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button,Table } from 'react-bootstrap';
 import { Formik } from 'formik';
 import { FunnelChart, Funnel, Tooltip, Cell } from 'recharts';
 import { saveAs } from 'file-saver';
-import { pdf, Document, Page, Text, Image, StyleSheet } from '@react-pdf/renderer';
+import { pdf, Document, Page, Text, Image, StyleSheet,View} from '@react-pdf/renderer';
 import { getCandidateCounts } from '../helper/Helper'; // Adjust the path to helper.js
 import { toPng } from 'html-to-image';
 function CountsByTicketAndStatus() {
@@ -57,53 +57,94 @@ function CountsByTicketAndStatus() {
 
     const MyDocument = ({ funnelData, candidateCounts }) => (
       <Document>
-        <Page style={styles.page}>
-        <Text style={styles.title}>Report:</Text>
+      <Page style={styles.page}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Report</Text><br/>
+          <Text style={styles.subtitle}>Ticket Number: {candidateCounts.Ticket_no}</Text>
+          <Text style={styles.subtitle}>Client Name: {candidateCounts.Client_Name}</Text>
+          <Text style={styles.subtitle}>Tech stack:{candidateCounts.Tech_stack}</Text>
+        </View>
+        <View style={styles.tableContainer}>
+          <View style={styles.tableRow}>
+            <Text style={styles.headerCell}>Metrics</Text>
+            <Text style={styles.headerCell}>values</Text>
+          </View>
           {funnelData.map((entry, index) => (
             entry.value > 0 && (
-              <Text key={`pdf-funnel-${index}`} style={{ ...styles.content, color: funnelColors[index % funnelColors.length] }}>
-                {`${entry.name}: ${entry.value}`}
-              </Text>
+              <View key={`pdf-funnel-${index}`} style={styles.tableRow}>
+                <Text style={{ ...styles.contentCell, color: funnelColors[index % funnelColors.length] }}>
+                  {entry.name}
+                </Text>
+                <Text style={styles.contentCell}>
+                  {entry.value}
+                </Text>
+              </View>
             )
           ))}
-          <Image src={funnelImage} style={styles.image} />
-        </Page>
-      </Document>
-    );
+        </View>
+        <Image src={funnelImage} style={styles.image} />
+      </Page>
+    </Document>
+  );
 
-    const styles = StyleSheet.create({
-      page: {
-        padding: 30,
-      },
-      title: {
-        fontSize: 16,
-        marginBottom: 10,
-        fontWeight: 'bold',
-      },
-      content: {
-        fontSize: 12,
-        marginBottom: 5,
-      },
-      image: {
-        width: '100%',
-        height: 200,
-      },
-    });
+  const styles = StyleSheet.create({ 
+    page: {
+      padding: 30,
+    },
+    header: {
+      textAlign: 'center',
+      marginBottom: 20,
+    },
+    title: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      paddingBottom:5
+    },
+    subtitle: {
+      fontSize: 14,
+      marginBottom: 5,
+      paddingTop:4
+    },
+    tableContainer: {
+      marginBottom: 20,
+    },
+    tableRow: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      borderBottomWidth: 1,
+      borderBottomColor: '#ccc',
+      paddingBottom: 5,
+      marginBottom: 5,
+    },
+    headerCell: {
+      fontSize: 12,
+      fontWeight: 'bold',
+    },
+    contentCell: {
+      fontSize: 12,
+    },
+    image: {
+      width: '100%',
+      height: 200,
+    },
+  });
 
-    const pdfBlob = await pdf(<MyDocument funnelData={funnelData} candidateCounts={candidateCounts} />).toBlob();
-    saveAs(pdfBlob, `CandidateCounts_Ticket_${candidateCounts.ticketNumber}.pdf`);
-  };
+  const pdfBlob = await pdf(<MyDocument funnelData={funnelData} candidateCounts={candidateCounts} />).toBlob();
+  saveAs(pdfBlob, `CandidateCounts_Ticket_${candidateCounts.ticketNumber}.pdf`);
+};
   const sortedFunnelData = [...funnelData].sort((a, b) => b.value - a.value);
 
   return (
+    
     <Container className="mt-5">
+      <h1 className="text-center justify-content-center">Fetch Candidate Counts</h1>
       <Row className="justify-content-center">
         <Col xs={12} md={6}>
-          <h2 className="text-center">Fetch Candidate Counts</h2>
+          
           <Formik initialValues={initialValues}>
             <Form onSubmit={handleSubmit}>
               <Form.Group controlId="ticketNumber">
-                <Form.Label>Enter Ticket Number:</Form.Label>
+                <Form.Label><h2>Enter Ticket Number:</h2></Form.Label>
                 <Form.Control
                   type="text"
                   name="ticketNumber"
@@ -115,23 +156,65 @@ function CountsByTicketAndStatus() {
               <Button variant="primary" type="submit">
                 Fetch Counts
               </Button>
+             
             </Form>
           </Formik>
+          <br/>
 
           {error && <p className="text-danger">{error}</p>}
 
           {candidateCounts && (
-            <div>
-              <h3>Candidate Counts for Ticket {candidateCounts.ticketNumber}</h3>
-              <h4>Total Candidates: {candidateCounts.totalnumber_of_candidates}</h4>
-              <h4>Rejected by Aroha: {candidateCounts.rejectedbyaroha}</h4>
-              <h4>Selected by Client: {candidateCounts.selectedbyclient}</h4>
-              <h4>Rejected by Client: {candidateCounts.rejectededbyclient}</h4>
-              <h4>Feedback Pending: {candidateCounts.FeedBack}</h4>
-              <Button variant="warning" onClick={downloadPDF}>
-                Download PDF
-              </Button>
-            </div>
+        <div>
+          <Row  className="justify-content-center">
+            <Col  xs={12} md={12} className="pt-5">
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>Details</th>
+              <th>values</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Ticket Number:</td>
+              <td>{candidateCounts.Ticket_no}</td>
+            </tr>
+            <tr>
+              <td>Client Name:</td>
+              <td>{candidateCounts.Client_Name}</td>
+            </tr>
+            <tr>
+              <td>Tech stack:</td>
+              <td>{candidateCounts.Tech_stack}</td>
+            </tr>
+            <tr>
+              <td>Total Candidates:</td>
+              <td>{candidateCounts.totalnumber_of_candidates}</td>
+            </tr>
+            <tr>
+              <td>Rejected by Aroha:</td>
+              <td>{candidateCounts.rejectedbyaroha}</td>
+            </tr>
+            <tr>
+              <td>Selected by Client:</td>
+              <td>{candidateCounts.selectedbyclient}</td>
+            </tr>
+            <tr>
+              <td>Rejected by Client:</td>
+              <td>{candidateCounts.rejectededbyclient}</td>
+            </tr>
+            <tr>
+              <td>Feedback:</td>
+              <td>{candidateCounts.FeedBack}</td>
+            </tr>
+          </tbody>
+        </Table>
+        </Col>
+        </Row>
+        <Button variant="warning" onClick={downloadPDF}>
+          Download PDF
+        </Button>
+      </div>
           )}
         </Col>
         <Col xs={12} md={6} className='pt-5'>

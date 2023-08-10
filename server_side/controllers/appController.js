@@ -866,7 +866,21 @@ export async function getCountByTicket(req, res) {
     const rejectededbyclient = await RecuteModule.countDocuments({ Ticket_no, Status: { $regex: 'rejected By Client', $options: 'i' } });
     const FeedBack = await RecuteModule.countDocuments({ Ticket_no, Status: { $regex: 'Yet to Receive feedback', $options: 'i' } });
 
-    res.json({ totalnumber_of_candidates, rejectedbyaroha,selectedbyclient,rejectededbyclient,FeedBack});
+    // Fetch client_name from the ClientModel based on Ticket_no
+    const clientInfo = await AdminModule.findOne({ Ticket_no });
+    const Client_Name = clientInfo ? clientInfo.Client_Name : null;
+    const Tech_stack = clientInfo ? clientInfo.Tech_stack : null;
+
+    res.json({
+      Ticket_no,
+      totalnumber_of_candidates,
+      rejectedbyaroha,
+      selectedbyclient,
+      rejectededbyclient,
+      FeedBack,
+      Client_Name,
+      Tech_stack
+    });
   } catch (error) {
     console.error('Error fetching counts:', error);
     res.status(500).json({ error: 'An error occurred while fetching the counts.' });
