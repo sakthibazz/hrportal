@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Button, Table, Container, Row, Col } from "react-bootstrap";
+import { Table, Container, Row, Col, Form, Button, Pagination } from "react-bootstrap";
 import { getAdminPostbyStatus } from "../helper/Helper";
 import { Link } from "react-router-dom";
 
-
-
-
 const Admindetailsacess = () => {
+  const [allAdminPosts, setAllAdminPosts] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
+  const [ticketSearchTerm, setTicketSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 5; // Number of results to display per page
 
-  // Fetch all user details on component mount
   useEffect(() => {
     fetchAllUserDetails();
   }, []);
@@ -17,12 +17,49 @@ const Admindetailsacess = () => {
   const fetchAllUserDetails = async () => {
     try {
       const response = await getAdminPostbyStatus();
-      const sortedResponse = response.sort((a, b) => b.Ticket_no - a.Ticket_no); // Sorting in descending order
+      const sortedResponse = response.sort((a, b) => b.Ticket_no - a.Ticket_no);
+      setAllAdminPosts(sortedResponse);
       setSearchResult(sortedResponse);
     } catch (error) {
       console.error("Error fetching all user details:", error);
     }
   };
+
+  const handleTicketSearch = () => {
+    if (ticketSearchTerm === "") {
+      setSearchResult(allAdminPosts);
+    } else {
+      const filteredResults = allAdminPosts.filter(
+        user => user.Ticket_no.toString().includes(ticketSearchTerm)
+      );
+      setSearchResult(filteredResults);
+    }
+  };
+
+  const handleSearchInputChange = event => {
+    const searchTerm = event.target.value;
+    setTicketSearchTerm(searchTerm);
+    if (searchTerm === "") {
+      setSearchResult(allAdminPosts);
+    }
+  };
+
+  const paginate = pageNumber => {
+    setCurrentPage(pageNumber);
+  };
+
+  const sortedSearchResult = Array.isArray(searchResult)
+    ? [...searchResult].sort((a, b) => b.Ticket_no - a.Ticket_no)
+    : [];
+
+  const indexOfLastResult = currentPage * postsPerPage;
+  const indexOfFirstResult = indexOfLastResult - postsPerPage;
+  const resultsToDisplay = sortedSearchResult.slice(indexOfFirstResult, indexOfLastResult);
+
+  const pageNumbers = Array.from({ length: Math.ceil(sortedSearchResult.length / postsPerPage) }, (_, i) => i + 1);
+
+
+
 
 
 
@@ -30,9 +67,31 @@ const Admindetailsacess = () => {
     <div className="pt-5">
     <div style={{ maxWidth: '800px', margin: '0 auto' }}> {/* Add custom div with max-width */}
       <Container fluid >
+    
+          <Row className="mt-3" >
+            <Col md={12}>
+            <Form>
+                <Form.Group controlId="searchTicketNumber">
+                  <Form.Label><h6>Search by Ticket Number:</h6></Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter Ticket Number"
+                    value={ticketSearchTerm}
+                    onChange={handleSearchInputChange}
+                    style={{ maxWidth: '200px', }} // Adjust the maxWidth value as needed
+                  />
+                </Form.Group>
+            
+                <Button variant="info" onClick={handleTicketSearch} className="mt-2">
+                  Search Ticket
+                </Button>
+           
+              </Form>
+            </Col>
+          </Row>
       
-        {searchResult.length > 0 ? (
-          <Row>
+        {resultsToDisplay.length > 0 ? (
+          <Row className="mt-2">
             <Col md={12} style={{ marginLeft: '30px' }}>
               <h3>Aroha Technologies Client Requirement:</h3>
               <Table striped bordered hover >
@@ -51,7 +110,7 @@ const Admindetailsacess = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {searchResult.map((user) => (
+                  {resultsToDisplay.map((user) => (
                     <tr key={user._id}>
                        <td>
                       <Link to={`/recutepost/${user._id}`}>
@@ -79,6 +138,18 @@ const Admindetailsacess = () => {
             </Col>
           </Row>
         )}
+          <Pagination>
+              {pageNumbers.map(number => (
+                <Pagination.Item
+                  key={number}
+                  active={number === currentPage}
+                  onClick={() => paginate(number)}
+                  className="page-item"
+                >
+                  {number}
+                </Pagination.Item>
+              ))}
+            </Pagination>
       </Container>
     </div>
   </div>

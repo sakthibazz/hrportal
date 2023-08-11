@@ -621,40 +621,53 @@ export async function getticketDetails(req, res) {
 }
 
 // GET method for fetching user details based on any one of the details
+
 export async function getUserDetails(req, res) {
-  const { Ticket_no, CandidateName, MobileNumber, Email } = req.query;
+  const {CandidateName, MobileNumber, Domain,Notice_peried,fromDate, toDate } = req.query;
 
   try {
     // Create a query object to filter records based on user input
     const query = {};
 
-    // Check if the user provided Ticket_no and add it to the query
-    if (Ticket_no) {
-      query.Ticket_no = Ticket_no;
-    }
+  
 
-    // Check if the user provided CandidateName and add it to the query
-    if (CandidateName) {
-      query.CandidateName = CandidateName;
-    }
-
-    // Check if the user provided MobileNumber and add it to the query
     if (MobileNumber) {
       query.MobileNumber = MobileNumber;
     }
 
-    // Check if the user provided Email and add it to the query
-    if (Email) {
-      query.Email = Email;
+    // Check if the client name provided and add it to the query (case-insensitive)
+    if (CandidateName) {
+      query.CandidateName = { $regex: new RegExp(CandidateName, "i") };
+    }
+
+    // Check if the status provided and add it to the query (case-insensitive)
+    if (Domain) {
+      query.Domain = { $regex: new RegExp(Domain, "i") };
+    }
+
+    if (Notice_peried) {
+      query.Notice_peried = { $regex: new RegExp(Notice_peried, "i") };
+    }
+
+    // Check if fromDate and toDate provided and add them to the query
+    if (fromDate && toDate) {
+      // Set time to the end of the day for toDate
+      const endDate = new Date(toDate);
+      endDate.setHours(23, 59, 59);
+    
+      query.date = { $gte: new Date(fromDate), $lte: endDate };
+    } else if (fromDate) {
+      query.date = { $gte: new Date(fromDate) };
+    } else if (toDate) {
+      // Set time to the end of the day for toDate
+      const endDate = new Date(toDate);
+      endDate.setHours(23, 59, 59);
+    
+      query.date = { $lte: endDate };
     }
 
     // If no query parameters provided, fetch all records
     const users = await (Object.keys(query).length ? RecuteModule.find(query) : RecuteModule.find());
-
-       // If no records found, send a custom message
-       if (users.length === 0) {
-        return res.status(404).json({ message: "No record found." });
-      }
 
     // Return the found users
     res.status(200).json(users);

@@ -1,127 +1,58 @@
 import React, { useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Button, Table, Container, Row, Col, Card,Pagination } from "react-bootstrap";
-import { getAllUserDetails } from "../helper/Helper";
+import { getAllUserDetails,getUserDetails } from "../helper/Helper";
 import { Link} from "react-router-dom";
 import {downloadResume} from '../helper/Convert'
 
 
 
 const SearchForm = () => {
-  const [allUsers, setAllUsers] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const resultsPerPage = 5; // Number of results to display per page
+  const resultsPerPage = 10; // Number of results to display per page
 
-
-  // Fetch all user details on component mount
   useEffect(() => {
-    fetchAllUserDetails();
+    fetchAllAdminPostDetails();
   }, []);
 
-  const fetchAllUserDetails = async () => {
+  const fetchAllAdminPostDetails = async () => {
     try {
       const response = await getAllUserDetails();
-      setAllUsers(response);
       setSearchResult(response);
     } catch (error) {
-      console.error("Error fetching all user details:", error);
+      console.error("Error fetching admin post details:", error);
     }
   };
 
-
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values) => {
     try {
-      // Check if allUsers is empty or values is undefined
-      if (!allUsers.length || !values) {
-        console.log("No users or values are empty.");
-        return;
-      }
-  
-      // Check if toDate is lesser than fromDate
-      if (values.fromDate && values.toDate && new Date(values.fromDate) > new Date(values.toDate)) {
-        alert("To Date cannot be earlier than From Date.");
-        return;
-      }
-  
-      const filteredUsers = allUsers.filter((user) => {
-        // Convert search values to lowercase
-        const searchValues = {
-          ...values,
-          CandidateName: values.CandidateName ? values.CandidateName.toLowerCase() : "",
-          Domain: values.Domain ? values.Domain.toLowerCase() : "",
-          Notice_peried: values.Notice_peried ? values.Notice_peried.toLowerCase() : "",
-          MobileNumber: values.MobileNumber ? values.MobileNumber.toString() : "",
-        };
-
-  
-       // Convert data fields to lowercase
-       const userDataLowerCase = {
-        ...user,
-        CandidateName: user.CandidateName ? user.CandidateName.toLowerCase() : "",
-        Domain: user.Domain ? user.Domain.toLowerCase() : "",
-        Notice_peried: user.Notice_peried ? user.Notice_peried.toLowerCase() : "",
-      };
-      
-      
-        const userRegistrationDate = new Date(user.date);
-  
-        // Check if the user registration date is within the selected date range
-        const isDateInRange =
-          (!values.fromDate || userRegistrationDate >= new Date(values.fromDate)) &&
-          (!values.toDate || userRegistrationDate <= new Date(values.toDate));
-  
-        // Include records for the "fromDate" or the "toDate"
-        const isFromDateMatch =
-          values.fromDate && userRegistrationDate.toDateString() === new Date(values.fromDate).toDateString();
-        const isToDateMatch = values.toDate && userRegistrationDate.toDateString() === new Date(values.toDate).toDateString();
-  
-        if (isFromDateMatch || isToDateMatch) {
-          // If date range matches, apply additional filters for candidate name and mobile number if provided
-          return (
-            (!searchValues.CandidateName || userDataLowerCase.CandidateName.includes(searchValues.CandidateName)) &&
-            (!values.MobileNumber || user.MobileNumber.toString().includes(values.MobileNumber))&&
-            (!searchValues.Domain || userDataLowerCase.Domain.includes(searchValues.Domain)) &&
-            (!searchValues.Notice_peried || userDataLowerCase.Notice_peried.includes(searchValues.Notice_peried))
-          );
-        }
-  
-        // Apply all the other filters as before
-        return (
-          isDateInRange &&
-          (!searchValues.Ticket_no || userDataLowerCase.Ticket_no.includes(searchValues.Ticket_no)) &&
-          (!searchValues.CandidateName || userDataLowerCase.CandidateName.includes(searchValues.CandidateName)) &&
-          (!values.MobileNumber || user.MobileNumber.toString().includes(values.MobileNumber))  &&
-          (!searchValues.Email || userDataLowerCase.Email.includes(searchValues.Email)) &&
-          (!searchValues.Domain || userDataLowerCase.Domain.includes(searchValues.Domain)) &&
-          (!searchValues.Notice_peried || userDataLowerCase.Notice_peried.includes(searchValues.Notice_peried))
-        );
-      });
-  
-      setSearchResult(filteredUsers);
+      const response = await getUserDetails(values);
+      setSearchResult(response);
     } catch (error) {
-      console.error("Error filtering users:", error);
+      console.error("Error fetching admin post details:", error);
     }
   };
-    // Pagination logic
-    const indexOfLastResult = currentPage * resultsPerPage;
-    const indexOfFirstResult = indexOfLastResult - resultsPerPage;
-    const currentResults = searchResult.slice(indexOfFirstResult, indexOfLastResult);
-  
+
+  const sortedSearchResult = Array.isArray(searchResult)
+    ? [...searchResult].sort((a, b) => b.Ticket_no - a.Ticket_no)
+    : [];
+
+  const indexOfLastResult = currentPage * resultsPerPage;
+  const indexOfFirstResult = indexOfLastResult - resultsPerPage;
+  const resultsToDisplay = sortedSearchResult.slice(indexOfFirstResult, indexOfLastResult);
+
  
-  
-  
 
-    const pageNumbers=Array.from({length:Math.ceil(searchResult.length/resultsPerPage)},(_,i)=>i+1);
+  const pageNumbers=Array.from({length:Math.ceil(sortedSearchResult.length/resultsPerPage)},(_,i)=>i+1);
 
-    const handlePageChange=(page)=>{
-      setCurrentPage(page);
-    }
+  const handlePageChange=(page)=>{
+    setCurrentPage(page);
+  }
   
 
   // Updated initial values to include fromDate and toDate fields
   const initialValues = {
-    Ticket_no: "",
     CandidateName: "",
     MobileNumber: "",
     Notice_peried: "",
@@ -134,7 +65,7 @@ const SearchForm = () => {
     <div className="pt-5">
     <div style={{ maxWidth: '800px', margin: '0 auto' }}> {/* Add custom div with max-width */}
       <Container fluid>
-        <Card style={{ marginLeft: '150px' }}>
+      <Card style={{ marginLeft: '150px' }}>
         <Row>
          
           <Col sm={12} md={12} className="text-center pt-5">
@@ -224,9 +155,8 @@ const SearchForm = () => {
             </Card.Body>
           </Col>
         </Row>
-        </Card>
-
-        {searchResult.length > 0 ? (
+      </Card>
+        {resultsToDisplay.length > 0 ? (
           <Row>
             <Col md={12}>
               <h3>Search Results:</h3>
@@ -245,7 +175,7 @@ const SearchForm = () => {
                   </tr>
                 </thead>
                 <tbody>
-                {currentResults.map((user) =>  (
+                {resultsToDisplay.map((user) =>  (
                     <tr key={user._id}>
                       <td>{user.CandidateName}</td>
                       <td>{user.MobileNumber}</td>
@@ -295,4 +225,4 @@ const SearchForm = () => {
   );
 };
 
-export default SearchForm;
+export default SearchForm;

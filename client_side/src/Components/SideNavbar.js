@@ -80,8 +80,8 @@ const SideNavbar = () => {
           </div>
         ) : null}
 
-        <Nav.Link as={Link} className="help-link">
-          <QuestionCircleFill className="help-link-icon" />
+        <Nav.Link as={Link} className="nav-link">
+          <QuestionCircleFill className="nav-link-icon" />
           Need Help
         </Nav.Link>
       </Nav>
