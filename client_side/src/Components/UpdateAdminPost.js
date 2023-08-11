@@ -128,10 +128,10 @@ const UpdatePost = () => {
                   </Col>
                   </Row>
                   <Row>
-                    <Col xs={1}>
+                    <Col xs={3}>
                       <label>Status:</label>
                       </Col>
-                      <Col xs={5}>
+                      <Col xs={3}>
                     <Form.Select
                         {...formik.getFieldProps('status')}
                         required
@@ -147,7 +147,10 @@ const UpdatePost = () => {
                     </Row>
                     <br/>
                     <Row>
-                      <Col xs={6}>
+                      <Col xs={3}>
+                        <label>Client Name:</label>
+                      </Col>
+                      <Col xs={3}>
                         <Form.Control
                           {...formik.getFieldProps('Client_Name')}
                           type="text"
@@ -156,7 +159,10 @@ const UpdatePost = () => {
                           required
                         />
                       </Col>
-                      <Col xs={6}>
+                      <Col xs={3}>
+                        <label>Open position:</label>
+                      </Col>
+                      <Col xs={3}>
                         <Form.Control
                           {...formik.getFieldProps('Open_position')}
                           type="number"
@@ -167,7 +173,10 @@ const UpdatePost = () => {
                       </Col>
                     </Row>
                     <Row>
-                      <Col xs={6}>
+                    <Col xs={3}>
+                        <label>Year of Experience:</label>
+                      </Col>
+                      <Col xs={3}>
                         <Form.Control
                           {...formik.getFieldProps('Yre_of_exp')}
                           type="text"
@@ -176,7 +185,10 @@ const UpdatePost = () => {
                           required
                         />
                       </Col>
-                      <Col xs={6}>
+                      <Col xs={3}>
+                        <label>Tech Stack:</label>
+                      </Col>
+                      <Col xs={3}>
                       <Form.Control
                           {...formik.getFieldProps('Tech_stack')}
                           list="Tech_stack"
@@ -200,7 +212,10 @@ const UpdatePost = () => {
                       </Col>
                     </Row>
                     <Row>
-                      <Col xs={6}>
+                    <Col xs={3}>
+                        <label>Budget:</label>
+                      </Col>
+                      <Col xs={3}>
                         <Form.Control
                           {...formik.getFieldProps('Budget')}
                           type="number"
@@ -209,7 +224,10 @@ const UpdatePost = () => {
                           required
                         />
                       </Col>
-                      <Col xs={6}>
+                      <Col xs={3}>
+                        <label>Location:</label>
+                      </Col>
+                      <Col xs={3}>
                       <Form.Control
                           {...formik.getFieldProps('Location')}
                           list="Location"
@@ -233,7 +251,10 @@ const UpdatePost = () => {
                       </Col>
                     </Row>
                     <Row>
-                      <Col xs={6}>
+                    <Col xs={3}>
+                        <label>Job Mode:</label>
+                      </Col>
+                      <Col xs={3}>
                       <Form.Select
                         {...formik.getFieldProps('Job_Mode')}
                         required
@@ -244,7 +265,10 @@ const UpdatePost = () => {
                         <option value="C2H">C2H</option>
                       </Form.Select>
                       </Col>
-                      <Col xs={6}>
+                      <Col xs={3}>
+                        <label>Work Mode:</label>
+                      </Col>
+                      <Col xs={3}>
                       <Form.Select
                         {...formik.getFieldProps('Mode')}
                         required
@@ -258,7 +282,10 @@ const UpdatePost = () => {
                     </Row>
                     <br/>
                     <Row>
-                         <Col xs={6}>
+                    <Col xs={3}>
+                        <label>Job Description:</label>
+                      </Col>
+                      <Col xs={3}>
                          <Form.Control
                         {...formik.getFieldProps('Job_Des')}
                         as="textarea"
@@ -267,10 +294,10 @@ const UpdatePost = () => {
                     />
 
                       </Col>
-                      <Col xs={2}>
+                      <Col xs={3}>
                       <Form.Label>Upload Job Description:</Form.Label>
                       </Col>
-                      <Col xs={4}>
+                      <Col xs={3}>
                       <Form.Control
                           onChange={onUpload}
                           type="file"

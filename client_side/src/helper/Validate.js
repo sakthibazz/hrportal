@@ -98,11 +98,7 @@ export async function recuterValidate(values) {
     const errors = {};
     const mobileNumberPattern = /^(\+91)?\s*\d{10}$/;
   
-    if (!values.Ticket_no) {
-      errors.Ticket_no = toast.error("Ticket Number Required..!");
-    } else if (isNaN(values.Ticket_no)) {
-      errors.Ticket_no = toast.error("Invalid Ticket Number..!");
-    } else if (values.username) {
+   if (values.username) {
       // Check if user exists
       const response = await recuterpost(values);
       if (response.error) {
@@ -125,14 +121,14 @@ export async function recuterValidate(values) {
           toast.error(errors.MobileNumber);
         }
       }
-    if(!values.Yre_of_exp){
+    if(!values.Yre_of_expe){
         errors.exit=toast.error("Yre_of_exp Required..!")
-    }else if(isNaN(values.Yre_of_exp)){
+    }else if(isNaN(values.Yre_of_expe)){
         errors.exit=toast.error("Invalid Yre_of_exp")
     }
     if(!values.Relevent_Yre_of_exp){
         errors.exit=toast.error("Relevent_Yre_of_exp Required..!")
-    }else if(isNaN(values.Yre_of_exp)){
+    }else if(isNaN(values.Relevent_Yre_of_exp)){
         errors.exit=toast.error("Invalid Relevent_Yre_of_exp")
     }
     if(!values.Domain){

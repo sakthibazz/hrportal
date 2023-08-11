@@ -51,6 +51,7 @@ const SearchForm = () => {
               <Table striped bordered hover >
                 <thead>
                   <tr>
+                    <th>Ticket Number</th>
                     <th>Candidate Name</th>
                     <th>Mobile Number</th>
                     <th>Email</th>
@@ -65,6 +66,7 @@ const SearchForm = () => {
                 <tbody>
                   {searchResult.map((user) => (
                     <tr key={user._id}>
+                      <td>{user.Ticket_no}</td>
                       <td>{user.CandidateName}</td>
                       <td>{user.MobileNumber}</td>
                       <td>{user.Email}</td>

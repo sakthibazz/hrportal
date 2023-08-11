@@ -22,6 +22,7 @@ import SearchAdminPost from './Components/SearchAdminPost';
 import UpdateAdminPost from './Components/UpdateAdminPost';
 import { ProtectRoute,AuthorizeUser } from './middleware/auth';
 import CountsByTicketAndStatus from './Components/CountsByTicketAndStatus';
+import Admindetailsacess from './Components/Admindetailsacess'
 
 function App() {
   return (
@@ -35,7 +36,12 @@ function App() {
                 <Route path="/recovery" element={<ProtectRoute><Recovery /></ProtectRoute>} />
                 <Route path="/reset" element={<ProtectRoute><Reset /></ProtectRoute>} />
                 <Route path="/home" element={<AuthorizeUser><Homescreen /></AuthorizeUser>} />
-                <Route path="/recutepost" element={<AuthorizeUser><Recuterpost /></AuthorizeUser>} />
+
+
+                <Route path="/admindetailsacess" element={<AuthorizeUser><Admindetailsacess/></AuthorizeUser>} />
+
+                
+                <Route path="/recutepost/:userId" element={<AuthorizeUser><Recuterpost /></AuthorizeUser>} />
                 <Route path="/ticketdetails" element={<AuthorizeUser><Ticketdetails /></AuthorizeUser>} />
                 <Route path="/searchform" element={<AuthorizeUser><SearchForm /></AuthorizeUser>} />
                 <Route path="/updatepost/:userId" element={<AuthorizeUser><UpdateRecuterpost /></AuthorizeUser>} />

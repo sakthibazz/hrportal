@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Button, Table, Container, Row, Col, Card,Pagination } from "react-bootstrap";
 import { getAllUserDetails } from "../helper/Helper";
 import { Link} from "react-router-dom";
+import {downloadResume} from '../helper/Convert'
 
 
 
@@ -27,21 +28,7 @@ const SearchForm = () => {
       console.error("Error fetching all user details:", error);
     }
   };
-  const downloadResume = (resumeUrl) => {
-    if (resumeUrl !== 'N/A') {
-      // Logic to initiate the download using the provided resumeUrl
-      // For example, you can create an anchor element and simulate a click to download the file.
-      var link = document.createElement('a');
-      link.href = resumeUrl;
-      link.download = 'resume.pdf'; // You can set the desired file name here
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } else {
-      // Handle the case when the resume is not available
-      alert('Resume not available for download.');
-    }
-  };
+
 
   const handleSubmit = (values) => {
     try {
@@ -64,16 +51,19 @@ const SearchForm = () => {
           CandidateName: values.CandidateName ? values.CandidateName.toLowerCase() : "",
           Domain: values.Domain ? values.Domain.toLowerCase() : "",
           Notice_peried: values.Notice_peried ? values.Notice_peried.toLowerCase() : "",
+          MobileNumber: values.MobileNumber ? values.MobileNumber.toString() : "",
         };
+
   
-        // Convert data fields to lowercase
-        const userDataLowerCase = {
-          ...user,
-          CandidateName: user.CandidateName.toLowerCase(),
-          Domain: user.Domain.toLowerCase(),
-          Notice_peried: user.Notice_peried.toLowerCase(),
-        };
-  
+       // Convert data fields to lowercase
+       const userDataLowerCase = {
+        ...user,
+        CandidateName: user.CandidateName ? user.CandidateName.toLowerCase() : "",
+        Domain: user.Domain ? user.Domain.toLowerCase() : "",
+        Notice_peried: user.Notice_peried ? user.Notice_peried.toLowerCase() : "",
+      };
+      
+      
         const userRegistrationDate = new Date(user.date);
   
         // Check if the user registration date is within the selected date range

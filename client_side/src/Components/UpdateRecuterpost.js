@@ -37,7 +37,7 @@ const UpdatePost = () => {
       CandidateName: '',
       MobileNumber: '',
       Email: '',
-      Yre_of_exp: '',
+      Yre_of_expe: '',
       Relevent_Yre_of_exp: '',
       Domain: '',
       CTC: '',
@@ -208,11 +208,11 @@ const UpdatePost = () => {
                     </Row>
                     <Row>
                     <Col xl={2}>
-                      <label>YOP:</label>
+                      <label>YOE:</label>
                       </Col>
                       <Col xs={4}>
                         <Form.Control
-                          {...formik.getFieldProps('Yre_of_exp')}
+                          {...formik.getFieldProps('Yre_of_expe')}
                           type="number"
                           placeholder="Year Of Experience*"
                           className="w-100 mb-2"
@@ -220,7 +220,7 @@ const UpdatePost = () => {
                         />
                       </Col>
                       <Col xl={2}>
-                      <label>RYOP:</label>
+                      <label>RYOE:</label>
                       </Col>
                       <Col xs={4}>
                         <Form.Control

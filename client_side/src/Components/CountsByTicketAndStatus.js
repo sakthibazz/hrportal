@@ -6,6 +6,8 @@ import { saveAs } from 'file-saver';
 import { pdf, Document, Page, Text, Image, StyleSheet,View} from '@react-pdf/renderer';
 import { getCandidateCounts } from '../helper/Helper'; // Adjust the path to helper.js
 import { toPng } from 'html-to-image';
+
+
 function CountsByTicketAndStatus() {
   const [candidateCounts, setCandidateCounts] = useState(null);
   const [error, setError] = useState('');
@@ -153,10 +155,9 @@ function CountsByTicketAndStatus() {
                 />
               </Form.Group>
               <br />
-              <Button variant="primary" type="submit">
-                Fetch Counts
-              </Button>
-             
+              <Button variant="dark" type="submit">
+              Get Details
+              </Button>            
             </Form>
           </Formik>
           <br/>

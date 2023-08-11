@@ -24,7 +24,9 @@ export const UserSchema = new mongoose.Schema({
     position:{
         type:String,
         required:true
-    }
+    },
+    loginTime: { type: Date },
+    logoutTime: { type: Date },
 });
 
 export default mongoose.model.Users || mongoose.model('USER', UserSchema);

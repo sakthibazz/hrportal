@@ -6,6 +6,7 @@ import otpGenerator from 'otp-generator';
 import RecuteModule from "../model/Recute.module.js";
 import AdminModule from "../model/Admin.module.js";
 import transporter from '../controllers/mailer.js'
+import moment from 'moment-timezone';
 
 
 
@@ -204,7 +205,7 @@ export async function recuterpost(req, res) {
       CandidateName,
       MobileNumber,
       Email,
-      Yre_of_exp,
+      Yre_of_expe,
       Relevent_Yre_of_exp,
       Domain,
       CTC,
@@ -250,7 +251,7 @@ export async function recuterpost(req, res) {
       CandidateName,
       MobileNumber,
       Email,
-      Yre_of_exp,
+      Yre_of_expe,
       Relevent_Yre_of_exp,
       Domain,
       CTC,
@@ -299,7 +300,7 @@ export async function updateRecuterpostById(req, res) {
       Ticket_no,
       CandidateName,
       Email,
-      Yre_of_exp,
+      Yre_of_expe,
       Relevent_Yre_of_exp,
       Domain,
       CTC,
@@ -340,7 +341,7 @@ export async function updateRecuterpostById(req, res) {
         CandidateName,
         MobileNumber: mobileNum, // Include the new mobile number in the update operation
         Email,
-        Yre_of_exp,
+        Yre_of_expe,
         Relevent_Yre_of_exp,
         Domain,
         CTC,
@@ -483,6 +484,9 @@ export async function updateAdminpostById(req, res) {
     if (hasChanged('Job_Mode', Job_Mode)) {
       updatedFields.Job_Mode = Job_Mode;
     }
+    if (hasChanged('Job_Mode', status)) {
+      updatedFields.status = status;
+    }
     
     const updateData = {
       Ticket_no,
@@ -548,10 +552,20 @@ export async function login(req, res) {
                 config.JWT_SECRET,
                 { expiresIn: "24h" }
               );
-  
+              
+                     // Get the current IST time in Chennai and format it in 12-hour format
+            const loginTimeIST = moment.tz('Asia/Kolkata').format('YYYY-MM-DD hh:mm:ss A'); // 12-hour format
+
+            UserModel.findByIdAndUpdate(
+              user._id,
+              { $set: { loginTime: loginTimeIST } },
+              { new: true }
+            ).exec();
+
               return res.status(200).send({
                 msg: "Login Successful",
                 username: user.username,
+                loginTimeIST,
                 token
               });
             })
@@ -701,6 +715,18 @@ export async function getAdminPostClientRequirement(req, res) {
   }
 }
 
+//get all the admin post based on the status which as open,sourcing
+export async function getAdminPostbyStatus(req,res){
+  try {
+    const jobs = await AdminModule.find({
+      status: { $regex: /open|sourcing/i },
+    });
+
+    res.status(200).json(jobs);
+  } catch (error) {
+    res.status(500).json({ error: "An error occurred" });
+  }
+}
 // get recuter post details by id
 export async function getUserById(req, res) {
   try {

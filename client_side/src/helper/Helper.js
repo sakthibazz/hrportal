@@ -39,6 +39,15 @@ export async function getArohaRecruitments() {
     return { error: "Failed to fetch Aroha Technologies recruitments" };
   }
 }
+// Get the admin post details by the means of status for recuter
+export async function getAdminPostbyStatus() {
+  try {
+    const response = await axios.get('/api/getAdminPostbyStatus');
+    return response.data;
+  } catch (error) {
+    return { error: "Failed to fetch Aroha Technologies recruitments" };
+  }
+}
 
 ///get ticketnumber details
 export async function getTicketNumber(ticketNumber) {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { HouseFill, Eye, PeopleFill, SearchHeart, FileEarmarkBarGraphFill, PencilFill, QuestionCircleFill,PersonPlusFill,ExclamationTriangleFill} from 'react-bootstrap-icons';
+import { HouseFill, Eye, PeopleFill, SearchHeart, FileEarmarkBarGraphFill, PencilFill, QuestionCircleFill,PersonPlusFill,InfoCircleFill} from 'react-bootstrap-icons';
 import useFetch from '../hooks/Fetch.hook.js';
 import './SideNavbar.css';
 
@@ -36,7 +36,7 @@ const SideNavbar = () => {
           <div className="row">
             <div className="nav-link-row">
               <div className="nav-link-title">Recruiter</div>
-              <Nav.Link as={Link} to="/recutepost" className="nav-link">
+              <Nav.Link as={Link} to="/admindetailsacess" className="nav-link">
                 <PeopleFill className="nav-link-icon" />
                 Candidate
               </Nav.Link>
@@ -51,7 +51,7 @@ const SideNavbar = () => {
           <div className="row">
             <div className="nav-link-row">
             <div className="nav-link-title">Recruiter</div>
-              <Nav.Link as={Link} to="/recutepost" className="nav-link">
+              <Nav.Link as={Link} to="/admindetailsacess" className="nav-link">
                 <PeopleFill className="nav-link-icon" />
                 Candidate
               </Nav.Link>
@@ -73,7 +73,7 @@ const SideNavbar = () => {
                 User Registation
               </Nav.Link>
               <Nav.Link as={Link} to="/getCountByTicket" className="nav-link">
-                <ExclamationTriangleFill className="nav-link-icon" />
+                <InfoCircleFill className="nav-link-icon" />
                 Report
               </Nav.Link>
             </div>

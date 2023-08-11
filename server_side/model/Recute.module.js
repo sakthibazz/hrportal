@@ -17,7 +17,7 @@ export const UserSchema=new mongoose.Schema({
         type:String,
         require:[true,"please provide candidate Email"]
     },
-    Yre_of_exp:{
+    Yre_of_expe:{
         type:Number,
         require:[true,"please provide Yre_of_exp number"]
     },
@@ -45,6 +45,9 @@ export const UserSchema=new mongoose.Schema({
         type: String
     },
     Notice_peried:{
+        type:String
+    },
+    Current_Company:{
         type:String
     },
     Comment:{
