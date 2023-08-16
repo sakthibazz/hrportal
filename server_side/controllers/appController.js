@@ -227,13 +227,16 @@ export async function recuterpost(req, res) {
       //  Check if the same candidate name and mobile number already exist
        const existingCandidateEmail = await RecuteModule.findOne({ Email });
        const existingCandidateMoble = await RecuteModule.findOne({ MobileNumber });
+       console.log('Existing Candidate Email:', existingCandidateEmail);
+       console.log('Existing Candidate Mobile:', existingCandidateMoble);
 
        if (existingCandidateEmail) {
-         return res.status(409).json({ error: 'Candidate with the same Email and mobile number already exists' });
+       
+         return res.status(409).json({ error: 'Candidate with the same Email OR mobile number already exists' });
        }
 
        if (existingCandidateMoble) {
-        return res.status(409).json({ error: 'Candidate with the same Email and mobile number already exists' });
+        return res.status(409).json({ error: 'Candidate with the same Email OR mobile number already exists' });
       }
 
     // Fetch the user based on the userId from req.user

@@ -97,7 +97,7 @@ const Admindetailsacess = () => {
               <Table striped bordered hover >
                 <thead>
                   <tr>
-                  <th> Here TO GO</th>
+                  <th> Here To Start</th>
                     <th>Ticket No</th>
                     <th>Client_Name</th>
                     <th>Tech Stack</th>
@@ -138,18 +138,25 @@ const Admindetailsacess = () => {
             </Col>
           </Row>
         )}
-          <Pagination>
-              {pageNumbers.map(number => (
+         <Pagination>
+          {pageNumbers.map(number => {
+            if (Math.abs(number - currentPage) <= 2 || number === 1 || number === pageNumbers.length) {
+              return (
                 <Pagination.Item
-                  key={number}
+                  key={number} 
                   active={number === currentPage}
                   onClick={() => paginate(number)}
-                  className="page-item"
                 >
-                  {number}
+                  {number}  
                 </Pagination.Item>
-              ))}
-            </Pagination>
+              );
+            } else if (Math.abs(number - currentPage) === 3) {
+              // Display ellipsis when there's a gap
+              return <Pagination.Ellipsis key={number + 'ellipsis'} disabled />;
+            }
+            return null;
+          })}
+        </Pagination>
       </Container>
     </div>
   </div>

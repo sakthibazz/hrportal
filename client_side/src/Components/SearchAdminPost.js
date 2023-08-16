@@ -175,16 +175,24 @@ const SearchForm = () => {
           )}
             {/* Display pagination */}
             <Pagination>
-        {pageNumbers.map(number => (
-          <Pagination.Item
-            key={number} 
-            active={number === currentPage}
-            onClick={() => handlePageChange(number)}
-          >
-            {number}  
-          </Pagination.Item>
-        ))}
-      </Pagination>
+            {pageNumbers.map(number => {
+              if (Math.abs(number - currentPage) <= 2 || number === 1 || number === pageNumbers.length) {
+                return (
+                  <Pagination.Item
+                    key={number} 
+                    active={number === currentPage}
+                    onClick={() => handlePageChange(number)}
+                  >
+                    {number}  
+                  </Pagination.Item>
+                );
+              } else if (Math.abs(number - currentPage) === 3) {
+                // Display ellipsis when there's a gap
+                return <Pagination.Ellipsis key={number + 'ellipsis'} disabled />;
+              }
+              return null;
+            })}
+          </Pagination>
         </Container>
       </div>
     </div>

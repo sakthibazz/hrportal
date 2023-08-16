@@ -66,6 +66,12 @@ export const UserSchema=new mongoose.Schema({
         type: Date,
         default: Date.now, 
       },
+    username:{
+        type: String
+      },
+      lastupdate:{
+        type: String
+      }
 
 })
 

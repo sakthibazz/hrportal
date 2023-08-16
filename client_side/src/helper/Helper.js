@@ -129,12 +129,16 @@ export async function recuterpost(credentials) {
     const token = await localStorage.getItem('token');
     const response = await axios.post('/api/recuterpost', credentials, {
       headers: {
-        "Authorization": `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     });
     return Promise.resolve(response.data.msg);
   } catch (error) {
-    return Promise.reject({ error: "Couldn't post recuter" });
+    if (error.response && error.response.data && error.response.data.error) {
+      return Promise.reject(error.response.data.error);
+    } else {
+      return Promise.reject('An error occurred. Please try again later.');
+    }
   }
 }
 // post the recruiter posting details to the server

@@ -10,7 +10,7 @@ import {downloadResume} from '../helper/Convert'
 const SearchForm = () => {
   const [searchResult, setSearchResult] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const resultsPerPage = 10; // Number of results to display per page
+  const resultsPerPage = 3; // Number of results to display per page
 
   useEffect(() => {
     fetchAllAdminPostDetails();
@@ -70,7 +70,7 @@ const SearchForm = () => {
          
           <Col sm={12} md={12} className="text-center pt-5">
           <Card.Header>
-            <h2>Search User Details</h2>
+            <h2>Search Candidate Details</h2>
             </Card.Header>
             <Card.Body>
             <Formik initialValues={initialValues} onSubmit={handleSubmit}>
@@ -209,16 +209,24 @@ const SearchForm = () => {
         )}
             {/* Display pagination */}
             <Pagination>
-        {pageNumbers.map(number => (
-          <Pagination.Item
-            key={number} 
-            active={number === currentPage}
-            onClick={() => handlePageChange(number)}
-          >
-            {number}  
-          </Pagination.Item>
-        ))}
-      </Pagination>
+            {pageNumbers.map(number => {
+              if (Math.abs(number - currentPage) <= 2 || number === 1 || number === pageNumbers.length) {
+                return (
+                  <Pagination.Item
+                    key={number} 
+                    active={number === currentPage}
+                    onClick={() => handlePageChange(number)}
+                  >
+                    {number}  
+                  </Pagination.Item>
+                );
+              } else if (Math.abs(number - currentPage) === 3) {
+                // Display ellipsis when there's a gap
+                return <Pagination.Ellipsis key={number + 'ellipsis'} disabled />;
+              }
+              return null;
+            })}
+          </Pagination>
       </Container>
     </div>
   </div>

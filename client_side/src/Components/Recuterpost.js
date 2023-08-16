@@ -409,17 +409,24 @@ const UpdatePost = () => {
     validateOnChange: false,
     onSubmit: async (values, { resetForm }) => {
       values.Upload_resume = file || '';
-
+    
       const recuterpostPromise = recuterpost(values);
-      resetForm();
-
-      toast.promise(recuterpostPromise, {
-        loading: 'updating...',
-        success: <b>Registered Successfully...!</b>,
-        error: <b>Could Not Register. MobileNumber or email is already exisy</b>
-       
-      });
+    
+      try {
+        await recuterpostPromise;
+        resetForm();
+        toast.success('Registered Successfully...!');
+      } catch (error) {
+        console.log('Frontend Error:', error);
+    
+        if (error.includes('Candidate with the same Email OR mobile number already exists')) {
+          toast.error('Candidate with the same Email OR Mobile Number already exists');
+        } else {
+          toast.error('Could Not Register. ' + error);
+        }
+      }
     },
+    
     enableReinitialize: true, // Set this option to update form values when userData changes
   });
 

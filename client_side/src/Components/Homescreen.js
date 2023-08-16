@@ -7,11 +7,6 @@ import Calendars  from './Calander';
 const Homescreen = () => {
   return (
     <Container fluid className="p-0"> 
-    <Row>
-      <Col>
-        
-      </Col>
-    </Row>
     <Row className='pt-5'>
       <Col>
        
