@@ -21,6 +21,8 @@ router.route('/recuterpost').post(Auth,controller.recuterpost);
 
 // Admin post in 
 router.route('/Adminpost').post(Auth,controller.Adminpost);
+// get the RecuterSourced Details  
+router.route('/getRecuterSourcedDetails/:username').get(controller.getRecuterSourcedDetails);
 
 // Get methods
 router.route('/user/:username').get(controller.getuser); // user with username

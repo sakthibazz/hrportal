@@ -50,7 +50,7 @@ export const UserSchema=new mongoose.Schema({
     Current_Company:{
         type:String
     },
-    Comment:{
+    Comment:{ 
         type:String
     },
     Status: {
@@ -69,7 +69,7 @@ export const UserSchema=new mongoose.Schema({
     username:{
         type: String
       },
-      lastupdate:{
+    lastupdate:{
         type: String
       }
 

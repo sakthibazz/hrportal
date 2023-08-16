@@ -818,6 +818,46 @@ body: {
     profile : ''
 }
 */
+export async function getRecuterSourcedDetails(req, res) {
+  const { username } = req.params;
+
+  try {
+    const usersWithUsername = await RecuteModule.find({ username });
+
+    if (!usersWithUsername || usersWithUsername.length === 0) {
+      return res.status(404).json({ error: "No users found for the provided username" });
+    }
+
+    const ticketDetails = usersWithUsername.map(user => {
+      return {
+        Ticket_no: user.Ticket_no,
+        CandidateName: user.CandidateName,
+        MobileNumber: user.MobileNumber,
+        Email: user.Email,
+        Yre_of_expe: user.Yre_of_expe,
+        Relevent_Yre_of_exp: user.Relevent_Yre_of_exp,
+        Domain: user.Domain,
+        CTC: user.CTC,
+        ECTC: user.ECTC,
+        Current_location: user.Current_location,
+        Preffered_location: user.Preffered_location,
+        Reason_for_change: user.Reason_for_change,
+        Notice_peried: user.Notice_peried,
+        Current_Company: user.Current_Company,
+        Comment: user.Comment,
+        Status: user.Status,
+        Client_feedback: user.Client_feedback,
+        Upload_resume: user.Upload_resume,
+        date: user.date,
+        username: user.username
+      };
+    });
+
+    return res.status(200).json({ ticketDetails });
+  } catch (error) {
+    return res.status(500).json({ error: "Internal server error" });
+  }
+}
 export async function updateUser(req, res) {
   try {
     const { username,firstName,lastName, address, profile,email,mobile } = req.body;
