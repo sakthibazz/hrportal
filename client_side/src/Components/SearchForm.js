@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Button, Table, Container, Row, Col, Card,Pagination } from "react-bootstrap";
 import { getAllUserDetails,getUserDetails } from "../helper/Helper";
 import { Link} from "react-router-dom";
+import Loader from './Loader';
 import {downloadResume} from '../helper/Convert'
 
 
@@ -10,6 +11,7 @@ import {downloadResume} from '../helper/Convert'
 const SearchForm = () => {
   const [searchResult, setSearchResult] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
   const resultsPerPage = 3; // Number of results to display per page
 
   useEffect(() => {
@@ -20,6 +22,7 @@ const SearchForm = () => {
     try {
       const response = await getAllUserDetails();
       setSearchResult(response);
+      setIsLoading(false); 
     } catch (error) {
       console.error("Error fetching admin post details:", error);
     }
@@ -60,6 +63,12 @@ const SearchForm = () => {
     fromDate: "", // Initialize fromDate with an empty string
     toDate: "",   // Initialize toDate with an empty string
   };
+  
+  if (isLoading) {
+    return (
+     <Loader/>
+    );
+  }
 
   return (
     <div className="pt-5">

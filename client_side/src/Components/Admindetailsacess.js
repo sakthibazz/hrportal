@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Table, Container, Row, Col, Form, Button, Pagination } from "react-bootstrap";
 import { getAdminPostbyStatus } from "../helper/Helper";
 import { Link } from "react-router-dom";
+import Loader from './Loader';
 
 const Admindetailsacess = () => {
   const [allAdminPosts, setAllAdminPosts] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
   const [ticketSearchTerm, setTicketSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
   const postsPerPage = 5; // Number of results to display per page
 
   useEffect(() => {
@@ -20,6 +22,7 @@ const Admindetailsacess = () => {
       const sortedResponse = response.sort((a, b) => b.Ticket_no - a.Ticket_no);
       setAllAdminPosts(sortedResponse);
       setSearchResult(sortedResponse);
+      setIsLoading(false); 
     } catch (error) {
       console.error("Error fetching all user details:", error);
     }
@@ -58,10 +61,11 @@ const Admindetailsacess = () => {
 
   const pageNumbers = Array.from({ length: Math.ceil(sortedSearchResult.length / postsPerPage) }, (_, i) => i + 1);
 
-
-
-
-
+  if (isLoading) {
+    return (
+     <Loader/>
+    );
+  }
 
   return (
     <div className="pt-5">

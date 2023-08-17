@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col, Image, Form, Button, Card, Spinner, Alert } from 'react-bootstrap';
+import { Container, Row, Col, Image, Form, Button, Card, Alert } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import profile from '../assets/profile.png';
 import toast, { Toaster } from 'react-hot-toast';
@@ -9,6 +9,7 @@ import useFetch from '../hooks/Fetch.hook.js';
 import { verifyPassword } from '../helper/Helper';
 import { useAuthStore } from '../store/store';
 import '../style/Password.css'
+import Loader from './Loader';
 
 
 const Password = () => {
@@ -48,9 +49,7 @@ const Password = () => {
 
   if (isLoading) {
     return (
-      <Spinner animation="border" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </Spinner>
+      <Loader/>
     );
   }
 

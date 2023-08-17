@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Button, Table, Container, Row, Col } from "react-bootstrap";
 import { getArohaRecruitments } from "../helper/Helper";
+import Loader from './Loader';
 
 
 
 
 const SearchForm = () => {
   const [searchResult, setSearchResult] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Fetch all user details on component mount
   useEffect(() => {
@@ -18,6 +20,7 @@ const SearchForm = () => {
       const response = await getArohaRecruitments();
      
       setSearchResult(response);
+      setIsLoading(false); 
     } catch (error) {
       console.error("Error fetching all user details:", error);
     }
@@ -38,6 +41,11 @@ const SearchForm = () => {
     }
   };
 
+  if (isLoading) {
+    return (
+     <Loader/>
+    );
+  }
 
   return (
     <div className="pt-5">
