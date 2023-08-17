@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef } from 'react';
+import React, { useState, useEffect} from 'react';
 import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
 import toast, { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
@@ -11,15 +11,9 @@ const UpdatePost = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null); 
-  const isMounted = useRef(false); 
+
  
   useEffect(() => {
-    if (!isMounted.current) {
-      // This is the initial mount, skip this run
-      isMounted.current = true;
-      return;
-    }
-
     const fetchUserData = async () => {
       try {
         const response = await getAdmindetailsById(userId);

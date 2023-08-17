@@ -61,7 +61,6 @@ export async function getTicketNumber(ticketNumber) {
 
 // Get all user details
 export async function getAllUserDetails() {
-  console.log("Calling getAllUserDetails");
   try {
     const response = await axios.get('/api/getUserDetails');
     return response.data;
@@ -72,7 +71,6 @@ export async function getAllUserDetails() {
 
 // Get user details based on search criteria
 export async function getUserDetails(searchCriteria) {
-  console.log("Calling getUserDetails", searchCriteria);
   try {
     const response = await axios.get('/api/getUserDetails', { params: searchCriteria });
     return response.data;

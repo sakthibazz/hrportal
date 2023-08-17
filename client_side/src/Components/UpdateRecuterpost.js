@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
 import toast, { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
@@ -12,7 +12,7 @@ const UpdatePost = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
 
-  const isMounted = useRef(false); // Create a ref to track component mount status
+// Create a ref to track component mount status
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -24,11 +24,7 @@ const UpdatePost = () => {
       }
     };
 
-    if (isMounted.current) {
-      fetchUserData(); // Fetch data only on updates (not on initial mount)
-    } else {
-      isMounted.current = true;
-    }
+    fetchUserData();
   }, [userId]);
 
   const formik = useFormik({

@@ -10,10 +10,9 @@ import {downloadResume} from '../helper/Convert'
 const SearchForm = () => {
   const [searchResult, setSearchResult] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const resultsPerPage = 8; // Number of results to display per page
+  const resultsPerPage = 3; // Number of results to display per page
 
   useEffect(() => {
-    console.log("Calling fetchAllAdminPostDetails");
     fetchAllAdminPostDetails();
   }, []);
 
