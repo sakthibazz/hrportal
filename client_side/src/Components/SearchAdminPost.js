@@ -29,6 +29,7 @@ const SearchForm = () => {
     try {
       const response = await getAdminPostClientRequirement(values);
       setSearchResult(response);
+      setCurrentPage(1);
     } catch (error) {
       console.error("Error fetching admin post details:", error);
     }
@@ -68,7 +69,7 @@ const SearchForm = () => {
 
   return (
     <div>
-      <div style={{ maxWidth: "800px", margin: "0 auto" }}>
+      <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
         <Container fluid className="pt-5">
           <Card style={{ marginLeft: "150px" }}>
             <Row>
@@ -128,7 +129,7 @@ const SearchForm = () => {
                           </div>
                         </Col>
                       </Row>
-                      <Button className="mt-4" variant="warning" type="submit">
+                      <Button className="mt-4" variant="outline-warning" type="submit">
                         Search
                       </Button>
                     </Form>
@@ -143,7 +144,7 @@ const SearchForm = () => {
             <Row>
               <Col md={12} style={{ marginLeft: "50px" }}>
                 <h3>Search Results:</h3>
-                <Table striped bordered hover>
+                <Table style={{ width: '100%', border: 'none' }} striped hover>
                   <thead>
                     <tr>
                       <th>Ticket ID</th>
@@ -166,7 +167,7 @@ const SearchForm = () => {
                         <td>{new Date(user.date).toLocaleDateString("en-GB")}</td>
                         <td>
                           <Link to={`/updateadminpost/${user._id}`}>
-                            <Button>Update</Button>
+                            <Button variant="outline-success">Update</Button>
                           </Link>
                         </td>
                       </tr>

@@ -311,12 +311,12 @@ const UpdatePost = () => {
                     </Row>
                     <Row>
                     <Col >
-                    <Button type="submit" variant='info' className="custom-button">
+                    <Button type="submit" variant='outline-info' size="lg">
                       Update
                     </Button>
                     </Col>
                     <Col xs={6}>
-                    <Button variant='danger' onClick={onDelete}>
+                    <Button variant='outline-danger' size="lg" onClick={onDelete}>
                       Delete
                     </Button>
                     </Col>

@@ -227,21 +227,47 @@ const UpdatePost = () => {
                       </Col>
                     </Row>
                     <Row>
-                      <Col xs={6}>
-                        <Form.Control
+                    <Col xs={6}>
+                      <Form.Control
                           {...formik.getFieldProps('Current_location')}
-                          type="text"
+                          list="Current_location"
                           placeholder="Current location"
                           className="w-100 mb-2"
                         />
+                        <datalist id="Current_location">
+                        <option>Bengaluru (Bangalore)</option>
+                          <option>Chennai (Madras)</option>
+                          <option>Delhi</option>
+                          <option>Mumbai</option>
+                          <option>Hyderabad</option>
+                          <option>Kolkata (Calcutta)</option>
+                          <option>Pune</option>
+                          <option>Ahmedabad</option>
+                          <option>Lucknow</option>
+                          <option>Indore</option>
+                          <option>Chandigarh</option>
+                        </datalist>
                       </Col>
                       <Col xs={6}>
-                        <Form.Control
+                      <Form.Control
                           {...formik.getFieldProps('Preffered_location')}
-                          type="text"
-                          placeholder="Preferred location"
+                          list="Preffered_location"
+                          placeholder="Preffered location"
                           className="w-100 mb-2"
                         />
+                        <datalist id="Preffered_location">
+                        <option>Bengaluru (Bangalore)</option>
+                          <option>Chennai (Madras)</option>
+                          <option>Delhi</option>
+                          <option>Mumbai</option>
+                          <option>Hyderabad</option>
+                          <option>Kolkata (Calcutta)</option>
+                          <option>Pune</option>
+                          <option>Ahmedabad</option>
+                          <option>Lucknow</option>
+                          <option>Indore</option>
+                          <option>Chandigarh</option>
+                        </datalist>
                       </Col>
                     </Row>
                     <Row>

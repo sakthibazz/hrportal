@@ -337,7 +337,7 @@ const UpdatePost = () => {
                         />
                       </Col>
                     </Row>
-                    <Button type="submit" className="btn btn-success custom-button">
+                    <Button type="submit" variant="outline-info">
                       Update
                     </Button>
                   </Form>

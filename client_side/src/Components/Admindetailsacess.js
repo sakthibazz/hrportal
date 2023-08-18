@@ -12,7 +12,7 @@ const Admindetailsacess = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true); 
   
-  const postsPerPage = 5; // Number of results to display per page
+  const postsPerPage = 10; // Number of results to display per page
 
   useEffect(() => {
     fetchAllUserDetails();
@@ -39,6 +39,7 @@ const Admindetailsacess = () => {
       );
       setSearchResult(filteredResults);
     }
+    setCurrentPage(1);
   };
 
   const handleSearchInputChange = event => {
@@ -51,6 +52,7 @@ const Admindetailsacess = () => {
   const handleFormSubmit = event => {
     event.preventDefault(); // Prevent the default form submission behavior
     handleTicketSearch(); // Call the existing search function
+    setCurrentPage(1);
   };
 
   const paginate = pageNumber => {
@@ -76,7 +78,7 @@ const Admindetailsacess = () => {
 
   return (
     <div className="pt-5">
-    <div style={{ maxWidth: '800px', margin: '0 auto' }}> {/* Add custom div with max-width */}
+    <div style={{ maxWidth: '1200px', margin: '0 auto' }}> {/* Add custom div with max-width */}
       <Container fluid >
     
           <Row className="mt-3" >
@@ -93,7 +95,7 @@ const Admindetailsacess = () => {
                   />
                 </Form.Group>
             
-                <Button variant="info" onClick={handleTicketSearch} className="mt-2">
+                <Button variant="outline-info" onClick={handleTicketSearch} className="mt-2">
                   Search Ticket
                 </Button>
            
@@ -105,7 +107,7 @@ const Admindetailsacess = () => {
           <Row className="mt-2">
             <Col md={12} style={{ marginLeft: '30px' }}>
               <h3>Aroha Technologies Client Requirement:</h3>
-              <Table striped bordered hover >
+              <Table   style={{ width: '100%', border: 'none' }} striped hover >
                 <thead>
                   <tr>
                   <th> Here To Start</th>
@@ -125,7 +127,7 @@ const Admindetailsacess = () => {
                     <tr key={user._id}>
                        <td>
                       <Link to={`/recutepost/${user._id}`}>
-                            <Button variant="dark">Post</Button>
+                            <Button variant="outline-dark" size="md">Post</Button>
                           </Link>
                       </td>
                       <td>{user.Ticket_no}</td>
@@ -149,25 +151,31 @@ const Admindetailsacess = () => {
             </Col>
           </Row>
         )}
-         <Pagination>
-          {pageNumbers.map(number => {
-            if (Math.abs(number - currentPage) <= 2 || number === 1 || number === pageNumbers.length) {
-              return (
-                <Pagination.Item
-                  key={number} 
-                  active={number === currentPage}
-                  onClick={() => paginate(number)}
-                >
-                  {number}  
-                </Pagination.Item>
-              );
-            } else if (Math.abs(number - currentPage) === 3) {
-              // Display ellipsis when there's a gap
-              return <Pagination.Ellipsis key={number + 'ellipsis'} disabled />;
-            }
-            return null;
-          })}
-        </Pagination>
+         <Pagination style={{ marginTop: '10px', justifyContent: 'center' }}>
+  {pageNumbers.map((number) => {
+    if (Math.abs(number - currentPage) <= 2 || number === 1 || number === pageNumbers.length) {
+      return (
+        <Pagination.Item
+          key={number}
+          active={number === currentPage}
+          onClick={() => paginate(number)}
+          style={{
+            backgroundColor: number === currentPage ? '#007bff' : 'white',
+            color: number === currentPage ? 'white' : '#007bff',
+            border: '1px solid #007bff',
+            margin: '2px',
+            cursor: 'pointer',
+          }}
+        >
+          {number}
+        </Pagination.Item>
+      );
+    } else if (Math.abs(number - currentPage) === 3) {
+      return <Pagination.Ellipsis key={number + 'ellipsis'} disabled />;
+    }
+    return null;
+  })}
+</Pagination>
       </Container>
     </div>
   </div>

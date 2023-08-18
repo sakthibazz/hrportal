@@ -12,7 +12,7 @@ const SearchForm = () => {
   const [searchResult, setSearchResult] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const resultsPerPage = 3; // Number of results to display per page
+  const resultsPerPage = 10; // Number of results to display per page
 
   useEffect(() => {
     fetchAllAdminPostDetails();
@@ -32,6 +32,7 @@ const SearchForm = () => {
     try {
       const response = await getUserDetails(values);
       setSearchResult(response);
+      setCurrentPage(1); // Reset currentPage to 1 on new search
     } catch (error) {
       console.error("Error fetching admin post details:", error);
     }
@@ -43,7 +44,10 @@ const SearchForm = () => {
 
   const indexOfLastResult = currentPage * resultsPerPage;
   const indexOfFirstResult = indexOfLastResult - resultsPerPage;
-  const resultsToDisplay = sortedSearchResult.slice(indexOfFirstResult, indexOfLastResult);
+  const resultsToDisplay = sortedSearchResult.slice(
+    indexOfFirstResult,
+    indexOfLastResult
+  );
 
  
 
@@ -72,7 +76,7 @@ const SearchForm = () => {
 
   return (
     <div className="pt-5">
-    <div style={{ maxWidth: '800px', margin: '0 auto' }}> {/* Add custom div with max-width */}
+    <div style={{ maxWidth: '1200px', margin: '0 auto' }}> {/* Add custom div with max-width */}
       <Container fluid>
       <Card style={{ marginLeft: '150px' }}>
         <Row>
@@ -167,9 +171,9 @@ const SearchForm = () => {
       </Card>
         {resultsToDisplay.length > 0 ? (
           <Row>
-            <Col md={12}>
+            <Col md={12} style={{ marginLeft: "50px" }}>
               <h3>Search Results:</h3>
-              <Table striped bordered hover>
+              <Table style={{ width: '100%', border: 'none' }} striped hover>
                 <thead>
                   <tr>
                     <th>Candidate Name</th>
@@ -194,13 +198,13 @@ const SearchForm = () => {
                       <td>{user.Notice_peried}</td>
                       <td>{user.Current_location}</td> 
                       <td>
-                        <Button onClick={() => downloadResume(user?.Upload_resume || "N/A")} className="btn btn-success">
+                        <Button onClick={() => downloadResume(user?.Upload_resume || "N/A")} variant="outline-success">
                           Download
                         </Button>
                       </td>
                       <td>
                       <Link to={`/updatepost/${user._id}`}>
-                        <Button>Update</Button>
+                        <Button variant="outline-dark">Update</Button>
                       </Link>
                       </td>
                     </tr>
@@ -217,25 +221,30 @@ const SearchForm = () => {
           </Row>
         )}
             {/* Display pagination */}
-            <Pagination>
-            {pageNumbers.map(number => {
-              if (Math.abs(number - currentPage) <= 2 || number === 1 || number === pageNumbers.length) {
-                return (
-                  <Pagination.Item
-                    key={number} 
-                    active={number === currentPage}
-                    onClick={() => handlePageChange(number)}
-                  >
-                    {number}  
-                  </Pagination.Item>
-                );
-              } else if (Math.abs(number - currentPage) === 3) {
-                // Display ellipsis when there's a gap
-                return <Pagination.Ellipsis key={number + 'ellipsis'} disabled />;
-              }
-              return null;
-            })}
-          </Pagination>
+            <Pagination style={{ marginTop: '10px', justifyContent: 'center' }}>
+  {pageNumbers.map((number) => {
+    if (Math.abs(number - currentPage) <= 2 || number === 1 || number === pageNumbers.length) {
+      return (
+        <Pagination.Item
+          key={number}
+          active={number === currentPage}
+          onClick={() => handlePageChange(number)}
+          style={{
+
+            border: '1px solid #007bff',
+            margin: '2px',
+            cursor: 'pointer',
+          }}
+        >
+          {number}
+        </Pagination.Item>
+      );
+    } else if (Math.abs(number - currentPage) === 3) {
+      return <Pagination.Ellipsis key={number + 'ellipsis'} disabled />;
+    }
+    return null;
+  })}
+</Pagination>
       </Container>
     </div>
   </div>
