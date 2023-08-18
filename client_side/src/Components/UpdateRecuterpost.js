@@ -5,12 +5,14 @@ import { useFormik } from 'formik';
 import { updateRecuterpost, getUserById } from '../helper/Helper';
 import { useParams, useNavigate } from 'react-router-dom';
 import convertPdfToString from '../helper/Convert';
+import Loader from './Loader';
 
 const UpdatePost = () => {
   const [file, setFile] = useState();
   const { userId } = useParams();
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
 // Create a ref to track component mount status
 
@@ -19,6 +21,7 @@ const UpdatePost = () => {
       try {
         const response = await getUserById(userId);
         setUserData(response);
+        setIsLoading(false);
       } catch (error) {
         console.error('Error fetching user details:', error);
       }
@@ -71,8 +74,11 @@ const UpdatePost = () => {
     setFile(Resume_Upload);
   };
 
-  if (!userData) {
-    return <div>Loading...</div>;
+
+  if (isLoading) {
+    return (
+     <Loader/>
+    );
   }
 
   return (

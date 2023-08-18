@@ -3,11 +3,13 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Button, Table, Container, Row, Col, Card,Pagination } from "react-bootstrap";
 import { getAdminPostClientRequirement, getAllAdminePostClientDetails } from "../helper/Helper";
 import { Link } from "react-router-dom";
+import Loader from './Loader';
 
 const SearchForm = () => {
   const [searchResult, setSearchResult] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 10; // Number of results to display per page
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchAllAdminPostDetails();
@@ -17,6 +19,7 @@ const SearchForm = () => {
     try {
       const response = await getAllAdminePostClientDetails();
       setSearchResult(response);
+      setIsLoading(false);
     } catch (error) {
       console.error("Error fetching admin post details:", error);
     }
@@ -45,6 +48,12 @@ const SearchForm = () => {
 
   const handlePageChange=(page)=>{
     setCurrentPage(page);
+  }
+  
+  if (isLoading) {
+    return (
+     <Loader/>
+    );
   }
   
 

@@ -5,12 +5,14 @@ import { useFormik } from 'formik';
 import { updateAdminpostById, getAdmindetailsById,deleteAdminpostById} from '../helper/Helper';
 import { useParams, useNavigate } from 'react-router-dom';
 import convertPdfToString from '../helper/Convert';
+import Loader from './Loader';
 
 const UpdatePost = () => {
   const [file, setFile] = useState();
   const { userId } = useParams();
   const navigate = useNavigate();
-  const [userData, setUserData] = useState(null); 
+  const [userData, setUserData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true); 
 
  
   useEffect(() => {
@@ -18,6 +20,7 @@ const UpdatePost = () => {
       try {
         const response = await getAdmindetailsById(userId);
         setUserData(response);
+        setIsLoading(false);
       } catch (error) {
         console.error('Error fetching user details:', error);
       }
@@ -64,9 +67,14 @@ const UpdatePost = () => {
     setFile(Resume_Upload);
   };
 
-  if (!userData) {
-    return <div>Loading...</div>;
+  
+  if (isLoading) {
+    return (
+     <Loader/>
+    );
   }
+
+
   const onDelete = async () => {
     // Show a confirmation alert before deleting the post
     const confirmed = window.confirm('Are you sure you want to delete this ticket?');
@@ -83,6 +91,7 @@ const UpdatePost = () => {
       toast.error('Failed to delete recruitment post.');
     }
   };
+
   return (
     <Container fluid className="p-0">
     <Toaster position="top-center" reverseOrder={false}></Toaster>

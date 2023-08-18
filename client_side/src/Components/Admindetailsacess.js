@@ -4,12 +4,14 @@ import { getAdminPostbyStatus } from "../helper/Helper";
 import { Link } from "react-router-dom";
 import Loader from './Loader';
 
+
 const Admindetailsacess = () => {
   const [allAdminPosts, setAllAdminPosts] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
   const [ticketSearchTerm, setTicketSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true); 
+  
   const postsPerPage = 5; // Number of results to display per page
 
   useEffect(() => {
@@ -22,7 +24,7 @@ const Admindetailsacess = () => {
       const sortedResponse = response.sort((a, b) => b.Ticket_no - a.Ticket_no);
       setAllAdminPosts(sortedResponse);
       setSearchResult(sortedResponse);
-      setIsLoading(false); 
+      setIsLoading(false);
     } catch (error) {
       console.error("Error fetching all user details:", error);
     }
@@ -46,11 +48,16 @@ const Admindetailsacess = () => {
       setSearchResult(allAdminPosts);
     }
   };
+  const handleFormSubmit = event => {
+    event.preventDefault(); // Prevent the default form submission behavior
+    handleTicketSearch(); // Call the existing search function
+  };
 
   const paginate = pageNumber => {
     setCurrentPage(pageNumber);
   };
-
+   
+  
   const sortedSearchResult = Array.isArray(searchResult)
     ? [...searchResult].sort((a, b) => b.Ticket_no - a.Ticket_no)
     : [];
@@ -74,7 +81,7 @@ const Admindetailsacess = () => {
     
           <Row className="mt-3" >
             <Col md={12}>
-            <Form>
+            <Form onSubmit={handleFormSubmit}>
                 <Form.Group controlId="searchTicketNumber">
                   <Form.Label><h6>Search by Ticket Number:</h6></Form.Label>
                   <Form.Control
