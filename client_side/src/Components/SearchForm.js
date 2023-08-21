@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field} from "formik";
 import { Button, Table, Container, Row, Col, Card,Pagination } from "react-bootstrap";
 import { getAllUserDetails,getUserDetails } from "../helper/Helper";
 import { Link} from "react-router-dom";
@@ -78,8 +78,8 @@ const SearchForm = () => {
     <div className="pt-5">
     <div style={{ maxWidth: '1200px', margin: '0 auto' }}> {/* Add custom div with max-width */}
       <Container fluid>
-      <Card style={{ marginLeft: '150px' }}>
-        <Row>
+      <Card style={{ marginLeft: '150px' }} className="mt-2 pt-2">
+        <Row >
          
           <Col sm={12} md={12} className="text-center pt-5">
           <Card.Header>
@@ -88,7 +88,7 @@ const SearchForm = () => {
             <Card.Body>
             <Formik initialValues={initialValues} onSubmit={handleSubmit}>
               <Form>
-                <Row>
+                <Row >
                   <Col md={6}>
                     <Field
                       type="text"
@@ -96,7 +96,6 @@ const SearchForm = () => {
                       name="CandidateName"
                       className="form-control"
                     />
-                    <ErrorMessage name="CandidateName" />
                   </Col>
                   <Col md={6}>
                     <Field
@@ -105,7 +104,6 @@ const SearchForm = () => {
                       name="MobileNumber"
                       className="form-control"
                     />
-                    <ErrorMessage name="MobileNumber" />
                   </Col>
                 </Row>
                 <Row className="pt-5">
@@ -122,7 +120,6 @@ const SearchForm = () => {
                       <option>three months</option>
                       <option>four months</option>
                     </datalist>
-                    <ErrorMessage name="Notice_peried" />
                   </Col>
                   <Col md={6}>
                      <Field
@@ -144,7 +141,6 @@ const SearchForm = () => {
                           <option>Dot Net Full Stack</option>
                           <option>Java Full Stack</option>
                         </datalist>
-                   <ErrorMessage name="Domain" />
                   </Col>
                 </Row>
                 <Row className="pt-5">
@@ -170,10 +166,11 @@ const SearchForm = () => {
         </Row>
       </Card>
         {resultsToDisplay.length > 0 ? (
-          <Row>
-            <Col md={12} style={{ marginLeft: "50px" }}>
-              <h3>Search Results:</h3>
-              <Table style={{ width: '100%', border: 'none' }} striped hover>
+             <Row className="mt-5">
+             <Col md={12} style={{ marginLeft: "50px" }}>
+             <h3 className="text-center pt-5"  style={{ textDecoration: "underline" }}>Candidate Details</h3>
+               <Table style={{ width: '100%', border: 'none' }} striped hover>
+                
                 <thead>
                   <tr>
                     <th>Candidate Name</th>

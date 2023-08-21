@@ -1,19 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { Nav } from 'react-bootstrap';
+import { Nav, Modal, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { HouseFill, Eye, PeopleFill, SearchHeart, FileEarmarkBarGraphFill, PencilFill, QuestionCircleFill,PersonPlusFill,InfoCircleFill} from 'react-bootstrap-icons';
 import useFetch from '../hooks/Fetch.hook.js';
 import './SideNavbar.css';
+import Complaient from './Complaient';
 
 const SideNavbar = () => {
   const [userPosition, setUserPosition] = useState('');
   const [{ isLoading, apiData }] = useFetch();
+  const [showModal, setShowModal] = useState(false); 
 
   useEffect(() => {
     if (!isLoading && apiData) {
       setUserPosition(apiData.position);
     }
   }, [isLoading, apiData]);
+
+   // Function to show the modal
+   const handleModalShow = () => {
+    setShowModal(true);
+  };
+
+  // Function to hide the modal
+  const handleModalClose = () => {
+    setShowModal(false);
+  };
 
   return (
     <div className="side-navbar">
@@ -80,11 +92,26 @@ const SideNavbar = () => {
           </div>
         ) : null}
 
-        <Nav.Link as={Link} className="nav-link">
+<Nav.Link as={Link} className="nav-link" onClick={handleModalShow}>
           <QuestionCircleFill className="nav-link-icon" />
           Need Help
         </Nav.Link>
       </Nav>
+
+      {/* Modal for displaying the Help content */}
+      <Modal show={showModal} onHide={handleModalClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Need Help</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+         <Complaient/>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleModalClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

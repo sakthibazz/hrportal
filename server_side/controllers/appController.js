@@ -5,6 +5,7 @@ import config from "../Router/config.js";
 import otpGenerator from 'otp-generator';
 import RecuteModule from "../model/Recute.module.js";
 import AdminModule from "../model/Admin.module.js";
+import DeveloperModel from "../model/Developer.model.js"
 import transporter from '../controllers/mailer.js'
 import moment from 'moment-timezone';
 
@@ -89,103 +90,7 @@ export async function register(req, res) {
       return res.status(500).send(error);
     }
   }  
-  //post data of admin in thunderclient
-  // {
-  //   "Ticket_no": "T12345",
-  //   "Client_Name": "Example Client",
-  //   "Open_position": "Software Engineer",
-  //   "Yre_of_exp": "3",
-  //   "Tech_stack": "JavaScript, Node.js",
-  //   "Budget": "$80000",
-  //   "Location": "New York",
-  //   "status": "Open",
-  //   "Job_Description": "This is a job description.",
-  //   "Mode": "Full-Time"
-  // }
-  export async function Adminpost(req, res) {
-    try {
-      if (!req.user || !req.user.userId) {
-        return res.status(401).json({ error: 'Authentication failed or user not found' });
-      }
-  
-      const {
-        Ticket_no,
-        Client_Name,
-        Open_position,
-        Yre_of_exp,
-        Tech_stack,
-        Budget,
-        Location,
-        status,
-        Job_Description,
-        Job_Des,
-        Job_Mode,
-        Mode,
-        
-      } = req.body;
-  
-      // Extract the username from the user object
-      const username = req.user.username; // Fixed the issue with user object access
-    
-      const recuteData = {
-        Ticket_no,
-        Client_Name,
-        Open_position,
-        Yre_of_exp,
-        Tech_stack,
-        Budget,
-        Location,
-        status,
-        Job_Description,
-        Job_Des,
-        Mode,
-        Job_Mode,
-        PostedUser: username, // Add the username to the recuteData object
-      };
-  
-      // Create a new AdminModule document with the username included
-      const adminModule = new AdminModule(recuteData);
-  
-      // Save the AdminModule document to the database
-      adminModule
-      .save()
-      .then(result => {
-        const email = {
-          from: 'arohatechnologies0@gmail.com', // Change to your sender email
-          to:'abineshajith81@gmail.com', // Recipient's email, which is the user's email in this case "CHENNAIAroha@gmail.com"
-          subject: 'Admin Posting Details', // Subject of the email
-          html: `
-            <h1>Admin Posting Details</h1>
-            <h2>Posted By:${result.PostedUser}</h2>
-            <h3>Ticket No: ${result.Ticket_no}</h3>
-            <h4>Client Name: ${result.Client_Name}</h4>
-            <h5>Open Position: ${result.Open_position}</h5>
-            <h6>Year of Experience: ${result.Yre_of_exp}</h6>
-            <h6>Tech stack: ${result.Tech_stack}</h6>
-            <h6>Budget: ${result.Budget}</h6>
-            <h6>Location: ${result.Location}</h6>
-            <h6>Mode: ${result.Mode}</h6>
-            <h6>Job Mode: ${result.Job_Mode}</h6>
-          `,
-        };
 
-        // Send the email using the transporter from the imported file
-        transporter.sendMail(email, (err, info) => {
-          if (err) {
-            console.log(err);
-            return res.status(500).send({ error: "Failed to send email" });
-          } else {
-            console.log("Email sent: " + info.response);
-            res.status(201).send({ msg: "Admin posted successfully", adminModule: result });
-          }
-        });
-      })
-      .catch(error => res.status(500).send({ error }));
-  } catch (error) {
-    console.log(error);
-    return res.status(500).send(error);
-  }
-}
 // //**
 // * @param {
 //   "Ticket_no":1,
@@ -282,6 +187,104 @@ export async function recuterpost(req, res) {
     recuteModule
       .save()
       .then(result => res.status(201).send({ msg: "Recuter posted successfully" }))
+      .catch(error => res.status(500).send({ error }));
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send(error);
+  }
+}
+
+  //post data of admin in thunderclient
+  // * @param {
+  //   "Ticket_no": "T12345",
+  //   "Client_Name": "Example Client",
+  //   "Open_position": "Software Engineer",
+  //   "Yre_of_exp": "3",
+  //   "Tech_stack": "JavaScript, Node.js",
+  //   "Budget": "$80000",
+  //   "Location": "New York",
+  //   "status": "Open",
+  //   "Job_Description": "This is a job description.",
+  //   "Mode": "Full-Time"
+  //} */
+export async function Adminpost(req, res) {
+    try {
+      if (!req.user || !req.user.userId) {
+        return res.status(401).json({ error: 'Authentication failed or user not found' });
+      }
+  
+      const {
+        Ticket_no,
+        Client_Name,
+        Open_position,
+        Yre_of_exp,
+        Tech_stack,
+        Budget,
+        Location,
+        status,
+        Job_Description,
+        Job_Des,
+        Job_Mode,
+        Mode,
+        
+      } = req.body;
+  
+      // Extract the username from the user object
+      const username = req.user.username; // Fixed the issue with user object access
+    
+      const recuteData = {
+        Ticket_no,
+        Client_Name,
+        Open_position,
+        Yre_of_exp,
+        Tech_stack,
+        Budget,
+        Location,
+        status,
+        Job_Description,
+        Job_Des,
+        Mode,
+        Job_Mode,
+        PostedUser: username, // Add the username to the recuteData object
+      };
+  
+      // Create a new AdminModule document with the username included
+      const adminModule = new AdminModule(recuteData);
+  
+      // Save the AdminModule document to the database
+      adminModule
+      .save()
+      .then(result => {
+        const email = {
+          from: 'arohatechnologies0@gmail.com', // Change to your sender email
+          to:'abineshajith81@gmail.com', // Recipient's email, which is the user's email in this case "CHENNAIAroha@gmail.com"
+          subject: 'Admin Posting Details', // Subject of the email
+          html: `
+            <h1>Admin Posting Details</h1>
+            <h2>Posted By:${result.PostedUser}</h2>
+            <h3>Ticket No: ${result.Ticket_no}</h3>
+            <h4>Client Name: ${result.Client_Name}</h4>
+            <h5>Open Position: ${result.Open_position}</h5>
+            <h6>Year of Experience: ${result.Yre_of_exp}</h6>
+            <h6>Tech stack: ${result.Tech_stack}</h6>
+            <h6>Budget: ${result.Budget}</h6>
+            <h6>Location: ${result.Location}</h6>
+            <h6>Mode: ${result.Mode}</h6>
+            <h6>Job Mode: ${result.Job_Mode}</h6>
+          `,
+        };
+
+        // Send the email using the transporter from the imported file
+        transporter.sendMail(email, (err, info) => {
+          if (err) {
+            console.log(err);
+            return res.status(500).send({ error: "Failed to send email" });
+          } else {
+            console.log("Email sent: " + info.response);
+            res.status(201).send({ msg: "Admin posted successfully", adminModule: result });
+          }
+        });
+      })
       .catch(error => res.status(500).send({ error }));
   } catch (error) {
     console.log(error);
@@ -966,5 +969,71 @@ export async function getCountByTicket(req, res) {
   } catch (error) {
     console.error('Error fetching counts:', error);
     res.status(500).json({ error: 'An error occurred while fetching the counts.' });
+  }
+}
+
+export async function Complaient(req, res) {
+  try {
+    if (!req.user || !req.user.userId) {
+      return res.status(401).json({ error: 'Authentication failed or user not found' });
+    }
+
+    const { Complaient, PostedUser } = req.body;
+
+      // Check if the complaint is empty
+      if (!Complaient) {
+        return res.status(409).json({ error: 'Complaint is required' });
+      }
+
+    // Extract the username from the user object
+    const username = req.user.username;
+
+    const currentTimeIST = moment.tz('Asia/Kolkata').format('YYYY-MM-DD hh:mm:ss A');
+
+    const Complaient_details = {
+      Complaient,
+      PostedUser: username,
+      date:currentTimeIST
+    };
+    
+    // Create a new ComplaintModel document with the data
+    const newComplaint = new DeveloperModel(Complaient_details);
+
+    // Save the ComplaintModel document to the database
+    try {
+      const result = await newComplaint.save();
+
+      const email = {
+        from: 'arohatechnologies0@gmail.com',
+        to: 'abineshajith81@gmail.com',
+        subject: 'User Suggession',
+        html: `
+          <h1>User Suggession</h1>
+          <h2>Posted By:${result.PostedUser}</h2>
+          <h3>Date: ${result.date}</h3>
+          <h4>FeedBack: ${result.Complaient}</h4>
+          <br/>
+          THANK YOU 
+          <br/>
+          YOUR TRULY AROHA TECHNOLOGIES
+        `,
+      };
+
+      // Send the email using the transporter
+      try {
+        const info = await transporter.sendMail(email);
+        console.log("Email sent: " + info.response);
+        res.status(201).send({ msg: "User Suggession send successfully", Client_Complaient: result });
+      } catch (emailError) {
+        console.log(emailError);
+        res.status(500).send({ error: "Failed to send email" });
+      }
+    } catch (saveError) {
+      console.log(saveError);
+      res.status(500).send({ error: "Failed to save complaint" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ error });
   }
 }

@@ -124,7 +124,8 @@ const UpdatePost = () => {
                     <Col xs={2}>
                        <label>Ticket No:</label>
                      </Col>
-                    <Col xs={3}>                    <Form.Control
+                    <Col xs={3}>                   
+                     <Form.Control
                         {...formik.getFieldProps("Ticket_no")}
                         type="number"
                         placeholder="Ticket_no*"

@@ -308,3 +308,22 @@ export async function resetPassword({ username, password }) {
     return Promise.reject({ error });
   }
 }
+
+//complaient details
+export async function complaient(credentials) {
+  try {
+    const token = await localStorage.getItem('token');
+    const response = await axios.post('/api/complaient', credentials, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return Promise.resolve(response.data.msg);
+  } catch (error) {
+    if (error.response && error.response.data && error.response.data.error) {
+      return Promise.reject(error.response.data.error);
+    } else {
+      return Promise.reject('An error occurred. Please try again later.');
+    }
+  }
+}

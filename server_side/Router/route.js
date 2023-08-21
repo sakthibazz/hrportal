@@ -23,6 +23,8 @@ router.route('/recuterpost').post(Auth,controller.recuterpost);
 router.route('/Adminpost').post(Auth,controller.Adminpost);
 // get the RecuterSourced Details  
 router.route('/getRecuterSourcedDetails/:username').get(controller.getRecuterSourcedDetails);
+// complaient router
+router.route('/complaient').post(Auth,controller.Complaient);
 
 // Get methods
 router.route('/user/:username').get(controller.getuser); // user with username

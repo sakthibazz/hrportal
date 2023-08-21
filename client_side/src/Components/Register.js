@@ -54,7 +54,7 @@ const Register = () => {
   return (
     <Container fluid className="vh-80 d-flex align-items-center justify-content-center">
       <Toaster position="top-center" reverseOrder={false}></Toaster>
-      <Row>
+      <Row className="mt-2 pt-2">
         <Col className="text-center">
           <Card className="title py-4">
             <Card.Body>

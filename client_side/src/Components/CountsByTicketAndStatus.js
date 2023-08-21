@@ -197,16 +197,16 @@ function CountsByTicketAndStatus() {
               <td>{candidateCounts.rejectedbyaroha}</td>
             </tr>
             <tr>
-              <td>Selected by Client:</td>
-              <td>{candidateCounts.selectedbyclient}</td>
-            </tr>
-            <tr>
               <td>Rejected by Client:</td>
               <td>{candidateCounts.rejectededbyclient}</td>
             </tr>
             <tr>
               <td>Feedback:</td>
               <td>{candidateCounts.FeedBack}</td>
+            </tr>
+            <tr>
+              <td>Selected by Client:</td>
+              <td>{candidateCounts.selectedbyclient}</td>
             </tr>
           </tbody>
         </Table>

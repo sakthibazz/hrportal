@@ -146,7 +146,7 @@ const Admindetailsacess = () => {
           </Row>
         ) : (
           <Row>
-            <Col md={12}>
+            <Col md={12}> 
               <p>No results found.</p>
             </Col>
           </Row>

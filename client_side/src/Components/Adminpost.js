@@ -82,7 +82,7 @@ const Adminposts = () => {
         <Container fluid className="vh-100  align-items-center justify-content-center">
           <Row className="justify-content-center">
             <Col xs={10} md={10} lg={10} className="text-center py-4">
-              <Card className="title py-4 mt-30">
+              <Card className="title py-4 mt-30" >
               <Card.Header className='pt-30'>
                     <h4 className="text-5xl font-bold">Post New Client Requirement..!</h4>
                     <span className="py-4 text-xl w-2/3 text-center text-muted">
@@ -223,7 +223,6 @@ const Adminposts = () => {
                         placeholder="Job Description*"
                         className="w-100 mb-2"
                     />
-
                       </Col>
                       <Col xs={2}>
                       <Form.Label>Upload Job Description:</Form.Label>

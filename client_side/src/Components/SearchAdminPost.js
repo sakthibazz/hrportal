@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field} from "formik";
 import { Button, Table, Container, Row, Col, Card,Pagination } from "react-bootstrap";
 import { getAdminPostClientRequirement, getAllAdminePostClientDetails } from "../helper/Helper";
 import { Link } from "react-router-dom";
@@ -71,7 +71,7 @@ const SearchForm = () => {
     <div>
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
         <Container fluid className="pt-5">
-          <Card style={{ marginLeft: "150px" }}>
+          <Card style={{ marginLeft: "150px" }} className="mt-2 pt-2">
             <Row>
               <Col sm={12} md={12} className="text-center pt-5">
                 <Card.Header>
@@ -88,7 +88,7 @@ const SearchForm = () => {
                             name="Client_Name"
                             className="form-control"
                           />
-                          <ErrorMessage name="Client_Name" />
+                         
                         </Col>
                         <Col md={4}>
                           <Field
@@ -97,7 +97,7 @@ const SearchForm = () => {
                             name="Ticket_no"
                             className="form-control"
                           />
-                          <ErrorMessage name="Ticket_no" />
+                        
                         </Col>
                         <Col md={4}>
                           <Field
@@ -112,7 +112,7 @@ const SearchForm = () => {
                             <option value="Customer">Customer</option>
                             <option value="Closed">Closed</option>
                           </Field>
-                          <ErrorMessage name="status" />
+                        
                         </Col>
                       </Row>
                       <Row className="pt-3">
@@ -141,9 +141,9 @@ const SearchForm = () => {
 
       
           {resultsToDisplay.length > 0 ? (
-            <Row>
+            <Row className="mt-5">
               <Col md={12} style={{ marginLeft: "50px" }}>
-                <h3>Search Results:</h3>
+              <h3 className="text-center pt-5"  style={{ textDecoration: "underline" }}>Client Details</h3>
                 <Table style={{ width: '100%', border: 'none' }} striped hover>
                   <thead>
                     <tr>
@@ -184,25 +184,30 @@ const SearchForm = () => {
             </Row>
           )}
             {/* Display pagination */}
-            <Pagination>
-            {pageNumbers.map(number => {
-              if (Math.abs(number - currentPage) <= 2 || number === 1 || number === pageNumbers.length) {
-                return (
-                  <Pagination.Item
-                    key={number} 
-                    active={number === currentPage}
-                    onClick={() => handlePageChange(number)}
-                  >
-                    {number}  
-                  </Pagination.Item>
-                );
-              } else if (Math.abs(number - currentPage) === 3) {
-                // Display ellipsis when there's a gap
-                return <Pagination.Ellipsis key={number + 'ellipsis'} disabled />;
-              }
-              return null;
-            })}
-          </Pagination>
+            <Pagination style={{ marginTop: '10px', justifyContent: 'center' }}>
+  {pageNumbers.map((number) => {
+    if (Math.abs(number - currentPage) <= 2 || number === 1 || number === pageNumbers.length) {
+      return (
+                <Pagination.Item
+                  key={number}
+                  active={number === currentPage}
+                  onClick={() => handlePageChange(number)}
+                  style={{
+
+                    border: '1px solid #007bff',
+                    margin: '2px',
+                    cursor: 'pointer',
+                  }}
+                >
+                  {number}
+                </Pagination.Item>
+              );
+            } else if (Math.abs(number - currentPage) === 3) {
+              return <Pagination.Ellipsis key={number + 'ellipsis'} disabled />;
+            }
+            return null;
+          })}
+        </Pagination>
         </Container>
       </div>
     </div>
