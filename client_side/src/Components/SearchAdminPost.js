@@ -69,12 +69,12 @@ const SearchForm = () => {
 
   return (
     <div>
-      <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+      <div style={{ maxWidth: "1500px", margin: "0 auto" }}>
         <Container fluid className="pt-5">
           <Card style={{ marginLeft: "150px" }} className="mt-2 pt-2">
             <Row>
               <Col sm={12} md={12} className="text-center pt-5">
-                <Card.Header>
+                <Card.Header> 
                   <h2>Search Client Details</h2>
                 </Card.Header>
                 <Card.Body>

@@ -94,13 +94,13 @@ function emailVerify(error={},values){
 }
 
 // recuter validate
-export async function recuterValidate(values) {
+export async function recuterValidate(values,file) {
     const errors = {};
     const mobileNumberPattern = /^(\+91)?\s*\d{10}$/;
   
    if (values.username) {
       // Check if user exists
-      const response = await recuterpost(values);
+      const response = await recuterpost(values); 
       if (response.error) {
         errors.exit = toast.error("User already exist..!");
       }
@@ -153,6 +153,7 @@ export async function recuterValidate(values) {
         errors.Email = "Invalid Email address";
         toast.error(errors.Email);
       }
+      
     return errors;
   }
   

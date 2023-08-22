@@ -12,7 +12,7 @@ const Complaient = () => {
       onSubmit: async (values) => {
         const promise = complaient({ Complaient: values.complaient });
         
-        toast.promise(
+        toast.promise( 
             promise,
             {
               loading: 'Sending suggestion...',

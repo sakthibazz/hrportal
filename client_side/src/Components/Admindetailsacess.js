@@ -78,7 +78,7 @@ const Admindetailsacess = () => {
 
   return (
     <div className="pt-5">
-    <div style={{ maxWidth: '1200px', margin: '0 auto' }}> {/* Add custom div with max-width */}
+    <div style={{ maxWidth: '1500px', margin: '0 auto' }}> {/* Add custom div with max-width */}
       <Container fluid >
     
           <Row className="mt-3" >

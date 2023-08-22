@@ -76,7 +76,7 @@ const SearchForm = () => {
 
   return (
     <div className="pt-5">
-    <div style={{ maxWidth: '1200px', margin: '0 auto' }}> {/* Add custom div with max-width */}
+    <div style={{ maxWidth: '1500px', margin: '0 auto' }}> {/* Add custom div with max-width */}
       <Container fluid>
       <Card style={{ marginLeft: '150px' }} className="mt-2 pt-2">
         <Row >
@@ -219,9 +219,9 @@ const SearchForm = () => {
         )}
             {/* Display pagination */}
             <Pagination style={{ marginTop: '10px', justifyContent: 'center' }}>
-  {pageNumbers.map((number) => {
-    if (Math.abs(number - currentPage) <= 2 || number === 1 || number === pageNumbers.length) {
-      return (
+        {pageNumbers.map((number) => {
+        if (Math.abs(number - currentPage) <= 2 || number === 1 || number === pageNumbers.length) {
+        return (
         <Pagination.Item
           key={number}
           active={number === currentPage}

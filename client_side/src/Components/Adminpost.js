@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button, Card, Modal, } from 'react-bootstrap';
 import toast, { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
-import convertPdfToString from '../helper/Convert';
+import convertToBase64 from '../helper/Convert';
 import { Adminpost } from '../helper/Helper';
 import { adminPostValidate } from '../helper/Validate';
 
@@ -59,8 +59,8 @@ const Adminposts = () => {
 
     if (uploadedFile) {
       // Ensure the uploaded file is a valid PDF or other supported file types
-      if (uploadedFile.type === 'application/pdf' || uploadedFile.type === 'image/jpeg') {
-        const Resume_Upload = await convertPdfToString(uploadedFile);
+      if (uploadedFile.type === 'application/pdf') {
+        const Resume_Upload = await convertToBase64(uploadedFile);
         setFile(Resume_Upload);
         formik.setErrors(adminPostValidate(formik.values, Resume_Upload)); // Validate with updated file
       } else {
