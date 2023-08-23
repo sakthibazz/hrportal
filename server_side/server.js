@@ -39,5 +39,5 @@ connect()
     });
   })
   .catch(error => {
-    console.log("Cannot connect to the server");
+    console.log("Cannot connect to the server"); 
   });

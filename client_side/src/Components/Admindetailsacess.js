@@ -160,8 +160,6 @@ const Admindetailsacess = () => {
           active={number === currentPage}
           onClick={() => paginate(number)}
           style={{
-            backgroundColor: number === currentPage ? '#007bff' : 'white',
-            color: number === currentPage ? 'white' : '#007bff',
             border: '1px solid #007bff',
             margin: '2px',
             cursor: 'pointer',
