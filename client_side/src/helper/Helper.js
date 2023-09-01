@@ -328,19 +328,27 @@ export async function complaient(credentials) {
   }
 }
 
-// Function to get user details based on username
-export async function getRecuterSourcedDetails(username) {
+
+// Function to get recruiter-sourced details based on username and date range
+export async function getRecuterSourcedDetails(username, fromDate, toDate) {
   try {
-    // Make a GET request to the server's endpoint with the provided username
-    const response = await axios.get(`/api/getRecuterSourcedDetails/${username}`);
+    let url = `/api/getRecuterSourcedDetails/${username}`;
+    
+    // Add fromDate and toDate as query parameters if provided
+    if (fromDate && toDate) {
+      url += `?fromDate=${fromDate}&toDate=${toDate}`;
+    }
 
-    // Return the response data
-    return response.data;
+    const response = await axios.get(url);
+    
+    if (response.status === 200) {
+      const data = response.data;
+      // Process data as needed here
+      return data;
+    } else {
+      throw new Error("Failed to fetch recruiter-sourced details");
+    }
   } catch (error) {
-    // Handle any errors that occur during the API request
-    console.error('Error fetching user details:', error);
-
-    // You can choose to throw the error or return an error object as needed
-    throw error;
+    return { error: "No data founded" };
   }
 }

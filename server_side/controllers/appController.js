@@ -32,7 +32,7 @@ export async function verifyUser(req, res, next){
 }
 
 
-/** POST: http://localhost:8080/api/register 
+/** POST: http://localhost:8000/api/register 
  * @param : {
   "username" : "example123",
   "password" : "admin123",
@@ -822,54 +822,57 @@ body: {
 }
 */
 export async function getRecuterSourcedDetails(req, res) {
-  const { username} = req.params;
-  const { fromDate, toDate } = req.query; // Access "fromDate" and "toDate" from query parameters
+  const { username } = req.params;
+  const { fromDate, toDate } = req.query;
 
   try {
-   
-
     const query = { username };
 
-      // Check if fromDate and toDate provided and add them to the query
-      if (fromDate && toDate) {
-        // Set time to the end of the day for toDate
-        const endDate = new Date(toDate);
-        endDate.setHours(23, 59, 59);
+    // Check if both fromDate and toDate are provided
+    if (fromDate && toDate) {
+      // Set time to the start of the day for fromDate
+      const startDate = new Date(fromDate);
+      startDate.setHours(0, 0, 0);
 
-        query.date = { $gte: new Date(fromDate), $lte: endDate };
-      } else if (fromDate) {
-        query.date = { $gte: new Date(fromDate) };
-      } else if (toDate) {
-        // Set time to the end of the day for toDate
-        const endDate = new Date(toDate);
-        endDate.setHours(23, 59, 59);
+      // Set time to the end of the day for toDate
+      const endDate = new Date(toDate);
+      endDate.setHours(23, 59, 59);
 
-        query.date = { $lte: endDate };
-      }
-    const usersWithUsername = await RecuteModule.find(query);
-
-    if (!usersWithUsername || usersWithUsername.length === 0) {
-      return res.status(404).json({ error: "No record found for the provided username" });
+      // Add both username and date range to the query
+      query.date = { $gte: startDate, $lte: endDate };
+    } else {
+      // If no date range is provided, just add the username to the query
+      query.date = { $exists: true };
     }
 
-    const statusCounts = usersWithUsername.reduce((counts, user) => {
-      // Count total candidates
-      counts.total = (counts.total || 0) + 1;
+    const usersWithUsernameAndDate = await RecuteModule.find(query);
 
-      // Check if the status field is non-empty
-      if (user.Status) {
-        // Count candidates by status
-        const status = user.Status;
-        counts[status] = (counts[status] || 0) + 1;
-      } else {
-        // If status is empty or undefined, count it as "remaining"
-        counts.remaining = (counts.remaining || 0) + 1;
-      }
+    // Initialize status counts with 0 for all statuses, including "remaining"
+    const statusCounts = {
+      "Yet to Receive feedback": 0,
+      "Selected By Client": 0,
+      "Rejected By Aroha": 0,
+      "Rejected By Client": 0,
+      "remaining": 0
+    };
 
-      return counts;
-    }, {});
+    // If records are found, populate the status counts
+    if (usersWithUsernameAndDate && usersWithUsernameAndDate.length > 0) {
+      usersWithUsernameAndDate.forEach((user) => {
+        const status = user.Status || 'remaining'; // Use 'remaining' for empty or undefined statuses
+        statusCounts[status] = (statusCounts[status] || 0) + 1;
+      });
+    }
 
-    return res.status(200).json({ username, statusCounts });
+    const totalCandidates = usersWithUsernameAndDate.length;
+
+    const result = {
+      username,
+      totalCandidates,
+      statusCounts
+    };
+
+    return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json({ error: "Internal server error" });
   }

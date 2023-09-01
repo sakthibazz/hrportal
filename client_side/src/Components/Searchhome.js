@@ -9,7 +9,11 @@ const SearchPage = () => {
   const handleSearch = async (values) => {
     try {
       // Use your helper function to make the API request
-      const data = await getRecuterSourcedDetails(values.CandidateName);
+      const data = await getRecuterSourcedDetails(
+        values.CandidateName,
+        values.fromDate,
+        values.toDate
+      );
 
       if (data.error) {
         setSearchResults({ error: data.error });
@@ -17,7 +21,7 @@ const SearchPage = () => {
         setSearchResults(data);
       }
     } catch (error) {
-      setSearchResults({ error: "No recoerd founded" });
+      setSearchResults({ error: "No records found" });
     }
   };
 
@@ -77,9 +81,9 @@ const SearchPage = () => {
                 {searchResults.error ? (
                   <p>{searchResults.error}</p>
                 ) : (
-                    <div>
+                  <div>
                     <strong><i>Username: {searchResults.username}</i></strong><br/>
-                    <strong><i>Total Candidates: {searchResults.statusCounts.total}</i></strong><br/>
+                    <strong><i>Total Candidates: {searchResults.totalCandidates}</i></strong><br/>
                     <strong><i>Yet to Receive feedback: {searchResults.statusCounts["Yet to Receive feedback"]}</i></strong><br/>
                     <strong><i>Selected By Client: {searchResults.statusCounts["Selected By Client"]}</i></strong><br/>
                     <strong><i>Rejected By Aroha: {searchResults.statusCounts["Rejected By Aroha"]}</i></strong><br/>
@@ -89,7 +93,7 @@ const SearchPage = () => {
                 )}
               </div>
             ) : (
-              <p>No records found</p>
+              null
             )}
           </div>
         </Col>
