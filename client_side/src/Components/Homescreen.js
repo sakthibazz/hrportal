@@ -1,26 +1,21 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import Adminacseeforhome from './Adminacseeforhome';
+import Searchhome from './Searchhome';
 
-import ImageSlider from './ImageSlide';
-import Calendars  from './Calander';
+
 
 const Homescreen = () => {
   return (
     <Container fluid className="p-0"> 
     <Row className='pt-5'>
-      <Col>
-       
+      <Col xs={8} md={8} lg={8} className="pt-2">
+     <Adminacseeforhome/>
       </Col>
-      <Col xs={8} md={6} lg={4} className="pt-2">
-        <div style={{ paddingLeft: '20px' }}>
-        <ImageSlider />
-        </div>
-      </Col>
-      <Col xs={12} md={4} lg={3} className="mt-2">
-        {/* Your component */}
-      </Col>
-      <Col xs={12} md={12} lg={3} className="mt-2">
-        <Calendars />
+    </Row>
+    <Row className='pt-5'>
+      <Col xs={8} md={8} lg={8} className="pt-2">
+     <Searchhome/>
       </Col>
     </Row>
   </Container>

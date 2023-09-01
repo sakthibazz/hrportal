@@ -327,3 +327,20 @@ export async function complaient(credentials) {
     }
   }
 }
+
+// Function to get user details based on username
+export async function getRecuterSourcedDetails(username) {
+  try {
+    // Make a GET request to the server's endpoint with the provided username
+    const response = await axios.get(`/api/getRecuterSourcedDetails/${username}`);
+
+    // Return the response data
+    return response.data;
+  } catch (error) {
+    // Handle any errors that occur during the API request
+    console.error('Error fetching user details:', error);
+
+    // You can choose to throw the error or return an error object as needed
+    throw error;
+  }
+}

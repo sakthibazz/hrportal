@@ -822,45 +822,60 @@ body: {
 }
 */
 export async function getRecuterSourcedDetails(req, res) {
-  const { username } = req.params;
+  const { username} = req.params;
+  const { fromDate, toDate } = req.query; // Access "fromDate" and "toDate" from query parameters
 
   try {
-    const usersWithUsername = await RecuteModule.find({ username });
+   
+
+    const query = { username };
+
+      // Check if fromDate and toDate provided and add them to the query
+      if (fromDate && toDate) {
+        // Set time to the end of the day for toDate
+        const endDate = new Date(toDate);
+        endDate.setHours(23, 59, 59);
+
+        query.date = { $gte: new Date(fromDate), $lte: endDate };
+      } else if (fromDate) {
+        query.date = { $gte: new Date(fromDate) };
+      } else if (toDate) {
+        // Set time to the end of the day for toDate
+        const endDate = new Date(toDate);
+        endDate.setHours(23, 59, 59);
+
+        query.date = { $lte: endDate };
+      }
+    const usersWithUsername = await RecuteModule.find(query);
 
     if (!usersWithUsername || usersWithUsername.length === 0) {
-      return res.status(404).json({ error: "No users found for the provided username" });
+      return res.status(404).json({ error: "No users found for the provided username and date range" });
     }
 
-    const ticketDetails = usersWithUsername.map(user => {
-      return {
-        Ticket_no: user.Ticket_no,
-        CandidateName: user.CandidateName,
-        MobileNumber: user.MobileNumber,
-        Email: user.Email,
-        Yre_of_expe: user.Yre_of_expe,
-        Relevent_Yre_of_exp: user.Relevent_Yre_of_exp,
-        Domain: user.Domain,
-        CTC: user.CTC,
-        ECTC: user.ECTC,
-        Current_location: user.Current_location,
-        Preffered_location: user.Preffered_location,
-        Reason_for_change: user.Reason_for_change,
-        Notice_peried: user.Notice_peried,
-        Current_Company: user.Current_Company,
-        Comment: user.Comment,
-        Status: user.Status,
-        Client_feedback: user.Client_feedback,
-        Upload_resume: user.Upload_resume,
-        date: user.date,
-        username: user.username
-      };
-    });
+    const statusCounts = usersWithUsername.reduce((counts, user) => {
+      // Count total candidates
+      counts.total = (counts.total || 0) + 1;
 
-    return res.status(200).json({ ticketDetails });
+      // Check if the status field is non-empty
+      if (user.Status) {
+        // Count candidates by status
+        const status = user.Status;
+        counts[status] = (counts[status] || 0) + 1;
+      } else {
+        // If status is empty or undefined, count it as "remaining"
+        counts.remaining = (counts.remaining || 0) + 1;
+      }
+
+      return counts;
+    }, {});
+
+    return res.status(200).json({ username, statusCounts });
   } catch (error) {
     return res.status(500).json({ error: "Internal server error" });
   }
 }
+
+// user updates
 export async function updateUser(req, res) {
   try {
     const { username,firstName,lastName, address, profile,email,mobile } = req.body;
