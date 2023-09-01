@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { Card, Container, Row, Col } from 'react-bootstrap';
+import { Formik, Form, Field } from 'formik';
+import { Container, Row, Col } from 'react-bootstrap';
 import { getRecuterSourcedDetails } from '../helper/Helper'; // Import your API function
 
 const SearchPage = () => {
@@ -17,7 +17,7 @@ const SearchPage = () => {
         setSearchResults(data);
       }
     } catch (error) {
-      setSearchResults({ error: "Failed to fetch user details" });
+      setSearchResults({ error: "No recoerd founded" });
     }
   };
 
@@ -29,63 +29,71 @@ const SearchPage = () => {
 
   return (
     <Container fluid>
-      <Card style={{ margin: '20px' }}>
-        <Card.Header as="h1">Search User Details</Card.Header>
-        <Card.Body>
-          <Formik
-            initialValues={initialValues}
-            onSubmit={handleSearch}
-          >
-            <Form>
-              <Row>
-                <Col md={6}>
-                  <Field
-                    type="text"
-                    placeholder="Enter candidate name"
-                    name="CandidateName"
-                    className="form-control"
-                  />
-                </Col>
-                <Col md={6}>
-                  <button type="submit" className="btn btn-primary">
-                    Search
-                  </button>
-                </Col>
-              </Row>
-              <Row>
-              <Col md={6}>
-              <div>
+      <Row>
+        <Col md={8}>
+          <div style={{ margin: '20px' }}>
+            <h1>Search User Details</h1>
+            <Formik initialValues={initialValues} onSubmit={handleSearch}>
+              <Form>
+                <Row>
+                  <Col md={6}>
+                    <Field
+                      type="text"
+                      placeholder="Enter candidate name"
+                      name="CandidateName"
+                      className="form-control"
+                    />
+                  </Col>
+                  <Col md={6}>
+                    <button type="submit" className="btn btn-primary">
+                      Search
+                    </button>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={6}>
+                    <div>
                       <label>From Date:</label>
                       <Field type="date" name="fromDate" className="form-control" />
                     </div>
-                    </Col>
-                    <Col md={6}>
+                  </Col>
+                  <Col md={6}>
                     <div>
                       <label>To Date:</label>
                       <Field type="date" name="toDate" className="form-control" />
                     </div>
-                    </Col>
-                    </Row>
-                    
-            </Form>
-          </Formik>
-
-          {/* Display search results */}
-          {searchResults && (
-            <div>
-              <h2>Search Results</h2>
-              {searchResults.error ? (
-                <p>{searchResults.error}</p>
-              ) : (
-                <div>
-                  <p>Username: {searchResults.username}</p>
-                  <p>Total Candidates: {searchResults.statusCounts.total}</p>
-                </div>
-              )}
-            </div>
-          )}
-        </Card.Body>
-      </Card>
+                  </Col>
+                </Row>
+              </Form>
+            </Formik>
+          </div>
+        </Col>
+        <Col md={4}>
+          <div className="search-results pt-5">
+            {/* Display search results here */}
+            {searchResults !== null ? (
+              <div>
+                <h2>Search Results</h2>
+                {searchResults.error ? (
+                  <p>{searchResults.error}</p>
+                ) : (
+                    <div>
+                    <strong><i>Username: {searchResults.username}</i></strong><br/>
+                    <strong><i>Total Candidates: {searchResults.statusCounts.total}</i></strong><br/>
+                    <strong><i>Yet to Receive feedback: {searchResults.statusCounts["Yet to Receive feedback"]}</i></strong><br/>
+                    <strong><i>Selected By Client: {searchResults.statusCounts["Selected By Client"]}</i></strong><br/>
+                    <strong><i>Rejected By Aroha: {searchResults.statusCounts["Rejected By Aroha"]}</i></strong><br/>
+                    <strong><i>Rejected By Client: {searchResults.statusCounts["Rejected By Client"]}</i></strong><br/>
+                    <strong><i>Remaining: {searchResults.statusCounts.remaining}</i></strong>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <p>No records found</p>
+            )}
+          </div>
+        </Col>
+      </Row>
     </Container>
   );
 };

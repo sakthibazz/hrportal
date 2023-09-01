@@ -849,7 +849,7 @@ export async function getRecuterSourcedDetails(req, res) {
     const usersWithUsername = await RecuteModule.find(query);
 
     if (!usersWithUsername || usersWithUsername.length === 0) {
-      return res.status(404).json({ error: "No users found for the provided username and date range" });
+      return res.status(404).json({ error: "No record found for the provided username" });
     }
 
     const statusCounts = usersWithUsername.reduce((counts, user) => {
