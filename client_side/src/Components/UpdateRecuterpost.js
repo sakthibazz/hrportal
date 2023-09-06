@@ -6,6 +6,8 @@ import { updateRecuterpost, getUserById } from '../helper/Helper';
 import { useParams, useNavigate } from 'react-router-dom';
 import convertToBase64 from '../helper/Convert';
 import Loader from './Loader';
+import useFetch from './../hooks/Fetch.hook';
+import { useAuthStore } from '../store/store';
 
 const UpdatePost = () => {
   const [file, setFile] = useState();
@@ -13,6 +15,8 @@ const UpdatePost = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { username } = useAuthStore((state) => state.auth);
+  const [{apiData}] = useFetch(`/user/${username}`);
 
 // Create a ref to track component mount status
 
@@ -29,6 +33,7 @@ const UpdatePost = () => {
 
     fetchUserData();
   }, [userId]);
+
 
   const formik = useFormik({
     initialValues: userData || {
@@ -52,19 +57,37 @@ const UpdatePost = () => {
     },
     validateOnBlur: false,
     validateOnChange: false,
-    onSubmit: async (values) => {
-      values.Upload_resume = file || '';
+    onSubmit: async (values, { resetForm }) => {
+      values.Upload_resume = file || null;
+
+      const updatePromise = updateRecuterpost(userData._id, values);
 
       try {
-        await updateRecuterpost(userData._id, values);
-        toast.success('User details updated successfully!');
-        navigate('/searchform');
+        toast.promise(
+          updatePromise,
+          {
+            loading: 'Updating...',
+            success: () => {
+              navigate('/searchform');
+              return 'User details updated successfully!';
+            },
+            error: (error) => {
+              console.error('Frontend Error:', error);
+
+              if (error.response?.status === 409) {
+                return 'User with the same data already exists.';
+              } else {
+                return 'Failed to update user details.';
+              }
+            },
+          }
+        );
       } catch (error) {
-        console.error('Error updating user details:', error);
-        toast.error('Failed to update user details.');
+        console.error('Frontend Error:', error);
+        toast.error('An error occurred during update.');
       }
     },
-    enableReinitialize: true, // Set this option to update form values when userData changes
+    enableReinitialize: true,
   });
 
   const onUpload = async (e) => {
@@ -115,8 +138,7 @@ const UpdatePost = () => {
                         type="number"
                         placeholder="Ticket_no*"
                         className="w-100 mb-2"
-                        required
-                        disabled
+                        disabled={apiData && apiData.position !== 'admin'}
                       />
                     </Col>
                   </Row>

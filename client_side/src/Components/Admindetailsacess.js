@@ -91,7 +91,7 @@ const Admindetailsacess = () => {
                     placeholder="Enter Ticket Number"
                     value={ticketSearchTerm}
                     onChange={handleSearchInputChange}
-                    style={{ maxWidth: '200px', }} // Adjust the maxWidth value as needed
+                    style={{ maxWidth: '200px', }}
                   />
                 </Form.Group>
             
@@ -115,9 +115,9 @@ const Admindetailsacess = () => {
                     <th>Client_Name</th>
                     <th>Tech Stack</th>
                     <th>Location</th>
-                    <th>Status</th>
-                    
+                    <th>Status</th>                  
                     <th>Date</th>
+                    <th>View</th>
                     
                   
                   </tr>
@@ -135,9 +135,12 @@ const Admindetailsacess = () => {
                       <td>{user.Tech_stack}</td>
                       <td>{user.Location}</td>
                       <td>{user.status}</td>
-                    
                       <td>{new Date(user.date).toLocaleDateString("en-GB")}</td>
-                     
+                      <td>
+                      <Link to={`/viewadminpost/${user._id}`}>
+                            <Button variant="outline-dark" size="md">View</Button>
+                          </Link>
+                      </td>                    
                     </tr>
                   ))}
                 </tbody>

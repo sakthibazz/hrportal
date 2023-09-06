@@ -31,7 +31,6 @@ router.route('/user/:username').get(controller.getuser); // user with username
 router.route('/generateOTP').get(controller.verifyUser,localVariable,controller.generateOTP); // generate random otp
 router.route('/verifyOTP').get(controller.verifyUser, controller.verifyOTP) // verify generated OTP
 router.route('/createResetSession').get(controller.createResetSession); // reset all the variables
-router.route('/getticketDetails').get(controller.getticketDetails);//get the ticket number details
 router.route('/getUserDetails').get(controller.getUserDetails);//get the ticket number details
 // Get user by id
 router.route('/postuser/:id').get(controller.getUserById);

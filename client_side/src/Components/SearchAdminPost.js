@@ -185,9 +185,9 @@ const SearchForm = () => {
           )}
             {/* Display pagination */}
             <Pagination style={{ marginTop: '10px', justifyContent: 'center' }}>
-  {pageNumbers.map((number) => {
-    if (Math.abs(number - currentPage) <= 2 || number === 1 || number === pageNumbers.length) {
-      return (
+              {pageNumbers.map((number) => {
+                if (Math.abs(number - currentPage) <= 2 || number === 1 || number === pageNumbers.length) {
+                  return (
                 <Pagination.Item
                   key={number}
                   active={number === currentPage}

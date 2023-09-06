@@ -169,8 +169,7 @@ const SearchForm = () => {
              <Row className="mt-5">
              <Col md={12} style={{ marginLeft: "50px" }}>
              <h3 className="text-center pt-5"  style={{ textDecoration: "underline" }}>Candidate Details</h3>
-               <Table style={{ width: '100%', border: 'none' }} striped hover>
-                
+               <Table style={{ width: '100%', border: 'none' }} striped hover>              
                 <thead>
                   <tr>
                     <th>Candidate Name</th>

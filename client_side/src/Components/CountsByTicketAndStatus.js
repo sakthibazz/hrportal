@@ -152,6 +152,7 @@ function CountsByTicketAndStatus() {
                   name="ticketNumber"
                   value={inputTicketNumber}
                   onChange={handleChange}
+                  style={{ maxWidth: '200px', }} 
                 />
               </Form.Group>
               <br />

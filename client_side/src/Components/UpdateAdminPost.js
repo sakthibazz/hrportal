@@ -4,7 +4,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import { updateAdminpostById, getAdmindetailsById,deleteAdminpostById} from '../helper/Helper';
 import { useParams, useNavigate } from 'react-router-dom';
-import convertPdfToString from '../helper/Convert';
+import convertToBase64 from '../helper/Convert';
 import Loader from './Loader';
 
 const UpdatePost = () => {
@@ -46,7 +46,7 @@ const UpdatePost = () => {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
-      values.Upload_resume = file || '';
+      values.Job_Description = file || '';
 
       try {
         await updateAdminpostById(userData._id, values);
@@ -61,10 +61,17 @@ const UpdatePost = () => {
   });
 
   const onUpload = async (e) => {
-    // Convert PDF file to string (you need to implement the 'convertPdfToString' function)
-    // For this example, the 'convertPdfToString' function should be defined separately.
-    const Resume_Upload = await convertPdfToString(e.target.files[0]);
-    setFile(Resume_Upload);
+    const uploadedFile = e.target.files[0];
+
+    if (uploadedFile) {
+      // Ensure the uploaded file is a valid PDF or other supported file types
+      if (uploadedFile.type === 'application/pdf') {
+        const Resume_Upload = await convertToBase64(uploadedFile);
+        setFile(Resume_Upload);
+      } else {
+        toast.error('Please upload a valid PDF or image file.');
+      }
+    }
   };
 
   
@@ -141,9 +148,9 @@ const UpdatePost = () => {
                       >
                         <option value="">status*</option>
                         <option value="Open">Open</option>
-                        <option value="Interview">Interview</option>
+                        <option value="Interviewing">Interviewing</option>
                         <option value="Sourcing">Sourcing</option>
-                        <option value="Customer">Customer</option>
+                        <option value="Customer Closed">Customer Closed</option>
                         <option value="Closed">Closed</option>
                       </Form.Select>
                     </Col>

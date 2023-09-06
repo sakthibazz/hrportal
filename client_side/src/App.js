@@ -13,7 +13,6 @@ import Reset from './Components/Reset';
 import Pagenotfound from './Components/Pagenotfound';
 import Homescreen from './Components/Homescreen';
 import Recuterpost from './Components/Recuterpost';
-import Ticketdetails from './Components/Ticketdetails';
 import SearchForm from './Components/SearchForm';
 import UpdateRecuterpost from './Components/UpdateRecuterpost';
 import Arohabench from './Components/Arohabench';
@@ -23,6 +22,7 @@ import UpdateAdminPost from './Components/UpdateAdminPost';
 import { ProtectRoute,AuthorizeUser } from './middleware/auth';
 import CountsByTicketAndStatus from './Components/CountsByTicketAndStatus';
 import Admindetailsacess from './Components/Admindetailsacess'
+import Viewadminpost from './Components/Viewadminpost';
 
 function App() {
   return (
@@ -42,13 +42,14 @@ function App() {
 
                 
                 <Route path="/recutepost/:userId" element={<AuthorizeUser><Recuterpost /></AuthorizeUser>} />
-                <Route path="/ticketdetails" element={<AuthorizeUser><Ticketdetails /></AuthorizeUser>} />
+                
                 <Route path="/searchform" element={<AuthorizeUser><SearchForm /></AuthorizeUser>} />
                 <Route path="/updatepost/:userId" element={<AuthorizeUser><UpdateRecuterpost /></AuthorizeUser>} />
                 <Route path="/arohabenchresource" element={<AuthorizeUser><Arohabench /></AuthorizeUser>} />
                 <Route path="/adminpost" element={<AuthorizeUser><Adminpost /></AuthorizeUser>} />
                 <Route path="/searchadminpost" element={<AuthorizeUser><SearchAdminPost /></AuthorizeUser>} />
                 <Route path="/updateadminpost/:userId" element={<AuthorizeUser><UpdateAdminPost /></AuthorizeUser>}/>
+                <Route path="/viewadminpost/:userId" element={<AuthorizeUser><Viewadminpost /></AuthorizeUser>}/>
                 <Route path="/getCountByTicket" element={<AuthorizeUser><CountsByTicketAndStatus/></AuthorizeUser>}/>
                 <Route path="*" element={<Pagenotfound />} /> 
               </Routes>

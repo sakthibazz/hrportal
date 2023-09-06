@@ -128,22 +128,16 @@ export async function recuterpost(req, res) {
       Upload_resume,
       date
     } = req.body;
+    // Check if a candidate with the same Email or MobileNumber already exists for the given Ticket_no
+    const existingCandidate = await RecuteModule.findOne({
+      $and: [
+        { $or: [{ Email }, { MobileNumber }] },
+      ],
+    });
 
-      //  Check if the same candidate name and mobile number already exist
-       const existingCandidateEmail = await RecuteModule.findOne({ Email });
-       const existingCandidateMoble = await RecuteModule.findOne({ MobileNumber });
-       console.log('Existing Candidate Email:', existingCandidateEmail);
-       console.log('Existing Candidate Mobile:', existingCandidateMoble);
-
-       if (existingCandidateEmail) {
-       
-         return res.status(409).json({ error: 'Candidate with the same Email OR mobile number already exists' });
-       }
-
-       if (existingCandidateMoble) {
-        return res.status(409).json({ error: 'Candidate with the same Email OR mobile number already exists' });
-      }
-
+    if (existingCandidate) {
+      return res.status(409).json({ error: 'Candidate with the same Email or MobileNumber already exists' });
+    }
     // Fetch the user based on the userId from req.user
     const user = await UserModel.findById(req.user.userId);
 
@@ -323,9 +317,8 @@ export async function updateRecuterpostById(req, res) {
       Client_feedback,
       Upload_resume,
       date,
-      MobileNumber: newMobileNumber // Extract the new mobile number from req.body
+      MobileNumber // Extract the new mobile number from req.body
     } = req.body;
-    
 
     // Fetch the user based on the userId from req.user
     const user = await UserModel.findById(req.user.userId);
@@ -338,14 +331,27 @@ export async function updateRecuterpostById(req, res) {
     const username = user.username;
 
     // Make sure that the newMobileNumber field is of type Number and not a string
-    const mobileNum = Number(newMobileNumber);
+    const mobileNum = Number(MobileNumber);
+
+    // Check if the new mobile number or email already exists within the same ticket number
+    const existingRecuterpost = await RecuteModule.findOne({
+      Ticket_no,
+      $or: [{ Email }, { MobileNumber}],
+      _id: { $ne: postId }, // Exclude the current post from the search
+    });
+
+    if (existingRecuterpost) {
+      return res.status(409).json({
+        error: "A record with the same Ticket_no, email, or mobile number already exists.",
+      });
+    }
 
     const updatedRecuterpost = await RecuteModule.findByIdAndUpdate(
-      postId, // Find the record with the given _id
+      postId,
       {
         Ticket_no,
         CandidateName,
-        MobileNumber: mobileNum, // Include the new mobile number in the update operation
+        MobileNumber, // Include the new mobile number in the update operation
         Email,
         Yre_of_expe,
         Relevent_Yre_of_exp,
@@ -364,7 +370,7 @@ export async function updateRecuterpostById(req, res) {
         Client_feedback,
         Upload_resume,
         date,
-        lastupdate:username
+        lastupdate: username
       },
       { new: true } // Return the updated document
     );
@@ -537,7 +543,7 @@ export async function updateAdminpostById(req, res) {
 }
 
 /** POST: http://localhost:8080/api/login 
- * @param: {
+ * @param: { 
   "username" : "example123",
   "password" : "admin123"
 }
@@ -608,23 +614,6 @@ export async function getuser(req, res) {
     }
   }
 
-// get method for recute post
-export async function getticketDetails(req, res) {
-  const { Ticket_no } = req.query;
-  try {
-    if (!Ticket_no) {
-      return res.status(400).send({ error: "Invalid ticket number" });
-    }
-    const user = await RecuteModule.findOne({ Ticket_no });
-    if (!user) {
-      return res.status(404).json({ error: 'Ticket not found' });
-    }
-    return res.status(200).json(user);
-  } catch (error) {
-    console.log(error);
-    return res.status(500).send({ error: "Internal Server error" });
-  }
-}
 
 // GET method for fetching user details based on any one of the details
 
@@ -634,9 +623,6 @@ export async function getUserDetails(req, res) {
   try {
     // Create a query object to filter records based on user input
     const query = {};
-
-  
-
     if (MobileNumber) {
       query.MobileNumber = MobileNumber;
     }
@@ -738,7 +724,7 @@ export async function getAdminPostClientRequirement(req, res) {
 export async function getAdminPostbyStatus(req,res){
   try {
     const jobs = await AdminModule.find({
-      status: { $regex: /open|sourcing/i },
+      status: { $regex: /open|Interviewing|sourcing/i },
     });
 
     res.status(200).json(jobs);

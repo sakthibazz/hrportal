@@ -23,7 +23,7 @@ const UpdatePost = () => {
       } catch (error) {
         console.error('Error fetching user details:', error);
       }
-    };
+    };  
 
     fetchUserData(); // Fetch data on every update
 
@@ -71,8 +71,8 @@ const UpdatePost = () => {
             },
             error: (error) => {
               console.log('Frontend Error:', error);
-              if (error.includes('Candidate with the same Email OR mobile number already exists')) {
-                return 'Candidate with the same Email OR Mobile Number already exists';
+              if (error.includes('Candidate with the same Email or MobileNumber already exists')) {
+                return 'Candidate with the same Email or MobileNumber already';
               } else {
                 return 'Could Not Register. ' + error;
               }

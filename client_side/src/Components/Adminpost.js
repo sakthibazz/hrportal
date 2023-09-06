@@ -211,9 +211,7 @@ const Adminposts = () => {
                         <option value="Hybrid">Hybrid</option>
                       </Form.Select>
                       </Col>
-                    </Row>
-                   
-                   
+                    </Row>         
                     <br/>
                     <Row>
                          <Col xs={6}>
@@ -222,6 +220,7 @@ const Adminposts = () => {
                         as="textarea"
                         placeholder="Job Description*"
                         className="w-100 mb-2"
+                        style={{ height: '150px' }}
                     />
                       </Col>
                       <Col xs={2}>

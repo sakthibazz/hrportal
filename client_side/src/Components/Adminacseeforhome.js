@@ -9,7 +9,7 @@ const Adminacseeforhome = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetchLatestAdminPosts();
+    fetchLatestAdminPosts(); 
   }, []);
 
   const fetchLatestAdminPosts = async () => {
@@ -43,6 +43,7 @@ const Adminacseeforhome = () => {
                 <th>Location</th>
                 <th>Status</th>
                 <th>Date</th>
+                <th>View more</th>
               </tr>
             </thead>
             <tbody>
@@ -59,6 +60,11 @@ const Adminacseeforhome = () => {
                   <td>{user.Location}</td>
                   <td>{user.status}</td>
                   <td>{new Date(user.date).toLocaleDateString("en-GB")}</td>
+                  <td>
+                      <Link to={`/viewadminpost/${user._id}`}>
+                            <Button variant="outline-dark" size="md">View</Button>
+                          </Link>
+                      </td>  
                 </tr>
               ))}
             </tbody>

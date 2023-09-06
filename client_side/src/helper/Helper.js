@@ -48,17 +48,6 @@ export async function getAdminPostbyStatus() {
     return { error: "Failed to fetch Aroha Technologies recruitments" };
   }
 }
-
-///get ticketnumber details
-export async function getTicketNumber(ticketNumber) {
-  try {
-    const response = await axios.get(`/api/getticketDetails?Ticket_no=${ticketNumber}`);
-    return response.data;
-  } catch (error) {
-    return { error: "Failed to fetch ticket details" };
-  }
-}
-
 // Get all user details
 export async function getAllUserDetails() {
   try {
@@ -167,9 +156,15 @@ export async function updateRecuterpost(id, credentials) {
         "Authorization": `Bearer ${token}`
       }
     });
-    return Promise.resolve(response.data.msg);
+    
+    // Assuming your server returns an appropriate status or message on success
+    if (response.status === 200) {
+      return Promise.resolve("User details updated successfully");
+    } else {
+      return Promise.reject({ error: "Failed to update user details" });
+    }
   } catch (error) {
-    return Promise.reject({ error: "Couldn't update recruitment post" });
+    return Promise.reject(error); // Return the actual error for frontend handling
   }
 }
 // updating the Admin posting details
