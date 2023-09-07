@@ -145,7 +145,7 @@ const UpdatePost = () => {
                     <Form.Select
                         {...formik.getFieldProps('status')}
                         required
-                      >
+                      >  
                         <option value="">status*</option>
                         <option value="Open">Open</option>
                         <option value="Interviewing">Interviewing</option>

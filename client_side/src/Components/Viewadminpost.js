@@ -35,7 +35,7 @@ const Viewadminpost = () => {
       <thead>
         <tr>
           <th colSpan="2" className="custom-header">
-            Client Ticket Details
+            Client Details
           </th>
         </tr>
       </thead>

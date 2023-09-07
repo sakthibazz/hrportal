@@ -60,6 +60,7 @@ const SearchForm = () => {
 
   // Updated initial values to include fromDate and toDate fields
   const initialValues = {
+    Ticket_no: "",
     CandidateName: "",
     MobileNumber: "",
     Notice_peried: "",
@@ -89,7 +90,16 @@ const SearchForm = () => {
             <Formik initialValues={initialValues} onSubmit={handleSubmit}>
               <Form>
                 <Row >
-                  <Col md={6}>
+                <Col md={4}>
+                          <Field
+                            type="number"
+                            placeholder="Enter Ticket Number"
+                            name="Ticket_no"
+                            className="form-control"
+                          />
+                        
+                        </Col>
+                  <Col md={4}>
                     <Field
                       type="text"
                       placeholder="Enter candidate name"
@@ -97,7 +107,7 @@ const SearchForm = () => {
                       className="form-control"
                     />
                   </Col>
-                  <Col md={6}>
+                  <Col md={4}>
                     <Field
                       type="tel"
                       placeholder="Enter Mobile Number"
@@ -179,6 +189,7 @@ const SearchForm = () => {
                     <th>ECTC</th>
                     <th>Notice Period</th>
                     <th>Location</th>
+                    <th>Status</th>
                     <th>Download Resume</th>
                     <th>Update Candidate profile</th>
                   </tr>
@@ -193,6 +204,7 @@ const SearchForm = () => {
                       <td>{user.ECTC}</td>
                       <td>{user.Notice_peried}</td>
                       <td>{user.Current_location}</td> 
+                      <td>{user.Status}</td> 
                       <td>
                         <Button onClick={() => downloadResume(user?.Upload_resume || "N/A")} variant="outline-success">
                           Download

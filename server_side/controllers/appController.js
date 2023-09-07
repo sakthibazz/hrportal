@@ -618,11 +618,16 @@ export async function getuser(req, res) {
 // GET method for fetching user details based on any one of the details
 
 export async function getUserDetails(req, res) {
-  const {CandidateName, MobileNumber, Domain,Notice_peried,fromDate, toDate } = req.query;
+  const {Ticket_no,CandidateName, MobileNumber, Domain,Notice_peried,fromDate, toDate } = req.query;
 
   try {
     // Create a query object to filter records based on user input
     const query = {};
+
+    if (Ticket_no) {
+      query.Ticket_no = Ticket_no;
+    }
+
     if (MobileNumber) {
       query.MobileNumber = MobileNumber;
     }
