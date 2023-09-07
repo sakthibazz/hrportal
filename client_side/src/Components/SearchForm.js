@@ -188,7 +188,7 @@ const SearchForm = () => {
                     <th>CTC</th>
                     <th>ECTC</th>
                     <th>Notice Period</th>
-                    <th>Location</th>
+                    <th>Location</th> 
                     <th>Status</th>
                     <th>Download Resume</th>
                     <th>Update Candidate profile</th>
