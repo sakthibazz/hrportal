@@ -25,7 +25,7 @@ const HeaderNavbar = () => {
       <h1 className="header-title">Welcome To Aroha Technologies {apiData && apiData.username.toUpperCase()}</h1>
       <Dropdown>
         <Dropdown.Toggle variant="light" id="dropdown-basic">
-          <span>ROLL<strong>:{apiData && apiData.position.toUpperCase()} </strong></span>
+          <strong>{apiData && apiData.position.toUpperCase()} </strong>
         <Image
             src={apiData?.profile || profileImage}
             alt="Profile Image"

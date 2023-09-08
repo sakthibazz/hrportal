@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Image, Form, Button, Card,Spinner,Alert } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
 import profile from '../assets/profile.png';
 import '../style/Username.css';
 import { Toaster, toast } from 'react-hot-toast';
@@ -11,7 +10,7 @@ import useFetch from '../hooks/Fetch.hook.js';
 import { updateUser } from '../helper/Helper';
 
 const Profile = () => {
-  const navigate=useNavigate()
+ 
   const [file, setFile] = useState();
   const [{isLoading,apiData,serverError}]=useFetch()
   
@@ -43,11 +42,6 @@ const Profile = () => {
     const base64 = await convertToBase64(e.target.files[0]);
     setFile(base64);
   };
-  const userLogout=()=>{
-    localStorage.removeItem('token');
-    navigate('/')
-
-  }
   if (isLoading) {
     return (
       <Spinner animation="border" role="status">
@@ -150,10 +144,7 @@ const Profile = () => {
                 <div className="textbox d-flex flex-column align-items-center"></div>
                 <div className='align-items-center py-4'>
                   <span className='text-muted'>
-                    Come back Later?
-                    <Link className='text-danger' onClick={userLogout} to='/'>
-                      Logout
-                    </Link>
+                    Come back Later..!
                   </span>
                 </div>
               </Form>

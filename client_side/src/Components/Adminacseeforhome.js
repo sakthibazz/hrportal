@@ -31,46 +31,45 @@ const Adminacseeforhome = () => {
   return (
     <Container fluid>
       <Row className="mt-2">
-        <Col md={12} style={{ marginLeft: '30px' }}>
-          <h3> Latest Client Details:</h3>
+        <Col md={12} style={{ marginLeft: '30px' }}>  
           {latestAdminPosts.length > 0 ? (
           <Row className="mt-2">
             <Col md={12} style={{ marginLeft: '30px' }}>
-              <h3>Aroha Technologies Client Requirement:</h3>
+            <h3> Latest Requirement:</h3>
               <Table   style={{ width: '100%', border: 'none' }} striped hover >
                 <thead>
                   <tr>
-                  <th> Here To Start</th>
-                    <th>Ticket No</th>
-                    <th>Client_Name</th>
-                    <th>Tech Stack</th>
+                  <th>Date</th>                
+                    <th>Req.No</th>
+                    <th>Client Name</th>
+                    <th>Requirement</th>
                     <th>Location</th>
-                    <th>Status</th>                  
-                    <th>Date</th>
-                    <th>View</th>
-                    
-                  
+                    <th>Status</th>                                    
+                    <th>View details</th>
+                    <th>Upload  Resumes</th>                                     
                   </tr>
                 </thead>
                 <tbody>
                   {latestAdminPosts.map((user) => (
                     <tr key={user._id}>
-                       <td>
-                      <Link to={`/recutepost/${user._id}`}>
-                            <Button variant="outline-dark" size="md">Post</Button>
-                          </Link>
-                      </td>
+                      <td>{new Date(user.date).toLocaleDateString("en-GB")}</td>
+                    
                       <td>{user.Ticket_no}</td>
                       <td>{user.Client_Name}</td>
                       <td>{user.Tech_stack}</td>
                       <td>{user.Location}</td>
                       <td>{user.status}</td>
-                      <td>{new Date(user.date).toLocaleDateString("en-GB")}</td>
                       <td>
                       <Link to={`/viewadminpost/${user._id}`}>
                             <Button variant="outline-dark" size="md">View</Button>
                           </Link>
-                      </td>                    
+                      </td>  
+                      <td>
+                       
+                       <Link to={`/recutepost/${user._id}`}>
+                             <Button variant="outline-dark" size="md">Upload</Button>
+                           </Link>
+                       </td>                  
                     </tr>
                   ))}
                 </tbody>

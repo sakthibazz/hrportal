@@ -82,7 +82,7 @@ const SideNavbar = () => {
               </Nav.Link>
               <Nav.Link as={Link} to="/register" className="nav-link">
                 <PersonPlusFill className="nav-link-icon" />
-                User Registation
+                User Registration
               </Nav.Link>
               <Nav.Link as={Link} to="/getCountByTicket" className="nav-link">
                 <InfoCircleFill className="nav-link-icon" />
