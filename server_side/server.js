@@ -28,7 +28,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// API routes
+// API routes 
 app.use('/api', router);
 
 // Start the server only when we have a valid connection

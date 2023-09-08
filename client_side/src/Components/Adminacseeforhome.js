@@ -33,42 +33,57 @@ const Adminacseeforhome = () => {
       <Row className="mt-2">
         <Col md={12} style={{ marginLeft: '30px' }}>
           <h3> Latest Client Details:</h3>
-          <Table style={{ width: '100%', border: 'none' }} striped hover>
-            <thead>
-              <tr>
-                <th>Here To Start</th>
-                <th>Ticket No</th>
-                <th>Client_Name</th>
-                <th>Tech Stack</th>
-                <th>Location</th>
-                <th>Status</th>
-                <th>Date</th>
-                <th>View more</th>
-              </tr>
-            </thead>
-            <tbody>
-              {latestAdminPosts.map((user) => (
-                <tr key={user._id}>
-                  <td>
-                    <Link to={`/recutepost/${user._id}`}>
-                      <Button variant="outline-dark" size="md">Post</Button>
-                    </Link>
-                  </td>
-                  <td>{user.Ticket_no}</td>
-                  <td>{user.Client_Name}</td>
-                  <td>{user.Tech_stack}</td>
-                  <td>{user.Location}</td>
-                  <td>{user.status}</td>
-                  <td>{new Date(user.date).toLocaleDateString("en-GB")}</td>
-                  <td>
+          {latestAdminPosts.length > 0 ? (
+          <Row className="mt-2">
+            <Col md={12} style={{ marginLeft: '30px' }}>
+              <h3>Aroha Technologies Client Requirement:</h3>
+              <Table   style={{ width: '100%', border: 'none' }} striped hover >
+                <thead>
+                  <tr>
+                  <th> Here To Start</th>
+                    <th>Ticket No</th>
+                    <th>Client_Name</th>
+                    <th>Tech Stack</th>
+                    <th>Location</th>
+                    <th>Status</th>                  
+                    <th>Date</th>
+                    <th>View</th>
+                    
+                  
+                  </tr>
+                </thead>
+                <tbody>
+                  {latestAdminPosts.map((user) => (
+                    <tr key={user._id}>
+                       <td>
+                      <Link to={`/recutepost/${user._id}`}>
+                            <Button variant="outline-dark" size="md">Post</Button>
+                          </Link>
+                      </td>
+                      <td>{user.Ticket_no}</td>
+                      <td>{user.Client_Name}</td>
+                      <td>{user.Tech_stack}</td>
+                      <td>{user.Location}</td>
+                      <td>{user.status}</td>
+                      <td>{new Date(user.date).toLocaleDateString("en-GB")}</td>
+                      <td>
                       <Link to={`/viewadminpost/${user._id}`}>
                             <Button variant="outline-dark" size="md">View</Button>
                           </Link>
-                      </td>  
-                </tr>
-              ))}
-            </tbody>
-          </Table>
+                      </td>                    
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </Col>
+          </Row>
+        ) : (
+          <Row>
+            <Col md={12}> 
+              <p>No results found.</p>
+            </Col>
+          </Row>
+        )}
         </Col>
       </Row>
     </Container>
