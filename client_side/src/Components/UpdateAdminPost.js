@@ -45,19 +45,37 @@ const UpdatePost = () => {
     },
     validateOnBlur: false,
     validateOnChange: false,
-    onSubmit: async (values) => {
-      values.Job_Description = file || '';
+    onSubmit: async (values, { resetForm }) => {
+      values.Upload_resume = file || null;
+
+      const updatePromise = updateAdminpostById(userData._id, values);
 
       try {
-        await updateAdminpostById(userData._id, values);
-        toast.success('User details updated successfully!');
-        navigate('/searchadminpost');
+        toast.promise(
+          updatePromise,
+          {
+            loading: 'Updating...',
+            success: () => {
+              navigate('/searchform');
+              return 'User details updated successfully!';
+            },
+            error: (error) => {
+              console.error('Frontend Error:', error);
+
+              if (error.response?.status === 409) {
+                return 'User with the same data already exists.';
+              } else {
+                return 'Failed to update user details.';
+              }
+            },
+          }
+        );
       } catch (error) {
-        console.error('Error updating user details:', error);
-        toast.error('Failed to update user details.');
+        console.error('Frontend Error:', error);
+        toast.error('An error occurred during update.');
       }
     },
-    enableReinitialize: true, // Set this option to update form values when userData changes
+    enableReinitialize: true,
   });
 
   const onUpload = async (e) => {
