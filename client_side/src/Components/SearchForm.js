@@ -93,7 +93,7 @@ const SearchForm = () => {
                 <Col md={4}>
                           <Field
                             type="number"
-                            placeholder="Enter Ticket Number"
+                            placeholder="Enter Req.Number"
                             name="Ticket_no"
                             className="form-control"
                           />
@@ -102,7 +102,7 @@ const SearchForm = () => {
                   <Col md={4}>
                     <Field
                       type="text"
-                      placeholder="Enter candidate name"
+                      placeholder="Enter Candidate Name"
                       name="CandidateName"
                       className="form-control"
                     />
@@ -156,14 +156,14 @@ const SearchForm = () => {
                 <Row className="pt-5">
                   <Col md={6}>
                        <div>
-                      <label>From Date:</label>
+                      <label>From Date</label>
                       <Field type="date" name="fromDate" className="form-control" />
                     </div>
                    
                   </Col>
                   <Col md={6}>
                   <div>
-                      <label>To Date:</label>
+                      <label>To Date</label>
                       <Field type="date" name="toDate" className="form-control" />
                     </div>
                   </Col>
@@ -182,16 +182,16 @@ const SearchForm = () => {
                <Table style={{ width: '100%', border: 'none' }} striped hover>              
                 <thead>
                   <tr>
-                    <th>Candidate Name</th>
-                    <th>Mobile Number</th>
+                    <th>Name</th>
+                    <th>Mobile</th>
                     <th>Email</th>
                     <th>CTC</th>
                     <th>ECTC</th>
                     <th>Notice Period</th>
                     <th>Location</th> 
                     <th>Status</th>
-                    <th>Download Resume</th>
-                    <th>Update Candidate profile</th>
+                    <th>Resume</th>
+                    <th>Profile</th>
                   </tr>
                 </thead>
                 <tbody>

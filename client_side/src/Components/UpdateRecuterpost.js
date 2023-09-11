@@ -129,8 +129,8 @@ const UpdatePost = () => {
                 <Card.Body>
                   <Form onSubmit={formik.handleSubmit} className='pt-4'>
                   <Row>
-                    <Col xs={3}>
-                      <label>Enter the Ticket_no:</label>
+                    <Col xs={2}>
+                      <label>Req.No</label>
                     </Col>
                     <Col xs={3}>
                       <Form.Control
@@ -139,12 +139,13 @@ const UpdatePost = () => {
                         placeholder="Ticket_no*"
                         className="w-100 mb-2"
                         disabled={apiData && apiData.position !== 'admin'}
+                        required
                       />
                     </Col>
                   </Row>
                     <Row>
                       <Col xl={2}>
-                      <label>CandidateName:</label>
+                      <label>Name</label> 
                       </Col>
                       <Col xs={4}>
               
@@ -158,7 +159,7 @@ const UpdatePost = () => {
                         />
                       </Col>
                       <Col xl={2}>
-                      <label>MobileNumber:</label>
+                      <label>Mobile</label>
                       </Col>
                       <Col xs={4}>
                         <Form.Control
@@ -173,7 +174,7 @@ const UpdatePost = () => {
                     </Row>
                     <Row>
                     <Col xl={2}>
-                      <label>Email:</label>
+                      <label>Email</label>
                       </Col>
                       <Col xs={4}>
                         <Form.Control
@@ -186,7 +187,7 @@ const UpdatePost = () => {
                         />
                       </Col>
                       <Col xl={2}>
-                      <label>Domain:</label>
+                      <label>Domain</label>
                       </Col>
                       <Col xs={4}>
                       <Form.Control
@@ -213,7 +214,7 @@ const UpdatePost = () => {
                     </Row>
                     <Row>
                     <Col xl={2}>
-                      <label>CTC:</label>
+                      <label>CTC</label>
                       </Col>
                       <Col xs={4}>
                         <Form.Control
@@ -225,7 +226,7 @@ const UpdatePost = () => {
                         />
                       </Col>
                       <Col xl={2}>
-                      <label>ECTC:</label>
+                      <label>ECTC</label>
                       </Col>
                       <Col xs={4}>
                         <Form.Control
@@ -239,7 +240,7 @@ const UpdatePost = () => {
                     </Row>
                     <Row>
                     <Col xl={2}>
-                      <label>YOE:</label>
+                      <label>YOE</label>
                       </Col>
                       <Col xs={4}>
                         <Form.Control
@@ -251,7 +252,7 @@ const UpdatePost = () => {
                         />
                       </Col>
                       <Col xl={2}>
-                      <label>RYOE:</label>
+                      <label>RYOE</label>
                       </Col>
                       <Col xs={4}>
                         <Form.Control
@@ -265,32 +266,57 @@ const UpdatePost = () => {
                     </Row>
                     <Row>
                     <Col xl={3}>
-                      <label>CurrentLocation:</label>
+                      <label>Current Location</label>
                       </Col>
                       <Col xs={3}>
-                        <Form.Control
+                      <Form.Control
                           {...formik.getFieldProps('Current_location')}
-                          type="text"
+                          list="Current_location"
                           placeholder="Current location"
                           className="w-100 mb-2"
-                          
                         />
+                        <datalist id="Current_location">
+                        <option>Bengaluru (Bangalore)</option>
+                          <option>Chennai (Madras)</option>
+                          <option>Delhi</option>
+                          <option>Mumbai</option>
+                          <option>Hyderabad</option>
+                          <option>Kolkata (Calcutta)</option>
+                          <option>Pune</option>
+                          <option>Ahmedabad</option>
+                          <option>Lucknow</option>
+                          <option>Indore</option>
+                          <option>Chandigarh</option>
+                        </datalist>
                       </Col>
-                      <Col xl={2}>
-                      <label>Preferred location:</label>
+                      <Col xl={3}>
+                      <label>Preferred location</label>
                       </Col>
-                      <Col xs={4}>
-                        <Form.Control
+                      <Col xs={3}>
+                      <Form.Control
                           {...formik.getFieldProps('Preffered_location')}
-                          type="text"
-                          placeholder="Preferred location"
+                          list="Current_location"
+                          placeholder="Current location"
                           className="w-100 mb-2"
                         />
+                        <datalist id="Current_location">
+                        <option>Bengaluru (Bangalore)</option>
+                          <option>Chennai (Madras)</option>
+                          <option>Delhi</option>
+                          <option>Mumbai</option>
+                          <option>Hyderabad</option>
+                          <option>Kolkata (Calcutta)</option>
+                          <option>Pune</option>
+                          <option>Ahmedabad</option>
+                          <option>Lucknow</option>
+                          <option>Indore</option>
+                          <option>Chandigarh</option>
+                        </datalist>
                       </Col>
                     </Row>
                     <Row>
                     <Col xl={3}>
-                      <label>Notice peried:</label>
+                      <label>Notice peried</label>
                       </Col>
                       <Col xs={3}>
                       <Form.Control
@@ -308,7 +334,7 @@ const UpdatePost = () => {
                         </datalist>
                       </Col>
                       <Col xl={2}>
-                      <label>Comment:</label>
+                      <label>Comment</label>
                       </Col>
                       <Col xs={4}>
                         <Form.Control
@@ -321,7 +347,7 @@ const UpdatePost = () => {
                     </Row>
                     <Row>
                     <Col xl={2}>
-                      <label>Status:</label>
+                      <label>Status</label>
                       </Col>
                       <Col xs={4}>
                       <Form.Select
@@ -341,7 +367,7 @@ const UpdatePost = () => {
                       </Form.Select>
                     </Col>
                       <Col xs={2}>
-                      <Form.Label>Upload Resume:</Form.Label>
+                      <Form.Label>Upload Resume</Form.Label>
                       </Col>
                       <Col xs={4}>
                       <Form.Control
@@ -355,7 +381,7 @@ const UpdatePost = () => {
                     </Row>
                     <Row>
                     <Col xl={3}>
-                      <label>Client feedback:</label>
+                      <label>Client feedback</label>
                       </Col>
                          <Col xs={3}>
                         <Form.Control

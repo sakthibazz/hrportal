@@ -116,7 +116,7 @@ const Adminposts = () => {
                         <Form.Control
                           {...formik.getFieldProps('Open_position')}
                           type="number"
-                          placeholder="Open position*"
+                          placeholder="Opening position*"
                           className="w-100 mb-2"
                           required
                         />
@@ -127,7 +127,7 @@ const Adminposts = () => {
                         <Form.Control
                           {...formik.getFieldProps('Yre_of_exp')}
                           type="text"
-                          placeholder="Year of Experience*"
+                          placeholder="Years of Experience*"
                           className="w-100 mb-2"
                           required
                         />
@@ -136,7 +136,7 @@ const Adminposts = () => {
                       <Form.Control
                           {...formik.getFieldProps('Tech_stack')}
                           list="Tech_stack"
-                          placeholder="Tech stack*"
+                          placeholder="Job Title*"
                           className="w-100 mb-2"
                           required
                         />
@@ -206,8 +206,8 @@ const Adminposts = () => {
                         required
                       >
                         <option value="">Mode of Work*</option>
-                        <option value="Work from home">Work from home</option>
-                        <option value="Work from office">Work from office</option>
+                        <option value="Work from home">Work from Home</option>
+                        <option value="Work from office">Work from Office</option>
                         <option value="Hybrid">Hybrid</option>
                       </Form.Select>
                       </Col>

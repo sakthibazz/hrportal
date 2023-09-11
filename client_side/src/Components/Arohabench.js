@@ -55,16 +55,16 @@ const SearchForm = () => {
         {searchResult.length > 0 ? (
           <Row>
             <Col md={12} style={{ marginLeft: '30px' }}>
-              <h3>Aroha Technologies Bench Candidates:</h3>
+              <h3>Aroha Technologies Bench Candidates</h3>
               <Table striped bordered hover >
                 <thead>
                   <tr>
-                    <th>Ticket Number</th>
+                    <th>Req.No</th>
                     <th>Candidate Name</th>
                     <th>Mobile Number</th>
                     <th>Email</th>
                     <th>Domain</th>
-                    <th>Year Of Experience</th>
+                    <th>Years Of Experience</th>
                     
                     <th>Location</th>
                     <th>Download Resume</th>

@@ -137,14 +137,14 @@ function CountsByTicketAndStatus() {
     });
 
     const pdfBlob = await pdf(<MyDocument funnelData={funnelData} candidateCounts={candidateCounts} />).toBlob();
-    saveAs(pdfBlob, `CandidateCounts_Ticket_${candidateCounts.ticketNumber}.pdf`);
+    saveAs(pdfBlob, `Report${candidateCounts.Ticket_no}.pdf`);
   };
 
   const sortedFunnelData = [...funnelData].sort((a, b) => b.value - a.value);
 
   return (
     <Container className="mt-5">
-      <h1 className="text-center justify-content-center">Fetch Candidate Counts</h1>
+      <h1 className="text-center justify-content-center">Report</h1>
       <Row className="justify-content-center">
         <Col xs={12} md={6}>
           {/* Display loader while loading data */}
@@ -160,7 +160,7 @@ function CountsByTicketAndStatus() {
                 <Form onSubmit={handleSubmit}>
                   <Form.Group controlId="ticketNumber">
                     <Form.Label>
-                      <h2>Enter Ticket Number:</h2>
+                      <h2>Enter Req.No</h2>
                     </Form.Label>
                     <Form.Control
                       type="text"

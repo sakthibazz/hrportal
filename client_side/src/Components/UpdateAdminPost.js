@@ -56,7 +56,7 @@ const UpdatePost = () => {
           {
             loading: 'Updating...',
             success: () => {
-              navigate('/searchform');
+              navigate('/searchadminpost');
               return 'User details updated successfully!';
             },
             error: (error) => {

@@ -65,11 +65,11 @@ const Viewadminpost = () => {
           <td>{userData.Open_position}</td>
         </tr>
         <tr>
-          <td className="custom-label">Tech Stack:</td>
+          <td className="custom-label">Job Title:</td>
           <td>{userData.Tech_stack}</td>
         </tr>
         <tr>
-          <td className="custom-label">Year of Experience:</td>
+          <td className="custom-label">Years of Experience:</td>
           <td>{userData.Yre_of_exp}</td>
         </tr>
         <tr>

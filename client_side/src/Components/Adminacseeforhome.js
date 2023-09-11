@@ -35,18 +35,18 @@ const Adminacseeforhome = () => {
           {latestAdminPosts.length > 0 ? (
           <Row className="mt-2">
             <Col md={12} style={{ marginLeft: '30px' }}>
-            <h3> Latest Requirement:</h3>
+            <h3> Latest Requirements</h3>
               <Table   style={{ width: '100%', border: 'none' }} striped hover >
                 <thead>
-                  <tr>
+                <tr>
                   <th>Date</th>                
                     <th>Req.No</th>
-                    <th>Client Name</th>
-                    <th>Requirement</th>
+                    <th>Client</th>
+                    <th>Job Title</th>
                     <th>Location</th>
                     <th>Status</th>                                    
-                    <th>View details</th>
-                    <th>Upload  Resumes</th>                                     
+                    <th>Req.details</th>
+                    <th>Resumes</th>                                     
                   </tr>
                 </thead>
                 <tbody>

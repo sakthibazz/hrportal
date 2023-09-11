@@ -93,7 +93,7 @@ const SearchForm = () => {
                         <Col md={4}>
                           <Field
                             type="number"
-                            placeholder="Enter Ticket Number"
+                            placeholder="Enter Req.No"
                             name="Ticket_no"
                             className="form-control"
                           />
@@ -103,8 +103,7 @@ const SearchForm = () => {
                           <Field
                             component="select"
                             name="status"
-                            className="form-control"
-                          >
+                            className="form-control">
                             <option value="">status</option>
                             <option value="Open">Open</option>
                             <option value="Interview">Interview</option>
@@ -118,13 +117,13 @@ const SearchForm = () => {
                       <Row className="pt-3">
                         <Col md={6}>
                           <div>
-                            <label>From Date:</label>
+                            <label>From Date</label>
                             <Field type="date" name="fromDate" className="form-control" />
                           </div>
                         </Col>
                         <Col md={6}>
                           <div>
-                            <label>To Date:</label>
+                            <label>To Date</label>
                             <Field type="date" name="toDate" className="form-control" />
                           </div>
                         </Col>
@@ -147,24 +146,25 @@ const SearchForm = () => {
                 <Table style={{ width: '100%', border: 'none' }} striped hover>
                   <thead>
                     <tr>
-                      <th>Ticket ID</th>
+                    <th>Date</th>
+                      <th>Req.No</th>
                       <th>Client Name</th>
-                      <th>Tech Stack</th>
+                      <th>Job Title</th>
                       <th>Location</th>
                       <th>Status</th>
-                      <th>Date</th>
                       <th>Update</th>
                     </tr>
                   </thead>
                   <tbody>
                     {resultsToDisplay.map((user) => (
                       <tr key={user._id}>
+                        <td>{new Date(user.date).toLocaleDateString("en-GB")}</td>
                         <td>{user.Ticket_no}</td>
                         <td>{user.Client_Name}</td>
                         <td>{user.Tech_stack}</td>
                         <td>{user.Location}</td>
                         <td>{user.status}</td>
-                        <td>{new Date(user.date).toLocaleDateString("en-GB")}</td>
+                        
                         <td>
                           <Link to={`/updateadminpost/${user._id}`}>
                             <Button variant="outline-success">Update</Button>

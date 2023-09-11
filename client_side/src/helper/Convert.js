@@ -20,7 +20,7 @@ export async function downloadResume(resumeUrl) {
     // For example, you can create an anchor element and simulate a click to download the file.
     var link = document.createElement('a');
     link.href = resumeUrl;
-    link.download = 'resume.pdf'; // You can set the desired file name here
+    link.download = 'file.pdf'; // You can set the desired file name here
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

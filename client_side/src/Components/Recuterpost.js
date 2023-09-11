@@ -130,7 +130,7 @@ const UpdatePost = () => {
                  <Form onSubmit={formik.handleSubmit} className='pt-4'>
                   <Row>
                     <Col xs={2}>
-                       <label>Ticket No:</label>
+                       <label>Req.No:</label>
                      </Col>
                     <Col xs={3}>                   
                      <Form.Control
@@ -220,7 +220,7 @@ const UpdatePost = () => {
                         <Form.Control
                           {...formik.getFieldProps('Yre_of_expe')}
                           type="number"
-                          placeholder="Year Of Experience*"
+                          placeholder="Years Of Experience*"
                           className="w-100 mb-2"
                           required
                         />
@@ -229,7 +229,7 @@ const UpdatePost = () => {
                         <Form.Control
                           {...formik.getFieldProps('Relevent_Yre_of_exp')}
                           type="number"
-                          placeholder="Relevant Year Of Experience*"
+                          placeholder="Relevant Years Of Experience*"
                           className="w-100 mb-2"
                           required
                         />

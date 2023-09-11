@@ -41,7 +41,7 @@ const Complaient = () => {
             <Form.Control
             {...formik.getFieldProps('complaient')}
             as="textarea"
-             placeholder="complaient*"
+             placeholder="Feed Back*"
               className="w-100 mb-2"
               />
             </Col>
