@@ -15,8 +15,11 @@ const Loader = () => {
         role="status"
         variant="info" // Change the color of the spinner to info color (blue)
         style={{
-          width: '100px',
+       
           height: '100px',
+          borderWidth: '8px', // Increase the thickness of the spinner border
+          borderColor: 'purple', // Change the color of the spinner border
+          borderRadius: '50%', // Make the spinner circular
         }}
       ></Spinner>
     </div>

@@ -157,21 +157,29 @@ const SearchForm = () => {
                   </Col>
                 </Row>
                 <Row className="pt-5">
-                  <Col md={6}>
-                       <div>
-                      <label>From Date</label>
-                      <Field type="date" name="fromDate" className="form-control" />
-                    </div>
+                  <Col md={2}>
+                     
+                       <label>From Date</label>
+                    
                    
                   </Col>
-                  <Col md={6}>
-                  <div>
-                      <label>To Date</label>
+                  <Col md={4}>
+                                    
+                      <Field type="date" name="fromDate" className="form-control" />
+                  
+                  </Col>
+                  <Col md={2}>
+               
+                  <label>To Date</label>
+                   
+                  </Col>
+                  <Col md={4}>
+              
                       <Field type="date" name="toDate" className="form-control" />
-                    </div>
+                    
                   </Col>
                 </Row>
-                <Button className="mt-5" variant="warning" type="submit">Search</Button>
+                <Button className="mt-5"variant="outline-info" type="submit">Search</Button>
               </Form>
             </Formik>
             </Card.Body>

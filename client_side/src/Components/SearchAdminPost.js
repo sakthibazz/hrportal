@@ -115,21 +115,31 @@ const SearchForm = () => {
                         
                         </Col>
                       </Row>
+                      <br/>
                       <Row className="pt-3">
-                        <Col md={6}>
-                          <div>
-                            <label>From Date</label>
-                            <Field type="date" name="fromDate" className="form-control" />
-                          </div>
-                        </Col>
-                        <Col md={6}>
-                          <div>
-                            <label>To Date</label>
-                            <Field type="date" name="toDate" className="form-control" />
-                          </div>
-                        </Col>
+                         <Col md={2}>
+                     
+                       <label>From Date</label>
+                    
+                   
+                  </Col>
+                  <Col md={4}>
+                                    
+                      <Field type="date" name="fromDate" className="form-control" />
+                  
+                  </Col>
+                  <Col md={2}>
+               
+                  <label>To Date</label>
+                   
+                  </Col>
+                  <Col md={4}>
+              
+                      <Field type="date" name="toDate" className="form-control" />
+                    
+                  </Col>
                       </Row>
-                      <Button className="mt-4" variant="outline-warning" type="submit">
+                      <Button className="mt-4" variant="outline-info" type="submit">
                         Search
                       </Button>
                     </Form>

@@ -101,7 +101,7 @@ const SideNavbar = () => {
       {/* Modal for displaying the Help content */}
       <Modal show={showModal} onHide={handleModalClose}>
         <Modal.Header closeButton>
-        <h2>User Suggestion</h2>
+        <h2 className="table-header">User Suggestion</h2>
         </Modal.Header>
         <Modal.Body>
          <Complaient/>

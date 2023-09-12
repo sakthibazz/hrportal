@@ -56,7 +56,7 @@ const SearchForm = () => {
         {searchResult.length > 0 ? (
           <Row>
             <Col md={12} style={{ marginLeft: '30px' }}>
-            <h3 className="custom-font table-header pt-5">Aroha Technologies Bench Candidates</h3>
+            <h3 className="custom-font pt-5">Aroha Technologies Bench Candidates</h3>
             <Table striped bordered hover className="custom-font">
                 <thead>
                   <tr>

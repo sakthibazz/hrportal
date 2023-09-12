@@ -109,7 +109,7 @@ const Register = () => {
                     className="w-75 mb-2 custom-input"
                     required
                   >
-                    <option value="" disabled>Select Roll*</option>
+                    <option value="" disabled>Select Role*</option>
                     <option value="admin">Admin</option>
                     <option value="recruiter">Recruiter</option>
                   </Form.Control>
