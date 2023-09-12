@@ -12,6 +12,7 @@
   z-index: 100;
   background-color:white; /* Dark background color */
   color:black; /* White text color */
+
 }
 
 /* Styles for the dropdown toggle button */
@@ -25,7 +26,7 @@
 /* Styles for the dropdown menu */
 .header-navbar .dropdown-menu {
   min-width: 160px;
-  background-color: #343a40; /* Dark background color for dropdown menu */
+  background-color:#36393b; /* Dark background color for dropdown menu */
   color: #fff; /* White text color for dropdown menu */
 }
 
@@ -38,7 +39,7 @@
 /* Styles for dropdown dividers */
 .header-navbar .dropdown-divider {
   margin: 4px 0;
-  background-color: #fff; /* White background color for dropdown dividers */
+  background-color:#36393b; /* White background color for dropdown dividers */
   border-color: #fff; /* White border color for dropdown dividers */
 }
 

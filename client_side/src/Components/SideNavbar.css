@@ -6,7 +6,9 @@
   padding: 20px;
   position: fixed;
   left: 0;
-  top: 51px; /* Adjust the top margin to create the desired gap */
+  top: 57px; /* Adjust the top margin to create the desired gap */
+  border-top-right-radius: 5px; /* Adjust the radius to control the curve */
+  
 }
   
   .side-navbar .row {
