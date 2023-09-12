@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Nav, Modal, Button } from 'react-bootstrap';
+import { Nav, Modal} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { HouseFill, Eye, PeopleFill, SearchHeart, FileEarmarkBarGraphFill, PencilFill, QuestionCircleFill,PersonPlusFill,InfoCircleFill} from 'react-bootstrap-icons';
 import useFetch from '../hooks/Fetch.hook.js';
@@ -101,16 +101,11 @@ const SideNavbar = () => {
       {/* Modal for displaying the Help content */}
       <Modal show={showModal} onHide={handleModalClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Need Help</Modal.Title>
+        <h2>User Suggestion</h2>
         </Modal.Header>
         <Modal.Body>
          <Complaient/>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleModalClose}>
-            Close
-          </Button>
-        </Modal.Footer>
       </Modal>
     </div>
   );

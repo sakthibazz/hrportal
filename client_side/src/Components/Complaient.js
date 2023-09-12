@@ -34,15 +34,16 @@ const Complaient = () => {
     return (
       <div>
         <Toaster position="top-center" reverseOrder={false}></Toaster>
-        <h2>User Suggestion</h2>
+        
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group as={Row} controlId="complaient">
             <Col sm={10}>
             <Form.Control
             {...formik.getFieldProps('complaient')}
             as="textarea"
-             placeholder="Feed Back*"
-              className="w-100 mb-2"
+             placeholder="FeedBack*"
+              className="w-100  mb-2"
+              style={{ height: '130px' }}
               />
             </Col>
           </Form.Group>

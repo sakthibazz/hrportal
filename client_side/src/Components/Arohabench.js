@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Table, Container, Row, Col } from "react-bootstrap";
 import { getArohaRecruitments } from "../helper/Helper";
 import Loader from './Loader';
+import './FontText.css';
 
 
 
@@ -48,20 +49,20 @@ const SearchForm = () => {
   }
 
   return (
-    <div className="pt-5">
+    <div className="pt-5 custom-font"> 
     <div style={{ maxWidth: '800px', margin: '0 auto' }}> {/* Add custom div with max-width */}
       <Container fluid >
       
         {searchResult.length > 0 ? (
           <Row>
             <Col md={12} style={{ marginLeft: '30px' }}>
-              <h3>Aroha Technologies Bench Candidates</h3>
-              <Table striped bordered hover >
+            <h3 className="custom-font table-header pt-5">Aroha Technologies Bench Candidates</h3>
+            <Table striped bordered hover className="custom-font">
                 <thead>
                   <tr>
                     <th>Req.No</th>
-                    <th>Candidate Name</th>
-                    <th>Mobile Number</th>
+                    <th>Name</th>
+                    <th>Mobile</th>
                     <th>Email</th>
                     <th>Domain</th>
                     <th>Years Of Experience</th>

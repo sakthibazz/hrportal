@@ -12,7 +12,7 @@ const Viewadminpost = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchUserData = async () => {
+    const fetchUserData = async () => { 
       try {
         const response = await getAdmindetailsById(userId);
         console.log(response)
@@ -27,7 +27,7 @@ const Viewadminpost = () => {
   }, [userId]);
 
   return (
-    <Container className="pt-5 ml-5">
+    <Container className="pt-5 ml-5"> 
       {isLoading ? (
         <Loader />
       ) : userData ? ( // Check if userData is not null
@@ -35,53 +35,53 @@ const Viewadminpost = () => {
       <thead>
         <tr>
           <th colSpan="2" className="custom-header">
-            Client Details
+            Client Requirement Details
           </th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td className="custom-label">Ticket Number:</td>
+          <td className="custom-label">Requirement Number</td>
           <td>{userData.Ticket_no}</td>
         </tr>
         <tr>
-          <td className="custom-label">Client Name:</td>
+          <td className="custom-label">Client Name</td>
           <td><i>{userData.Client_Name}</i></td>
         </tr>
         <tr>
-          <td className="custom-label">Job Description:</td>
+          <td className="custom-label">Job Description</td>
           <td>{userData.Job_Des}</td>
         </tr>
         <tr>
-          <td className="custom-label">Location:</td>
+          <td className="custom-label">Location</td>
           <td>{userData.Location}</td>
         </tr>
         <tr>
-          <td className="custom-label">Mode:</td>
+          <td className="custom-label">Mode</td>
           <td>{userData.Mode}</td>
         </tr>
         <tr>
-          <td className="custom-label">Opening Position:</td>
+          <td className="custom-label">Opening Position</td>
           <td>{userData.Open_position}</td>
         </tr>
         <tr>
-          <td className="custom-label">Job Title:</td>
+          <td className="custom-label">Job Title</td>
           <td>{userData.Tech_stack}</td>
         </tr>
         <tr>
-          <td className="custom-label">Years of Experience:</td>
+          <td className="custom-label">Years of Experience</td>
           <td>{userData.Yre_of_exp}</td>
         </tr>
         <tr>
-          <td className="custom-label">Budget:</td>
+          <td className="custom-label">Budget</td>
           <td>{userData.Budget}</td>
         </tr>
         <tr>
-          <td className="custom-label">Posted by:</td>
+          <td className="custom-label">Posted by</td>
           <td>{userData.PostedUser}</td>
         </tr>
         <tr>
-          <td className="custom-label">Download Jd:</td>
+          <td className="custom-label">Download Jd</td>
           <td>
                         <Button onClick={() => downloadResume(userData?.Job_Description || "N/A")} variant="outline-success">
                           Download

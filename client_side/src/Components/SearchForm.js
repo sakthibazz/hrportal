@@ -4,7 +4,8 @@ import { Button, Table, Container, Row, Col, Card,Pagination } from "react-boots
 import { getAllUserDetails,getUserDetails } from "../helper/Helper";
 import { Link} from "react-router-dom";
 import Loader from './Loader';
-import {downloadResume} from '../helper/Convert'
+import {downloadResume} from '../helper/Convert';
+import './FontText.css';
 
 
 
@@ -76,7 +77,7 @@ const SearchForm = () => {
   }
 
   return (
-    <div className="pt-5">
+    <div className="pt-5 custom-font"> 
     <div style={{ maxWidth: '1500px', margin: '0 auto' }}> {/* Add custom div with max-width */}
       <Container fluid>
       <Card style={{ marginLeft: '150px' }} className="mt-2 pt-2">
@@ -84,7 +85,9 @@ const SearchForm = () => {
          
           <Col sm={12} md={12} className="text-center pt-5">
           <Card.Header>
-            <h2>Search Candidate Details</h2>
+          <h2 className="header-title text-center" style={{ textDecoration: 'underline' }}>
+          Search Candidate Details
+        </h2>
             </Card.Header>
             <Card.Body>
             <Formik initialValues={initialValues} onSubmit={handleSubmit}>

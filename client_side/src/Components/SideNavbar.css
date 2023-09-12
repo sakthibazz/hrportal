@@ -1,10 +1,12 @@
+/* Styles for the sidebar */
 .side-navbar {
   background-color: #36393b;
-  width: 230px; /* Adjust the width as needed */
-  height: 100%; /* Adjust the height as needed */
+  width: 230px;
+  height: 100%;
   padding: 20px;
   position: fixed;
-  left: 0; /* Position the side navbar on the left */
+  left: 0;
+  top: 51px; /* Adjust the top margin to create the desired gap */
 }
   
   .side-navbar .row {

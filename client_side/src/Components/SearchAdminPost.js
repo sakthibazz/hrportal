@@ -4,6 +4,7 @@ import { Button, Table, Container, Row, Col, Card,Pagination } from "react-boots
 import { getAdminPostClientRequirement, getAllAdminePostClientDetails } from "../helper/Helper";
 import { Link } from "react-router-dom";
 import Loader from './Loader';
+import './FontText.css';
 
 const SearchForm = () => {
   const [searchResult, setSearchResult] = useState([]);
@@ -68,14 +69,14 @@ const SearchForm = () => {
   };
 
   return (
-    <div>
+    <div className="pt-5 custom-font"> 
       <div style={{ maxWidth: "1500px", margin: "0 auto" }}>
         <Container fluid className="pt-5">
           <Card style={{ marginLeft: "150px" }} className="mt-2 pt-2">
             <Row>
               <Col sm={12} md={12} className="text-center pt-5">
                 <Card.Header> 
-                  <h2>Search Client Details</h2>
+                <h2 className="header-title text-center" style={{ textDecoration: 'underline' }}>Search Client Details</h2>
                 </Card.Header>
                 <Card.Body>
                   <Formik initialValues={initialValues} onSubmit={handleSubmit}>

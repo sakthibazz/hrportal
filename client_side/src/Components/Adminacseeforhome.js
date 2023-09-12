@@ -3,6 +3,7 @@ import { Table, Container, Row, Col, Button } from "react-bootstrap";
 import { getAdminPostbyStatus } from "../helper/Helper";
 import { Link } from "react-router-dom";
 import Loader from './Loader';
+import './FontText.css';
 
 const Adminacseeforhome = () => {
   const [latestAdminPosts, setLatestAdminPosts] = useState([]);
@@ -35,8 +36,8 @@ const Adminacseeforhome = () => {
           {latestAdminPosts.length > 0 ? (
           <Row className="mt-2">
             <Col md={12} style={{ marginLeft: '30px' }}>
-            <h3> Latest Requirements</h3>
-              <Table   style={{ width: '100%', border: 'none' }} striped hover >
+            <h3 className="header-title">Current Client Requirements</h3>
+            <Table className="custom-font" style={{ width: '100%', border: 'none' }} striped hover>
                 <thead>
                 <tr>
                   <th>Date</th>                
@@ -45,32 +46,31 @@ const Adminacseeforhome = () => {
                     <th>Job Title</th>
                     <th>Location</th>
                     <th>Status</th>                                    
-                    <th>Req.details</th>
+                    <th>Details</th>
                     <th>Resumes</th>                                     
                   </tr>
                 </thead>
                 <tbody>
                   {latestAdminPosts.map((user) => (
-                    <tr key={user._id}>
-                      <td>{new Date(user.date).toLocaleDateString("en-GB")}</td>
-                    
-                      <td>{user.Ticket_no}</td>
-                      <td>{user.Client_Name}</td>
-                      <td>{user.Tech_stack}</td>
-                      <td>{user.Location}</td>
-                      <td>{user.status}</td>
-                      <td>
-                      <Link to={`/viewadminpost/${user._id}`}>
-                            <Button variant="outline-dark" size="md">View</Button>
+                     <tr key={user._id}>
+                     <td>{new Date(user.date).toLocaleDateString("en-GB")}</td>                  
+                     <td>{user.Ticket_no}</td>
+                     <td>{user.Client_Name}</td>
+                     <td>{user.Tech_stack}</td>
+                     <td>{user.Location}</td>
+                     <td>{user.status}</td>                  
+                     <td>
+                     <Link to={`/viewadminpost/${user._id}`}>
+                           <Button variant="outline-dark" size="md">View</Button>
+                         </Link>
+                     </td>  
+                     <td>
+                      
+                      <Link to={`/recutepost/${user._id}`}>
+                            <Button variant="outline-dark" size="md">Upload</Button>
                           </Link>
-                      </td>  
-                      <td>
-                       
-                       <Link to={`/recutepost/${user._id}`}>
-                             <Button variant="outline-dark" size="md">Upload</Button>
-                           </Link>
-                       </td>                  
-                    </tr>
+                      </td>                  
+                   </tr>
                   ))}
                 </tbody>
               </Table>
@@ -79,7 +79,7 @@ const Adminacseeforhome = () => {
         ) : (
           <Row>
             <Col md={12}> 
-              <p>No results found.</p>
+              <p className="custom-text">No results found.</p>
             </Col>
           </Row>
         )}

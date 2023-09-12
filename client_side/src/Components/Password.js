@@ -76,7 +76,17 @@ const Password = () => {
                 <Row className="justify-content-center">
                   <Col xs={12} md={6}>
                     <div className="profile d-flex justify-content-center py-4">
-                      <Image src={apiData?.profile || profile} alt="avatar" className="img-fluid" />
+                    <Image
+                          src={apiData?.profile || profile}
+                          alt="avatar"
+                          className="img-fluid"
+                          style={{
+                            borderRadius: '50%',
+                            width: '600px',      
+                            height: '250px',     
+                            objectFit: 'cover',  
+                          }}
+                        />
                     </div>
                   </Col>
                 </Row>

@@ -7,6 +7,7 @@ import { pdf, Document, Page, Text, Image, StyleSheet, View } from '@react-pdf/r
 import { getCandidateCounts } from '../helper/Helper'; // Adjust the path to helper.js
 import { toPng } from 'html-to-image';
 import Loader from './Loader';
+import './FontText.css';
 
 function CountsByTicketAndStatus() {
   const [candidateCounts, setCandidateCounts] = useState(null);
@@ -144,7 +145,7 @@ function CountsByTicketAndStatus() {
 
   return (
     <Container className="mt-5">
-      <h1 className="text-center justify-content-center">Report</h1>
+      <h1 className="text-center justify-content-center header-title pt-5">Report</h1>
       <Row className="justify-content-center">
         <Col xs={12} md={6}>
           {/* Display loader while loading data */}
@@ -160,7 +161,7 @@ function CountsByTicketAndStatus() {
                 <Form onSubmit={handleSubmit}>
                   <Form.Group controlId="ticketNumber">
                     <Form.Label>
-                      <h2>Enter Req.No</h2>
+                      <h2 className="header-title">Enter Req.No</h2>
                     </Form.Label>
                     <Form.Control
                       type="text"
@@ -168,6 +169,7 @@ function CountsByTicketAndStatus() {
                       value={inputTicketNumber}
                       onChange={handleChange}
                       style={{ maxWidth: '200px' }}
+                      placeholder="Enter here"
                     />
                   </Form.Group>
                   <br />
@@ -194,35 +196,35 @@ function CountsByTicketAndStatus() {
                         </thead>
                         <tbody>
                           <tr>
-                            <td>Ticket Number:</td>
+                            <td>Ticket Number</td>
                             <td>{candidateCounts.Ticket_no}</td>
                           </tr>
                           <tr>
-                            <td>Client Name:</td>
+                            <td>Client Name</td>
                             <td>{candidateCounts.Client_Name}</td>
                           </tr>
                           <tr>
-                            <td>Tech stack:</td>
+                            <td>Tech stack</td>
                             <td>{candidateCounts.Tech_stack}</td>
                           </tr>
                           <tr>
-                            <td>Total Candidates:</td>
+                            <td>Total Candidates</td>
                             <td>{candidateCounts.totalnumber_of_candidates}</td>
                           </tr>
                           <tr>
-                            <td>Rejected by Aroha:</td>
+                            <td>Rejected by Aroha</td>
                             <td>{candidateCounts.rejectedbyaroha}</td>
                           </tr>
                           <tr>
-                            <td>Rejected by Client:</td>
+                            <td>Rejected by Client</td>
                             <td>{candidateCounts.rejectededbyclient}</td>
                           </tr>
                           <tr>
-                            <td>Feedback:</td>
+                            <td>Feedback</td>
                             <td>{candidateCounts.FeedBack}</td>
                           </tr>
                           <tr>
-                            <td>Selected by Client:</td>
+                            <td>Selected by Client</td>
                             <td>{candidateCounts.selectedbyclient}</td>
                           </tr>
                         </tbody>

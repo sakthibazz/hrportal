@@ -1,3 +1,4 @@
+/* Styles for the header-navbar */
 .header-navbar {
   display: flex;
   align-items: center;
@@ -9,52 +10,40 @@
   left: 0;
   right: 0;
   z-index: 100;
- 
+  background-color:white; /* Dark background color */
+  color:black; /* White text color */
 }
 
+/* Styles for the dropdown toggle button */
 .header-navbar .dropdown-toggle {
   padding: 0;
   background-color: transparent;
   border: none;
+  color: black; /* White text color for dropdown toggle */
 }
 
+/* Styles for the dropdown menu */
 .header-navbar .dropdown-menu {
   min-width: 160px;
+  background-color: #343a40; /* Dark background color for dropdown menu */
+  color: #fff; /* White text color for dropdown menu */
 }
 
+/* Styles for dropdown items */
 .header-navbar .dropdown-item {
   padding: 8px 16px;
+  color: #fff; /* White text color for dropdown items */
 }
 
+/* Styles for dropdown dividers */
 .header-navbar .dropdown-divider {
   margin: 4px 0;
-  border-bottom: 1px solid #dee2e6;
+  background-color: #fff; /* White background color for dropdown dividers */
+  border-color: #fff; /* White border color for dropdown dividers */
 }
 
-.header-navbar .dropdown-item:hover,
-.header-navbar .dropdown-item:focus {
-  background-color: #f8f9fa;
-  color: #007bff;
-}
-.header-navbar {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  background-color: rgb(162, 159, 120);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
+/* Styles for the title in the header */
 .header-title {
   font-size: 18px;
   margin: 0 auto;
-}
-
-.header-navbar.dark {
-  background-color: #343a40;
-  color: #fff;
-}
-
-body.dark {
-  background-color: #343a40;
-  color: #fff;
 }

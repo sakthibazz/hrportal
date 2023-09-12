@@ -3,6 +3,7 @@ import { Table, Container, Row, Col, Form, Button, Pagination } from "react-boot
 import { getAdminPostbyStatus } from "../helper/Helper";
 import { Link } from "react-router-dom";
 import Loader from './Loader';
+import './FontText.css';
 
 
 const Admindetailsacess = () => {
@@ -77,7 +78,7 @@ const Admindetailsacess = () => {
   }
 
   return (
-    <div className="pt-5">
+    <div className="pt-5 custom-font">
     <div style={{ maxWidth: '1500px', margin: '0 auto' }}> {/* Add custom div with max-width */}
       <Container fluid >
     
@@ -106,8 +107,8 @@ const Admindetailsacess = () => {
         {resultsToDisplay.length > 0 ? (
           <Row className="mt-2">
             <Col md={12} style={{ marginLeft: '30px' }}>
-              <h3>Aroha Technologies Client Requirement</h3>
-              <Table   style={{ width: '100%', border: 'none' }} striped hover >
+            <h3 className="header-title">Aroha Technologies Client Requirements</h3>
+            <Table className="custom-font" style={{ width: '100%', border: 'none' }} striped hover>
                 <thead>
                 <tr>
                   <th>Date</th>                
@@ -116,7 +117,7 @@ const Admindetailsacess = () => {
                     <th>Job Title</th>
                     <th>Location</th>
                     <th>Status</th>                                    
-                    <th>Req.details</th>
+                    <th>Details</th>
                     <th>Resumes</th>                                     
                   </tr>
                 </thead>
