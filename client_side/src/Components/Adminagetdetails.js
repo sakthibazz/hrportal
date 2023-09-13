@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Container, Row, Col, Pagination, Spinner } from 'react-bootstrap';
+import { Table, Container, Row, Col, Pagination} from 'react-bootstrap';
 import { getCountsForAllTickets } from "../helper/Helper";
+import Loader from './Loader';
 
 function Adminagetdetails() {
   const [counts, setCounts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
   const resultsPerPage = 10;
 
   useEffect(() => {
@@ -13,6 +15,7 @@ function Adminagetdetails() {
         const data = await getCountsForAllTickets();
         data.sort((a, b) => b.Ticket_no - a.Ticket_no);
         setCounts(data);
+        setIsLoading(false);
       } catch (error) {
         console.error(error);
       }
@@ -31,10 +34,15 @@ function Adminagetdetails() {
     setCurrentPage(page);
   }
 
+  
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <Container fluid>
       <Row className="mt-2">
-        <Col md={12} style={{ marginLeft: '40px' }}>
+        <Col md={12} style={{ marginLeft: '40px' }}> 
           <h2 className="header-title ml-5">Dashboard</h2>
           {counts.length > 0 ? (
             <>
@@ -91,7 +99,11 @@ function Adminagetdetails() {
               </Pagination>
             </>
           ) : (
-            <Spinner animation="border" />
+            <Row>
+            <Col md={12}> 
+              <p className="custom-text">No results found.</p>
+            </Col>
+          </Row>
           )}
         </Col>
       </Row>
