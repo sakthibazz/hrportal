@@ -138,17 +138,17 @@ const UpdatePost = () => {
                 <Form onSubmit={formik.handleSubmit} className='pt-4'>
                   <Row>
                     <Col xs={5}>
-                  <h2 className="text-3xl font-bold mb-3">Ticket Number: {userData.Ticket_no}</h2>
+                  <h2 className="header-title font-bold mb-3">Ticket Number: {userData.Ticket_no}</h2>
                   </Col>
                   <Col xs={7}>
-                  <h4 className="text-xl font-bold mb-3">
+                  <h4 className="header-title font-bold mb-3">
                           Last Update:{userData.userupdate?.lastupdate.toUpperCase() || 'N/A'}
                         </h4>
                         {userData.userupdate?.updatedFields && (
                           <div>
                             <ul>
                               {Object.keys(userData.userupdate.updatedFields).map(field => (
-                                <h4 className="text-xl font-bold" key={field}>Updated Fields:{field}</h4>
+                                <h4 className="header-title font-bold" key={field}>Updated Fields:{field}</h4>
                               ))}
                             </ul>
                           </div>

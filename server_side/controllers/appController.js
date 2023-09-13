@@ -254,17 +254,17 @@ export async function Adminpost(req, res) {
           to:'CHENNAIAroha@gmail.com', // Recipient's email, which is the user's email in this case "CHENNAIAroha@gmail.com"
           subject: 'Admin Posting Details', // Subject of the email
           html: `
-            <h1>Admin Posting Details</h1>
+            <h2>Admin Posting Details</h2>
             <h2>Posted By:${result.PostedUser}</h2>
-            <h3>Ticket No: ${result.Ticket_no}</h3>
-            <h4>Client Name: ${result.Client_Name}</h4>
-            <h5>Open Position: ${result.Open_position}</h5>
-            <h6>Year of Experience: ${result.Yre_of_exp}</h6>
-            <h6>Tech stack: ${result.Tech_stack}</h6>
-            <h6>Budget: ${result.Budget}</h6>
-            <h6>Location: ${result.Location}</h6>
-            <h6>Mode: ${result.Mode}</h6>
-            <h6>Job Mode: ${result.Job_Mode}</h6>
+            <h2>Ticket No: ${result.Ticket_no}</h2>
+            <h2>Client Name: ${result.Client_Name}</h2>
+            <h2>Open Position: ${result.Open_position}</h2>
+            <h2>Year of Experience: ${result.Yre_of_exp}</h2>
+            <h2>Tech stack: ${result.Tech_stack}</h2>
+            <h2>Budget: ${result.Budget}</h2>
+            <h2>Location: ${result.Location}</h2>
+            <h2>Mode: ${result.Mode}</h2>
+            <h2>Job Mode: ${result.Job_Mode}</h2>
           `,
         };
 
@@ -975,6 +975,54 @@ export async function getCountByTicket(req, res) {
       Client_Name,
       Tech_stack
     });
+  } catch (error) {
+    console.error('Error fetching counts:', error);
+    res.status(500).json({ error: 'An error occurred while fetching the counts.' });
+  }
+}
+export async function getCountsForAllTickets(req, res) {
+  try { 
+    // Fetch all distinct Ticket_no values from the RecuteModule collection
+    const distinctTicketNumbers = await RecuteModule.distinct('Ticket_no');
+
+    // Create an array of promises to calculate counts for each Ticket_no
+    const countsPromises = distinctTicketNumbers.map(async (Ticket_no) => {
+      const totalnumber_of_candidates = await RecuteModule.countDocuments({ Ticket_no });
+      const rejectedbyaroha = await RecuteModule.countDocuments({ Ticket_no, Status: { $regex: 'rejected by aroha', $options: 'i' } });
+
+      // Calculate submitted to client as totalnumber_of_candidates - rejectedbyaroha
+      const submittedtoclient = totalnumber_of_candidates - rejectedbyaroha;
+
+      const selectedbyclient = await RecuteModule.countDocuments({ Ticket_no, Status: { $regex: 'selected By Client', $options: 'i' } });
+      const rejectededbyclient = await RecuteModule.countDocuments({ Ticket_no, Status: { $regex: 'rejected By Client', $options: 'i' } });
+      const FeedBack = await RecuteModule.countDocuments({ Ticket_no, Status: { $regex: 'Yet to Receive feedback', $options: 'i' } });
+
+      // Fetch client_name from the ClientModel based on Ticket_no
+      const clientInfo = await AdminModule.findOne({ Ticket_no });
+      const Client_Name = clientInfo ? clientInfo.Client_Name : null;
+      const Tech_stack = clientInfo ? clientInfo.Tech_stack : null;
+      const date = clientInfo ? clientInfo.date : null;
+      const status = clientInfo ? clientInfo.status : null;
+
+      return {
+        Ticket_no,
+        totalnumber_of_candidates,
+        rejectedbyaroha,
+        submittedtoclient,
+        selectedbyclient,
+        rejectededbyclient,
+        FeedBack,
+        Client_Name,
+        Tech_stack,
+        date,
+        status
+      };
+    }); 
+
+    // Wait for all promises to resolve
+    const counts = await Promise.all(countsPromises);
+
+    res.status(201).json(counts);
   } catch (error) {
     console.error('Error fetching counts:', error);
     res.status(500).json({ error: 'An error occurred while fetching the counts.' });

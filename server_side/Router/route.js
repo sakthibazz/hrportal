@@ -41,6 +41,7 @@ router.route('/getAdminPostClientRequirement').get(controller.getAdminPostClient
 router.route('/getAdminPostById/:id').get(controller.getAdminPostById)
 // GET method to get count of candidates based on ticket number and status
 router.route('/getCountByTicket/:Ticket_no').get(controller.getCountByTicket);
+router.route('/getCountsForAllTickets').get(controller.getCountsForAllTickets);
 //get all the admin post based on the status which as open,sourcing
 router.route('/getAdminPostbyStatus').get(controller.getAdminPostbyStatus)
 

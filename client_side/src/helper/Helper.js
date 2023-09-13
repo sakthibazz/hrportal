@@ -347,3 +347,13 @@ export async function getRecuterSourcedDetails(username, fromDate, toDate) {
     return { error: "No data founded" };
   }
 }
+
+export async function getCountsForAllTickets() {
+  try {
+    const response = await axios.get(`/api/getCountsForAllTickets`);
+    return response.data; // Assuming the response is JSON
+  } catch (error) {
+    console.error('Error fetching counts:', error);
+    throw error;
+  }
+}

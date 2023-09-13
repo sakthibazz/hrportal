@@ -78,13 +78,12 @@ const SearchForm = () => {
 
   return (
     <div className="pt-5 custom-font"> 
-    <div style={{ maxWidth: '1500px', margin: '0 auto' }}> {/* Add custom div with max-width */}
-      <Container fluid>
-      <Card style={{ marginLeft: '150px' }} className="mt-2 pt-2">
-        <Row >
-         
-          <Col sm={12} md={12} className="text-center pt-5">
-          <Card.Header>
+    <div style={{ maxWidth: "1500px", margin: "0 auto" }}>
+      <Container fluid className="pt-5">
+        <Card style={{ marginLeft: "150px" }} className="mt-2 pt-2">
+          <Row>
+            <Col sm={12} md={12} className="text-center pt-5">
+              <Card.Header> 
           <h2 className="header-title text-center" style={{ textDecoration: 'underline' }}>
           Search Candidate Details
         </h2>

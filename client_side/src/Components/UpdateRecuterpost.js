@@ -47,6 +47,7 @@ const UpdatePost = () => {
       CTC: '',
       ECTC: '',
       Current_location: '',
+      Current_Company:'',
       Preffered_location: '',
       Reason_for_change: '',
       Notice_peried: '',
@@ -316,7 +317,7 @@ const UpdatePost = () => {
                     </Row>
                     <Row>
                     <Col xl={3}>
-                      <label>Notice peried</label>
+                      <label>Notice period</label>
                       </Col>
                       <Col xs={3}>
                       <Form.Control
@@ -333,16 +334,23 @@ const UpdatePost = () => {
                           <option>four months</option>
                         </datalist>
                       </Col>
-                      <Col xl={2}>
-                      <label>Comment</label>
+                      <Col xl={3}>
+                      <label>Current Company</label>
                       </Col>
-                      <Col xs={4}>
-                        <Form.Control
-                          {...formik.getFieldProps('Comment')}
-                          type="text"
-                          placeholder="Comment"
+                      <Col xs={3}>
+                      <Form.Control
+                          {...formik.getFieldProps('Current_Company')}
+                          list="Current_Company"
+                          placeholder="Current Company"
                           className="w-100 mb-2"
+                          
                         />
+                        <datalist id="Current_Company">
+                          <option>Aroha Technologies</option>
+                          <option>TCS</option>
+                          <option>WIBRO</option>
+                          <option>infosis</option>
+                        </datalist>
                       </Col>
                     </Row>
                     <Row>
@@ -388,6 +396,17 @@ const UpdatePost = () => {
                           {...formik.getFieldProps('Client_feedback')}
                           type="text"
                           placeholder="Client feedback"
+                          className="w-100 mb-2"
+                        />
+                      </Col>
+                        <Col xl={2}>
+                      <label>Comment</label>
+                      </Col>
+                      <Col xs={4}>
+                        <Form.Control
+                          {...formik.getFieldProps('Comment')}
+                          type="text"
+                          placeholder="Comment"
                           className="w-100 mb-2"
                         />
                       </Col>

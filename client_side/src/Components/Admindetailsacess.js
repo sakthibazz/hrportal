@@ -119,8 +119,8 @@ const Admindetailsacess = () => {
                     <th>Status</th>                                    
                     <th>Details</th>
                     <th>Resumes</th>                                     
-                  </tr>
-                </thead>
+                  </tr> 
+                </thead>  
                 <tbody>
                   {resultsToDisplay.map((user) => (
                      <tr key={user._id}>

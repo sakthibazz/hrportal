@@ -30,15 +30,15 @@ const Adminacseeforhome = () => {
   }
 
   return (
-    <Container fluid>
+    <Container fluid> 
       <Row className="mt-2">
         <Col md={12} style={{ marginLeft: '30px' }}>  
           {latestAdminPosts.length > 0 ? (
           <Row className="mt-2">
             <Col md={12} style={{ marginLeft: '30px' }}>
-            <h3 className="header-title">Current Client Requirements</h3>
-            <Table className="custom-font" style={{ width: '100%', border: 'none' }} striped hover>
-                <thead>
+            <h3 className="header-title text-center ml-5 pt-2">Current Client Requirements</h3>
+            <Table className="pt-5 custom-font" style={{ width: '100%', border: 'none' }} striped hover>
+                <thead className="pt-5"> 
                 <tr>
                   <th>Date</th>                
                     <th>Req.No</th>
