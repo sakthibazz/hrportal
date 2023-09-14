@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Nav, Modal} from 'react-bootstrap';
+import React, { useState} from 'react';
+import { Nav, Modal, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { HouseFill, Eye, PeopleFill, SearchHeart, FileEarmarkBarGraphFill, PencilFill, QuestionCircleFill,PersonPlusFill,InfoCircleFill} from 'react-bootstrap-icons';
 import useFetch from '../hooks/Fetch.hook.js';
@@ -7,15 +7,11 @@ import './SideNavbar.css';
 import Complaient from './Complaient';
 
 const SideNavbar = () => {
-  const [userPosition, setUserPosition] = useState('');
-  const [{ isLoading, apiData }] = useFetch();
+ 
+  const [{isLoading,apiData}] = useFetch();
   const [showModal, setShowModal] = useState(false); 
 
-  useEffect(() => {
-    if (!isLoading && apiData) {
-      setUserPosition(apiData.position);
-    }
-  }, [isLoading, apiData]);
+  const userPosition = apiData?.position || '';
 
    // Function to show the modal
    const handleModalShow = () => {
@@ -26,6 +22,12 @@ const SideNavbar = () => {
   const handleModalClose = () => {
     setShowModal(false);
   };
+
+  if (isLoading) {
+    return (
+     <Spinner/>
+    );
+  }
 
   return (
     <div className="side-navbar">

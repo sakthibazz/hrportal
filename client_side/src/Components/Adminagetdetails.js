@@ -21,10 +21,10 @@ function Adminagetdetails() {
       }
     }
 
-    fetchData();
-  }, []);
+    fetchData(); 
+  }, []); 
 
-  const indexOfLastResult = currentPage * resultsPerPage;
+  const indexOfLastResult = currentPage * resultsPerPage; 
   const indexOfFirstResult = indexOfLastResult - resultsPerPage;
   const currentRecords = counts.slice(indexOfFirstResult, indexOfLastResult);
 

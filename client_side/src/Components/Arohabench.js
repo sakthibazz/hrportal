@@ -80,7 +80,7 @@ const SearchForm = () => {
                       <td>{user.MobileNumber}</td>
                       <td>{user.Email}</td>
                       <td>{user.Domain}</td>
-                      <td>{user.Yre_of_exp}</td>
+                      <td>{user.Yre_of_expe}</td>
                     
                       <td>{user.Current_location}</td>
                       <td>

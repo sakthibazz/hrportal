@@ -1028,6 +1028,61 @@ export async function getCountsForAllTickets(req, res) {
     res.status(500).json({ error: 'An error occurred while fetching the counts.' });
   }
 }
+export async function getCountsForAllUsers(req, res) {
+  try {
+    const today = new Date(); // Get today's date
+
+    const startOfDay = new Date(today);
+    startOfDay.setHours(0, 0, 0, 0); // Set to 00:00:00
+
+    const endOfDay = new Date(today);
+    endOfDay.setHours(23, 59, 59, 999); // Set to 23:59:59.999 (almost midnight of the next day)
+
+    const pipeline = [
+      {
+        $match: {
+          date: {
+            $gte: startOfDay,
+            $lte: endOfDay,
+          },
+        },
+      },
+      {
+        $group: {
+          _id: { Ticket_no: "$Ticket_no", username: "$username" },
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          Ticket_no: "$_id.Ticket_no",
+          username: "$_id.username",
+          count: 1,
+        },
+      },
+    ];
+
+    const results = await RecuteModule.aggregate(pipeline);
+
+    // Retrieve Tech_stack and Client_Name from AdminModule
+    for (const result of results) {
+      const adminData = await AdminModule.findOne({ Ticket_no: result.Ticket_no }).exec();
+      if (adminData) {
+        result.Tech_stack = adminData.Tech_stack;
+        result.Client_Name = adminData.Client_Name;
+      } else {
+        result.Tech_stack = null;
+        result.Client_Name = null;
+      }
+    }
+
+    res.json(results);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}
 
 export async function Complaient(req, res) {
   try {
