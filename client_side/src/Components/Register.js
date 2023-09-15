@@ -47,9 +47,13 @@ const Register = () => {
   });
 
   const onUpload = async (e) => {
-    const base64 = await convertToBase64(e.target.files[0]);
-    setFile(base64);
-  };
+    const selectedFile = e.target.files[0];
+  
+    if (selectedFile) {
+      const base64 = await convertToBase64(selectedFile);
+      setFile(base64);
+    }
+  }
 
   return (
     <Container fluid className="vh-80 d-flex align-items-center justify-content-center">
