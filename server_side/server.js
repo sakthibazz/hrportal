@@ -35,7 +35,7 @@ app.use('/api', router);
 connect()
   .then(() => {
     app.listen(port, () => {
-      console.log(`Server is connected to http://localhost:${port}`);
+      console.log(`Server is running on port ${port}`);
     });
   })
   .catch(error => {

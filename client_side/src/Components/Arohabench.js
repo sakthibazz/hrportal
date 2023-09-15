@@ -9,14 +9,14 @@ import './FontText.css';
 
 const SearchForm = () => {
   const [searchResult, setSearchResult] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true); 
 
   // Fetch all user details on component mount
   useEffect(() => {
     fetchAllUserDetails();
   }, []);
 
-  const fetchAllUserDetails = async () => {
+  const fetchAllUserDetails = async () => { 
     try {
       const response = await getArohaRecruitments();
      

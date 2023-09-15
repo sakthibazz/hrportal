@@ -357,3 +357,13 @@ export async function getCountsForAllTickets() {
     throw error;
   }
 }
+
+// Function to fetch user working progress data from the backend API
+export async function fetchUserWorkingProgress() {
+  try {
+    const response = await axios.get('/api/getuserworkingprogress');
+    return response.data;
+  } catch (error) {
+    throw new Error('Error fetching user working progress: ' + error.message);
+  }
+}

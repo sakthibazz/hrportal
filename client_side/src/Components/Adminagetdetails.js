@@ -43,7 +43,7 @@ function Adminagetdetails() {
     <Container fluid>
       <Row className="mt-2">
         <Col md={12} style={{ marginLeft: '40px' }}> 
-          <h2 className="header-title ml-5">Dashboard</h2>
+          <h2 className="header-title ml-5">Report</h2>
           {counts.length > 0 ? (
             <>
               <Table className="custom-font" style={{ width: '100%', border: 'none' }} striped hover>

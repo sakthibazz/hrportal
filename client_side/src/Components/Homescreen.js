@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import Adminacseeforhome from './Adminacseeforhome';
 import Adminagetdetails from './Adminagetdetails';
-import useFetch from '../hooks/Fetch.hook.js';
+import Analiseuserwork from './Analiseuserwork';
+import useFetch from '../hooks/Fetch.hook.js';  
 
 
 
 
 const Homescreen = () => {
-  const [userPosition, setUserPosition] = useState('');
+  const [userPosition, setUserPosition] = useState(''); 
   const [{ isLoading, apiData }] = useFetch();
 
   useEffect(() => {
@@ -18,7 +19,7 @@ const Homescreen = () => {
   }, [isLoading, apiData]);
 
  
-  return (
+  return ( 
     <Container fluid className="p-0"> 
     <Row className='pt-5'>
       <Col xs={10} md={10} lg={10} className="pt-2">
@@ -26,7 +27,9 @@ const Homescreen = () => {
           <Adminacseeforhome />
         ) : userPosition === 'admin' ? (
           <>
+          <Analiseuserwork />  
             <Adminagetdetails />    
+              
           </>
         ) : null}
       </Col>

@@ -45,7 +45,7 @@ router.route('/getCountsForAllTickets').get(controller.getCountsForAllTickets);
 //get all the admin post based on the status which as open,sourcing
 router.route('/getAdminPostbyStatus').get(controller.getAdminPostbyStatus)
 
-router.route('/getCountOfCandidateNamesPostedByUser').get(controller.getCountsForAllUsers)
+router.route('/getuserworkingprogress').get(controller.getuserworkingprogress)
 
 
 
