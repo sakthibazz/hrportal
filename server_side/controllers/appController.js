@@ -393,7 +393,6 @@ export async function updateAdminpostById(req, res) {
       Job_Mode,
       Mode, // Extract the new mobile number from req.body
     } = req.body;
-    
 
     // Fetch the user based on the userId from req.user
     const user = await UserModel.findById(req.user.userId);
@@ -404,7 +403,7 @@ export async function updateAdminpostById(req, res) {
 
     // Extract the username from the user object
     const username = user.username;
-   
+
     // Fetch the existing document
     const existingAdminpost = await AdminModule.findById(postId);
 
@@ -415,15 +414,15 @@ export async function updateAdminpostById(req, res) {
     // Determine if the status is changing
     const isStatusChanging = existingAdminpost.status !== status;
 
-    // Update the document and include the userupdate field with updatedFields
-    const currentDate = new Date(); // Get the current date and time
+    // Initialize an empty updatedFields object
     const updatedFields = {};
 
-    // Function to check if values are different and not null
+    // Function to check if a value is different and not null
     const hasChanged = (key, newValue) => {
       return newValue !== null && existingAdminpost[key] !== newValue;
     };
 
+    // Check each field individually and update updatedFields if changed
     if (hasChanged('Ticket_no', Ticket_no)) {
       updatedFields.Ticket_no = Ticket_no;
     }
@@ -457,10 +456,10 @@ export async function updateAdminpostById(req, res) {
     if (hasChanged('Job_Mode', Job_Mode)) {
       updatedFields.Job_Mode = Job_Mode;
     }
-    if (hasChanged('Job_Mode', status)) {
+    if (hasChanged('status', status)) {
       updatedFields.status = status;
     }
-    
+
     const updateData = {
       Ticket_no,
       Client_Name,
@@ -476,12 +475,12 @@ export async function updateAdminpostById(req, res) {
       Job_Mode,
       userupdate: {
         lastupdate: username,
-        updatedFields, // Store the updated fields and their values
+        updatedFields, // Store the updated field and its value
       },
     };
 
     if (isStatusChanging) {
-      updateData.date = currentDate; // Update the 'date' field with the current date
+      updateData.date = new Date(); // Update the 'date' field with the current date
     } else {
       updateData.date = existingAdminpost.date; // Keep the existing date
     }
