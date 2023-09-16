@@ -8,6 +8,7 @@ import AdminModule from "../model/Admin.module.js";
 import DeveloperModel from "../model/Developer.model.js"
 import transporter from '../controllers/mailer.js'
 import moment from 'moment-timezone';
+import { Types } from 'mongoose'; 
 
 
 
@@ -178,12 +179,11 @@ export async function recuterpost(req, res) {
     const recuteModule = new RecuteModule(recuteData);
 
     // Save the RecuteModule document to the database
-    recuteModule
-      .save()
-      .then(result => res.status(201).send({ msg: "Recuter posted successfully" }))
-      .catch(error => res.status(500).send({ error }));
+    await recuteModule.save();
+
+    res.status(201).send({ msg: "Recuter posted successfully" });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return res.status(500).send(error);
   }
 }
@@ -289,55 +289,30 @@ export async function Adminpost(req, res) {
 //update recute post by the means of _id
 export async function updateRecuterpostById(req, res) {
   try {
-    if (!req.user || !req.user.userId) {
+    const { userId } = req.user;
+
+    // Check for authentication and user existence
+    if (!userId) {
       return res.status(401).json({ error: 'Authentication failed or user not found' });
     }
 
-    const postId = req.params.id; // Assuming the route parameter is named "id"
-    console.log("Post ID from request params:", postId);
+    const postId = req.params.id;
 
     const {
-      Ticket_no,
-      CandidateName,
-      Email,
-      Yre_of_expe,
-      Relevent_Yre_of_exp,
-      Domain,
-      CTC,
-      ECTC,
-      Current_location,
-      Preffered_location,
-      Reason_for_change,
-      Notice_peried,
-      Comment,
-      Referral,
-      Referral_MobileNumber,
-      Status,
-      Current_Company,
-      Client_feedback,
-      Upload_resume,
-      date,
-      MobileNumber // Extract the new mobile number from req.body
+      MobileNumber, // Move MobileNumber to the top for consistency
+      ...updatedData // Store the rest of the data in a separate object
     } = req.body;
 
-    // Fetch the user based on the userId from req.user
-    const user = await UserModel.findById(req.user.userId);
-
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+    // Validate that postId is a valid ObjectId
+    if (!Types.ObjectId.isValid(postId)) {
+      return res.status(400).json({ error: 'Invalid post ID' });
     }
-
-    // Extract the username from the user object
-    const username = user.username;
-
-    // Make sure that the newMobileNumber field is of type Number and not a string
-    const mobileNum = Number(MobileNumber);
 
     // Check if the new mobile number or email already exists within the same ticket number
     const existingRecuterpost = await RecuteModule.findOne({
-      Ticket_no,
-      $or: [{ Email }, { MobileNumber}],
-      _id: { $ne: postId }, // Exclude the current post from the search
+      Ticket_no: updatedData.Ticket_no,
+      $or: [{ Email: updatedData.Email }, { MobileNumber: updatedData.MobileNumber }],
+      _id: { $ne: postId },
     });
 
     if (existingRecuterpost) {
@@ -346,33 +321,19 @@ export async function updateRecuterpostById(req, res) {
       });
     }
 
+    // Fetch the user and their username
+    const user = await UserModel.findById(userId);
+    const username = user?.username;
+
+    // Update the recruitment post
     const updatedRecuterpost = await RecuteModule.findByIdAndUpdate(
       postId,
       {
-        Ticket_no,
-        CandidateName,
+        ...updatedData,
         MobileNumber, // Include the new mobile number in the update operation
-        Email,
-        Yre_of_expe,
-        Relevent_Yre_of_exp,
-        Domain,
-        CTC,
-        ECTC,
-        Current_location,
-        Preffered_location,
-        Reason_for_change,
-        Notice_peried,
-        Comment,
-        Referral,
-        Referral_MobileNumber,
-        Status,
-        Current_Company,
-        Client_feedback,
-        Upload_resume,
-        date,
-        lastupdate: username
+        lastupdate: username,
       },
-      { new: true } // Return the updated document
+      { new: true }
     );
 
     if (!updatedRecuterpost) {
@@ -954,14 +915,17 @@ export async function getCountByTicket(req, res) {
   try {
     const { Ticket_no } = req.params;
 
-    const totalnumber_of_candidates = await RecuteModule.countDocuments({ Ticket_no });
-    const rejectedbyaroha = await RecuteModule.countDocuments({ Ticket_no, Status: { $regex: 'rejected by aroha', $options: 'i' } });
-    const selectedbyclient = await RecuteModule.countDocuments({ Ticket_no, Status: { $regex: 'selected By Client', $options: 'i' } });
-    const rejectededbyclient = await RecuteModule.countDocuments({ Ticket_no, Status: { $regex: 'rejected By Client', $options: 'i' } });
-    const FeedBack = await RecuteModule.countDocuments({ Ticket_no, Status: { $regex: 'Yet to Receive feedback', $options: 'i' } });
+    // Use Promise.all to execute queries concurrently
+    const [totalnumber_of_candidates, rejectedbyaroha, selectedbyclient, rejectededbyclient, FeedBack, clientInfo] = await Promise.all([
+      RecuteModule.countDocuments({ Ticket_no }),
+      RecuteModule.countDocuments({ Ticket_no, Status: { $regex: 'rejected by aroha', $options: 'i' } }),
+      RecuteModule.countDocuments({ Ticket_no, Status: { $regex: 'selected By Client', $options: 'i' } }),
+      RecuteModule.countDocuments({ Ticket_no, Status: { $regex: 'rejected By Client', $options: 'i' } }),
+      RecuteModule.countDocuments({ Ticket_no, Status: { $regex: 'Yet to Receive feedback', $options: 'i' } }),
+      AdminModule.findOne({ Ticket_no })
+    ]);
 
-    // Fetch client_name from the ClientModel based on Ticket_no
-    const clientInfo = await AdminModule.findOne({ Ticket_no });
+    // Extract client information
     const Client_Name = clientInfo ? clientInfo.Client_Name : null;
     const Tech_stack = clientInfo ? clientInfo.Tech_stack : null;
 
