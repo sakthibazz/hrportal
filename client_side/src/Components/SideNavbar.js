@@ -6,6 +6,7 @@ import useFetch from '../hooks/Fetch.hook.js';
 import './SideNavbar.css';
 import Complaient from './Complaient';
 
+
 const SideNavbar = () => {
  
   const [{isLoading,apiData}] = useFetch();
@@ -25,7 +26,10 @@ const SideNavbar = () => {
 
   if (isLoading) {
     return (
-     <Spinner/>
+      <>
+      <p>loading</p>
+    <Spinner/>
+    </>
     );
   }
 

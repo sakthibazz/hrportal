@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: flex-end;
   padding: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgb(202, 175, 199);
   position: fixed;
   top: 0;
   left: 0;
@@ -24,7 +24,7 @@
 /* Styles for the dropdown menu */
 .header-navbar .dropdown-menu {
   min-width: 160px;
-  background-color:#36393b; /* Dark background color for dropdown menu */
+  background-color:rgb(48, 25, 47); /* Dark background color for dropdown menu */
   color: #fff; /* White text color for dropdown menu */
 }
 
