@@ -27,8 +27,9 @@ const Homescreen = () => {
           <Adminacseeforhome />
         ) : userPosition === 'admin' ? (
           <>
+           <Adminagetdetails /> 
           <Analiseuserwork />  
-            <Adminagetdetails />    
+              
               
           </>
         ) : null}

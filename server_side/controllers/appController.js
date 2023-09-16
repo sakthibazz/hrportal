@@ -980,55 +980,92 @@ export async function getCountByTicket(req, res) {
     res.status(500).json({ error: 'An error occurred while fetching the counts.' });
   }
 }
+
 export async function getCountsForAllTickets(req, res) {
-  try { 
-    // Fetch all distinct Ticket_no values from the RecuteModule collection
-    const distinctTicketNumbers = await RecuteModule.distinct('Ticket_no');
+  try {
+    const pipeline = [
+      {
+        $group: {
+          _id: '$Ticket_no',
+          totalnumber_of_candidates: { $sum: 1 },
+          rejectedbyaroha: {
+            $sum: {
+              $cond: [
+                { $regexMatch: { input: '$Status', regex: /rejected by aroha/i } },
+                1,
+                0
+              ]
+            }
+          },
+          selectedbyclient: {
+            $sum: {
+              $cond: [
+                { $regexMatch: { input: '$Status', regex: /selected By Client/i } },
+                1,
+                0
+              ]
+            }
+          },
+          rejectededbyclient: {
+            $sum: {
+              $cond: [
+                { $regexMatch: { input: '$Status', regex: /rejected By Client/i } },
+                1,
+                0
+              ]
+            }
+          },
+          FeedBack: {
+            $sum: {
+              $cond: [
+                { $regexMatch: { input: '$Status', regex: /Yet to Receive feedback/i } },
+                1,
+                0
+              ]
+            }
+          }
+        }
+      },
+      {
+        $lookup: {
+          from: 'adminupdates',
+          localField: '_id',
+          foreignField: 'Ticket_no',
+          as: 'adminInfo'
+        }
+      },
+      {
+        $unwind: '$adminInfo'
+      },
+      {
+        $project: {
+          Ticket_no: '$_id',
+          totalnumber_of_candidates: 1,
+          rejectedbyaroha: 1,
+          submittedtoclient: { $subtract: ['$totalnumber_of_candidates', '$rejectedbyaroha'] },
+          selectedbyclient: 1,
+          rejectededbyclient: 1,
+          FeedBack: 1,
+          Client_Name: '$adminInfo.Client_Name',
+          Tech_stack: '$adminInfo.Tech_stack',
+          date: '$adminInfo.date',
+          status: '$adminInfo.status'
+        }
+      }
+    ];
 
-    // Create an array of promises to calculate counts for each Ticket_no
-    const countsPromises = distinctTicketNumbers.map(async (Ticket_no) => {
-      const totalnumber_of_candidates = await RecuteModule.countDocuments({ Ticket_no });
-      const rejectedbyaroha = await RecuteModule.countDocuments({ Ticket_no, Status: { $regex: 'rejected by aroha', $options: 'i' } });
+    const counts = await RecuteModule.aggregate(pipeline);
 
-      // Calculate submitted to client as totalnumber_of_candidates - rejectedbyaroha
-      const submittedtoclient = totalnumber_of_candidates - rejectedbyaroha;
-
-      const selectedbyclient = await RecuteModule.countDocuments({ Ticket_no, Status: { $regex: 'selected By Client', $options: 'i' } });
-      const rejectededbyclient = await RecuteModule.countDocuments({ Ticket_no, Status: { $regex: 'rejected By Client', $options: 'i' } });
-      const FeedBack = await RecuteModule.countDocuments({ Ticket_no, Status: { $regex: 'Yet to Receive feedback', $options: 'i' } });
-
-      // Fetch client_name from the ClientModel based on Ticket_no
-      const clientInfo = await AdminModule.findOne({ Ticket_no });
-      const Client_Name = clientInfo ? clientInfo.Client_Name : null;
-      const Tech_stack = clientInfo ? clientInfo.Tech_stack : null;
-      const date = clientInfo ? clientInfo.date : null;
-      const status = clientInfo ? clientInfo.status : null;
-
-      return {
-        Ticket_no,
-        totalnumber_of_candidates,
-        rejectedbyaroha,
-        submittedtoclient,
-        selectedbyclient,
-        rejectededbyclient,
-        FeedBack,
-        Client_Name,
-        Tech_stack,
-        date,
-        status
-      };
-    }); 
-
-    // Wait for all promises to resolve
-    const counts = await Promise.all(countsPromises);
-
-    res.status(201).json(counts);
+    if (counts.length === 0) {
+      res.json({ message: 'No data found' });
+    } else {
+      res.json(counts);
+    }
   } catch (error) {
-    console.error('Error fetching counts:', error);
-    res.status(500).json({ error: 'An error occurred while fetching the counts.' });
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 }
-
 
 export async function getuserworkingprogress(req, res) {
   try {
@@ -1056,39 +1093,34 @@ export async function getuserworkingprogress(req, res) {
         },
       },
       {
+        $lookup: {
+          from: "adminupdates",
+          localField: "_id.Ticket_no",
+          foreignField: "Ticket_no",
+          as: "adminData",
+        },
+      },
+      {
+        $unwind: "$adminData",
+      },
+      {
         $project: {
           _id: 0,
           Ticket_no: "$_id.Ticket_no",
           username: "$_id.username",
           count: 1,
+          Tech_stack: "$adminData.Tech_stack",
+          Client_Name: "$adminData.Client_Name",
         },
       },
     ];
 
-    const results = await RecuteModule.aggregate(pipeline);
+    const results = await RecuteModule.aggregate(pipeline).allowDiskUse(true);
 
-    // Retrieve Tech_stack and Client_Name from AdminModule using map
-    const resultsWithAdminData = await Promise.all(
-      results.map(async (result) => {
-        const adminData = await AdminModule.findOne({ Ticket_no: result.Ticket_no }).exec();
-        if (adminData) {
-          result.Tech_stack = adminData.Tech_stack;
-          result.Client_Name = adminData.Client_Name;
-          result.Client_Name = adminData.Client_Name;
-        } else {
-          result.Tech_stack = null;
-          result.Client_Name = null;
-        }
-        
-        
-        return result;
-      })
-    );
-
-    if (resultsWithAdminData.length === 0) {
+    if (results.length === 0) {
       res.json({ message: 'No data found' });
     } else {
-      res.json(resultsWithAdminData);
+      res.json(results);
     }
   } catch (error) {
     console.error(error);

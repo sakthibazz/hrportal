@@ -57,7 +57,7 @@ const SearchForm = () => {
           <Row>
             <Col md={12} style={{ marginLeft: '30px' }}>
             <h3 className="custom-font pt-5">Aroha Technologies Bench Candidates</h3>
-            <Table striped bordered hover className="custom-font">
+            <Table className="custom-font" style={{ width: '100%', border: 'none' }} striped hover>
                 <thead>
                   <tr>
                     <th>Req.No</th>
@@ -65,10 +65,9 @@ const SearchForm = () => {
                     <th>Mobile</th>
                     <th>Email</th>
                     <th>Domain</th>
-                    <th>Years Of Experience</th>
-                    
+                    <th>YOE</th>                    
                     <th>Location</th>
-                    <th>Download Resume</th>
+                    <th>Resume</th>
                   
                   </tr>
                 </thead>

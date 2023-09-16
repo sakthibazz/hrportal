@@ -1,14 +1,13 @@
-/* Styles for the sidebar */
 .side-navbar {
-  background-color: #36393b;
+  background-color: rgba(0, 0, 0, 0.7); /* Adjust the alpha (last) value for transparency */
   width: 230px;
   height: 100%;
   padding: 20px;
   position: fixed;
   left: 0;
-  top: 57px; /* Adjust the top margin to create the desired gap */
-  border-top-right-radius: 5px; /* Adjust the radius to control the curve */
-  
+  top: 57px;
+  border-top-right-radius: 5px;
+  color: white; /* Set text color to white for better visibility */
 }
   
   .side-navbar .row {
