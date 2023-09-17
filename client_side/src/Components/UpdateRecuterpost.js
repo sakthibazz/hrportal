@@ -113,7 +113,7 @@ const UpdatePost = () => {
   }
 
   return (
-    <Container fluid className="p-0">
+    <Container fluid className="p-5">
     <Toaster position="top-center" reverseOrder={false}></Toaster>
     <Row>
       <Col xs={12} md={12} lg={12}  >

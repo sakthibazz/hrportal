@@ -7,7 +7,7 @@
   top: 57px;
   border-top-right-radius: 5px;
   color: white;
-  animation: changeBackgroundColor 10s infinite; /* Apply the animation */
+  animation: changeBackgroundColor 5s infinite; /* Apply the animation */
 }
 
 @keyframes changeBackgroundColor {

@@ -26,10 +26,9 @@ const SideNavbar = () => {
 
   if (isLoading) {
     return (
-      <>
-      <p>loading</p>
-    <Spinner/>
-    </>
+      <Spinner animation="border" role="status">
+      <span className="visually-hidden">Loading...</span>
+    </Spinner>
     );
   }
 

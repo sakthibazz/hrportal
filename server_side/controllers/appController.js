@@ -251,7 +251,7 @@ export async function Adminpost(req, res) {
       .then(result => {
         const email = {
           from: 'arohatechnologies0@gmail.com', // Change to your sender email
-          to:'CHENNAIAroha@gmail.com', // Recipient's email, which is the user's email in this case "CHENNAIAroha@gmail.com"
+          to:'abineshajith81@gmail.com.com', // Recipient's email, which is the user's email in this case "CHENNAIAroha@gmail.com"
           subject: 'Admin Posting Details', // Subject of the email
           html: `
             <h2>Admin Posting Details</h2>

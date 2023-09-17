@@ -62,7 +62,7 @@ const Profile = () => {
       <Toaster position='top-center' reverseOrder={false}></Toaster>
       <Row>
         <Col className="text-center">
-          <Card className="title py-4">
+          <Card className="title py-4 p-5">
             <Card.Body>
               <h4 className="text-5xl font-bold">Profile..!</h4>
               <span className="py-4 text-xl w-2/3 text-center text-muted">
