@@ -50,7 +50,7 @@ const Viewadminpost = () => {
         </tr>
         <tr>
           <td className="custom-label">Job Description</td>
-          <td>{userData.Job_Des}</td>
+          <td style={{ wordWrap: 'break-word' }}>{userData.Job_Des}</td>
         </tr>
         <tr>
           <td className="custom-label">Location</td>

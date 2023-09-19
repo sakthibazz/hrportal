@@ -7,13 +7,13 @@ const Analiseuserwork = () => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const resultsPerPage = 10;
+  const resultsPerPage = 10; 
 
   useEffect(() => {
     async function fetchData() {
       try {
         const result = await fetchUserWorkingProgress();
-        setData(result);
+        setData(result); 
         setIsLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
