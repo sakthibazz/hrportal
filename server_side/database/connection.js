@@ -11,5 +11,5 @@ async function connect() {
     console.error('Failed to connect to the MongoDB server:', error);
   }
 }
-
+ 
 export default connect;

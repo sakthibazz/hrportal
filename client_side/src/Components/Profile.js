@@ -98,7 +98,7 @@ const Profile = () => {
                     />
                   </Col>
                   <Col>
-                    <Form.Control
+                    <Form.Control 
                       {...formik.getFieldProps('lastName')}
                       type="text"
                       placeholder="Last Name*"

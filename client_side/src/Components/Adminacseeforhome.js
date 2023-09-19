@@ -26,7 +26,7 @@ const Adminacseeforhome = () => {
   };
 
   if (isLoading) {
-    return <Loader />;
+    return <Loader />; 
   }
 
   return (
