@@ -8,7 +8,7 @@ import {downloadResume} from '../helper/Convert';
 import './FontText.css';
 
 
-
+ 
 const SearchForm = () => {
   const [searchResult, setSearchResult] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -192,6 +192,7 @@ const SearchForm = () => {
                <Table style={{ width: '100%', border: 'none' }} striped hover>              
                 <thead>
                   <tr>
+                    <th>Req.No</th>
                     <th>Name</th>
                     <th>Mobile</th>
                     <th>Email</th>
@@ -207,6 +208,7 @@ const SearchForm = () => {
                 <tbody>
                 {resultsToDisplay.map((user) =>  (
                     <tr key={user._id}>
+                      <td>{user.Ticket_no}</td>
                       <td>{user.CandidateName}</td>
                       <td>{user.MobileNumber}</td>
                       <td>{user.Email}</td>
@@ -269,4 +271,55 @@ const SearchForm = () => {
   );
 };
 
-export default SearchForm;
+export default SearchForm;
+
+
+// import React, { useState, useEffect } from "react";
+// import { Formik, Form, Field } from "formik";
+// import { Button, Table, Container, Row, Col, Card, Pagination } from "react-bootstrap";
+// import { getAllUserDetails, getUserDetails } from "../helper/Helper";
+// import { Link } from "react-router-dom";
+// import Loader from './Loader';
+// import { downloadResume } from '../helper/Convert';
+// import './FontText.css';
+
+// const SearchForm = () => {
+//   const [searchResult, setSearchResult] = useState([]);
+//   const [currentPage, setCurrentPage] = useState(1);
+//   const [isLoading, setIsLoading] = useState(true);
+//   const resultsPerPage = 10; // Number of results to display per page
+
+//   useEffect(() => {
+//     // Check if search results are stored in localStorage
+//     const storedResults = JSON.parse(localStorage.getItem("searchResults"));
+//     if (storedResults) {
+//       setSearchResult(storedResults);
+//       setIsLoading(false);
+//     } else {
+//       fetchAllAdminPostDetails();
+//     }
+//   }, []);
+
+//   const fetchAllAdminPostDetails = async () => {
+//     try {
+//       const response = await getAllUserDetails();
+//       setSearchResult(response);
+//       setIsLoading(false);
+//       // Store the search results in localStorage
+//       localStorage.setItem("searchResults", JSON.stringify(response));
+//     } catch (error) {
+//       console.error("Error fetching admin post details:", error);
+//     }
+//   };
+
+//   const handleSubmit = async (values) => {
+//     try {
+//       const response = await getUserDetails(values);
+//       setSearchResult(response);
+//       setCurrentPage(1); // Reset currentPage to 1 on new search
+//       // Store the search results in localStorage
+//       localStorage.setItem("searchResults", JSON.stringify(response));
+//     } catch (error) {
+//       console.error("Error fetching admin post details:", error);
+//     }
+//   };

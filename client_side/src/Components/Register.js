@@ -59,7 +59,7 @@ const Register = () => {
     <Container fluid className="vh-80 d-flex align-items-center justify-content-center">
       <Toaster position="top-center" reverseOrder={false}></Toaster>
       <Row className="mt-2 pt-2">
-        <Col className="text-center">
+        <Col className="text-center pt-5">
           <Card className="title py-4">
             <Card.Body>
               <h4 className="text-5xl font-bold">Register..!</h4>
