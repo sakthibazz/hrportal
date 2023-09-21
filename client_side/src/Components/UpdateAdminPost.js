@@ -46,7 +46,7 @@ const UpdatePost = () => {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values, { resetForm }) => {
-      values.Upload_resume = file || null;
+      values.Job_Description = file || null;
 
       const updatePromise = updateAdminpostById(userData._id, values);
 

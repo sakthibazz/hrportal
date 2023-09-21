@@ -22,11 +22,13 @@ const HeaderNavbar = () => {
 
   return (
     <div className="header-navbar">
+     <Link to="/home">
       <Image
         src={arohaImage}
         alt="Left Image"
         style={{ width: '80px', height: '35px', marginRight: '10px' }}
       />
+    </Link>
       <h1 className="header-title">Welcome To Aroha Technologies {apiData && apiData.username.toUpperCase()}</h1>
       <Dropdown>
         <Dropdown.Toggle variant="light" id="dropdown-basic">
