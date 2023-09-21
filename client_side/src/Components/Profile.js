@@ -38,10 +38,14 @@ const Profile = () => {
     }
   });
 
-  const onUpload = async e => {
-    const base64 = await convertToBase64(e.target.files[0]);
-    setFile(base64);
-  };
+  const onUpload = async (e) => {
+    const selectedFile = e.target.files[0];
+  
+    if (selectedFile) {
+      const base64 = await convertToBase64(selectedFile);
+      setFile(base64);
+    }
+  }
   if (isLoading) {
     return (
       <Spinner animation="border" role="status">

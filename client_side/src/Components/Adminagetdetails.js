@@ -51,7 +51,7 @@ function Adminagetdetails() {
                 <thead>
                   <tr>
                     <th>Req.No</th>
-                    <th>Open Date</th>
+                    <th>Date</th>
                     <th>Client</th>
                     <th>Job Title</th>
                     <th>Status</th>

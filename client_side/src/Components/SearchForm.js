@@ -191,9 +191,8 @@ const SearchForm = () => {
              <h3 className="text-center pt-5"  style={{ textDecoration: "underline" }}>Candidate Details</h3>
                <Table style={{ width: '100%', border: 'none' }} striped hover>              
                 <thead>
-                  <tr>
-                    <th>Req.No</th>
-                    <th>Name</th>
+                  <tr>          
+                   <th>Name</th>
                     <th>Mobile</th>
                     <th>Email</th>
                     <th>CTC</th>
@@ -208,7 +207,6 @@ const SearchForm = () => {
                 <tbody>
                 {resultsToDisplay.map((user) =>  (
                     <tr key={user._id}>
-                      <td>{user.Ticket_no}</td>
                       <td>{user.CandidateName}</td>
                       <td>{user.MobileNumber}</td>
                       <td>{user.Email}</td>
