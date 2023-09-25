@@ -13,6 +13,7 @@
     "formik": "^2.4.2",
     "html-to-image": "^1.11.11",
     "jwt-decode": "^3.1.2",
+    "multiselect-react-dropdown": "^2.0.25",
     "pdfjs-dist": "^3.8.162",
     "react": "^18.2.0",
     "react-bootstrap": "^2.8.0",

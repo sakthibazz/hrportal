@@ -67,7 +67,7 @@ const Viewadminpost = () => {
         </tr>
         <tr>
           <td className="custom-label">Job Title</td>
-          <td>{userData.Tech_stack}</td>
+          <td>{userData.Tech_stack.map(tech => tech.name).join(', ')}</td>
         </tr>
         <tr>
           <td className="custom-label">Years of Experience</td>

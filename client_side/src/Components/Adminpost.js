@@ -6,6 +6,7 @@ import convertToBase64 from '../helper/Convert';
 import { Adminpost } from '../helper/Helper';
 import { adminPostValidate } from '../helper/Validate';
 import './FontText.css';
+import Multiselect from 'multiselect-react-dropdown';
 
 const Adminposts = () => {
   const [file, setFile] = useState();
@@ -18,7 +19,7 @@ const Adminposts = () => {
       Client_Name: '',
       Open_position: '',
       Yre_of_exp: '',
-      Tech_stack: '',
+      Tech_stack: [],
       Budget: '',
       Location: '',
       Job_Description: '',
@@ -74,6 +75,91 @@ const Adminposts = () => {
   const hideModal = () => {
     setShowModal(false);
   };
+
+ 
+  const onTechStackSelect = (selectedList) => {
+    // Ensure selectedList is an array
+    if (Array.isArray(selectedList)) {
+      formik.setFieldValue('Tech_stack', selectedList);
+    }
+  };
+  // Add IDs to your tech stack options
+const techStackOptions = [
+  { id: '1', name: 'DotNet' },
+  { id: '2', name: 'SAP' },
+  { id: '3', name: 'Data Engineering' },
+  { id: '4', name: 'Power BI' },
+  { id: '5', name: 'DB Developer' },
+  { id: '6', name: 'Data Scientist' },
+  { id: '7', name: 'Testing(Manual testing)' },
+  { id: '8', name: 'Testing(Automation testing)' },
+  { id: '9', name: 'Web Full Stack' },
+  { id: '10', name: 'Dot Net Full Stack' },
+  { id: '11', name: 'Java Full Stack' },
+  { id: '12', name: 'DevOps' },
+  { id: '13', name: 'Cloud Computing' },
+  { id: '14', name: 'Cybersecurity' },
+  { id: '15', name: 'Network Administration' },
+  { id: '16', name: 'Database Administration' },
+  { id: '17', name: 'Machine Learning' },
+  { id: '18', name: 'Artificial Intelligence' },
+  { id: '19', name: 'Front-end Development' },
+  { id: '20', name: 'Back-end Development' },
+  { id: '21', name: 'Mobile App Development' },
+  { id: '22', name: 'UI/UX Design' },
+  { id: '23', name: 'Big Data' },
+  { id: '24', name: 'Game Development' },
+  { id: '25', name: 'Embedded Systems' },
+  { id: '26', name: 'Robotics' },
+  { id: '27', name: 'Blockchain' },
+  { id: '28', name: 'AR/VR Development' },
+  { id: '29', name: 'IoT Development' },
+  { id: '30', name: 'Software Testing' },
+  { id: '31', name: 'E-commerce Development' },
+  { id: '32', name: 'Digital Marketing' },
+  { id: '33', name: 'System Administration' },
+  { id: '34', name: 'Cloud Architecture' },
+  { id: '35', name: 'Data Analysis' },
+  { id: '36', name: 'IT Support' },
+  { id: '37', name: 'Healthcare IT' },
+  { id: '38', name: 'Business Analysis' },
+  { id: '39', name: 'ERP Systems' },
+  { id: '40', name: 'Quality Assurance' },
+  { id: '41', name: 'Virtualization' },
+  { id: '42', name: 'Web Security' },
+  { id: '43', name: 'Linux Administration' },
+  { id: '44', name: 'Wireless Networking' },
+  { id: '45', name: 'CAD/CAM Design' },
+  { id: '46', name: 'Data Warehousing' },
+  { id: '47', name: 'GIS Mapping' },
+  { id: '48', name: 'Computer Vision' },
+  { id: '49', name: 'Bioinformatics' },
+  { id: '50', name: 'Natural Language Processing' },
+  { id: '51', name: 'Front-end Web Development' },
+  { id: '52', name: 'Back-end Web Development' },
+  { id: '53', name: 'Full Stack Web Development' },
+  { id: '54', name: 'UI/UX Web Design' },
+  { id: '55', name: 'Mobile App Development (Web)' },
+  { id: '56', name: 'E-commerce Web Development' },
+  { id: '57', name: 'Web Security' },
+  { id: '58', name: 'Web Content Management' },
+  { id: '59', name: 'Web Accessibility' },
+  { id: '60', name: 'React.js' },
+  { id: '60', name: 'ReactNative' },
+  { id: '61', name: 'Angular' },
+  { id: '62', name: 'Vue.js' },
+  { id: '63', name: 'Ember.js' },
+  { id: '64', name: 'Svelte' },
+  { id: '65', name: 'Backbone.js' },
+  { id: '66', name: 'Node.js' },
+  { id: '67', name: 'MongoDB' },
+  { id: '68', name: 'MySQL' },
+  { id: '69', name: 'PostgreSQL' },
+  { id: '69', name: 'SQL' },
+
+
+  // Add more IT domains as needed
+];
 
   return (
     <Container fluid className="p-0">
@@ -135,26 +221,15 @@ const Adminposts = () => {
                       </Col>
                       <Col xs={6}>
                       <Form.Control
-                          {...formik.getFieldProps('Tech_stack')}
-                          list="Tech_stack"
-                          placeholder="Job Title*"
-                          className="w-100 mb-2"
-                          required
-                        />
-                        <datalist id="Tech_stack">
-                          <option>DotNet</option>
-                          <option>SAP</option>
-                          <option>Data Engineering</option>
-                          <option>Power BI</option>
-                          <option>DB Developer</option>
-                          <option>Data Scientist</option>
-                          <option>Testing(Manual testing)</option>
-                          <option>Testing(Automation testing)</option>
-                          <option>Web Full Stack</option>
-                          <option>Dot Net Full Stack</option>
-                          <option>Java Full Stack</option>
-                        </datalist>
-                      </Col>
+            as={Multiselect}
+            options={techStackOptions} // Use the options with IDs
+            selectedValues={formik.values.Tech_stack}
+            onSelect={onTechStackSelect}
+            displayValue="name"
+            placeholder="Job Title*"
+            className="w-100 mb-2"
+            required
+          />        </Col>
                     </Row>
                     <Row>
                       <Col xs={6}>
@@ -259,39 +334,39 @@ const Adminposts = () => {
               <strong>Ticket Number: {ticketNumber}</strong>
             </div>
           )}      
-          {postedDetails && (
-            <div>
-              <Row>
-                <Col>
-                <p>Client Name: {postedDetails.Client_Name}</p>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                <p>Yre_of_exp: {postedDetails.Yre_of_exp}</p>
-                </Col>
-                <Col>
-                <p>Open_position: {postedDetails.Open_position}</p>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                <p>Budget : {postedDetails.Budget}</p>
-                </Col>
-                <Col>
-                <p>Tech_stack : {postedDetails.Tech_stack}</p>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                <p>status : {postedDetails.status}</p>
-                </Col>
-                <Col>
-                <p>Location : {postedDetails.Location}</p>
-                </Col>
-              </Row>   
-            </div>
-          )}
+        {postedDetails && (
+  <div>
+    <Row>
+      <Col>
+        <p>Client Name: {postedDetails.Client_Name}</p>
+      </Col>
+    </Row>
+    <Row>
+      <Col>
+        <p>Yre_of_exp: {postedDetails.Yre_of_exp}</p>
+      </Col>
+      <Col>
+        <p>Open_position: {postedDetails.Open_position}</p>
+      </Col>
+    </Row>
+    <Row>
+      <Col>
+        <p>Budget: {postedDetails.Budget}</p>
+      </Col>
+      <Col>
+        <p>Tech_stack: {postedDetails.Tech_stack.map(item => item.name).join(', ')}</p>
+      </Col>
+    </Row>
+    <Row>
+      <Col>
+        <p>Status: {postedDetails.status}</p>
+      </Col>
+      <Col>
+        <p>Location: {postedDetails.Location}</p>
+      </Col>
+    </Row>
+  </div>
+)}
        
         </Modal.Body>
  <Modal.Footer>
@@ -305,4 +380,5 @@ const Adminposts = () => {
 };
 
 export default Adminposts;
+
 

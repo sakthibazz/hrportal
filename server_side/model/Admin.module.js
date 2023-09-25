@@ -18,7 +18,7 @@ const CounterSchema = new mongoose.Schema({
       type: String,
       required: [true, "Please provide the Client_Name"],
     },
-    Open_position: {
+    Open_position: { 
       type: Number,
       required: [true, "Please provide candidate Open_position"],
     },
@@ -26,10 +26,18 @@ const CounterSchema = new mongoose.Schema({
       type: Number,
       required: [true, "Please provide Yre_of_exp number"],
     },
-    Tech_stack: {
-      type: String,
-      required: [true, "Please provide Tech_stack"],
-    },
+    Tech_stack: [
+      {
+        id: {
+          type: String,
+          required: true,
+        },
+        name: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
     Budget: {
       type: Number,
       required: [true, "Please provide the budget"],

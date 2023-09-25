@@ -167,10 +167,9 @@ export async function recuterValidate(values,file) {
     if (!values.Yre_of_exp.trim()) {
         errors.exit =toast.error("Year of Experience is required");
     }
-  
-    if (!values.Tech_stack.trim()) {
-        errors.exit =toast.error("Tech stack is required");
-    }
+    if (!values.Tech_stack || values.Tech_stack.length === 0) {
+        errors.Tech_stack = 'Please select at least one Tech Stack';
+      }
     if (!values.Location.trim()) {
         errors.exit =toast.error("Location is required");
     }
