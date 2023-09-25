@@ -29,6 +29,24 @@ export async function downloadResume(resumeUrl) {
     alert('File not available for download.');
   }
 };
+export function viewResumeInPDF(base64Data) {
+  if (base64Data !== 'N/A') {
+    const pdfWindow = window.open('', '_blank');
+    pdfWindow.document.write(`
+      <html>
+        <head>
+          <title>Job Desripton</title>
+        </head>
+        <body>
+          <iframe width="100%" height="100%" src="${base64Data}" type="application/pdf"></iframe>
+        </body>
+      </html>
+    `);
+    pdfWindow.document.close();
+  } else {
+    alert('Resume not available for viewing.');
+  }
+}
 
 
 

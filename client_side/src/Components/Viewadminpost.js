@@ -5,6 +5,7 @@ import Loader from './Loader';
 import { Container, Table,Button} from 'react-bootstrap';
 import './Viewadminpost.css'; 
 import {downloadResume} from '../helper/Convert'
+import {viewResumeInPDF} from '../helper/Convert'
 
 const Viewadminpost = () => {
   const { userId } = useParams();
@@ -83,10 +84,19 @@ const Viewadminpost = () => {
         <tr>
           <td className="custom-label">Download Jd</td>
           <td>
-                        <Button onClick={() => downloadResume(userData?.Job_Description || "N/A")} variant="outline-success">
-                          Download
-                        </Button>
-                      </td>
+          <Button
+            onClick={() => downloadResume(userData?.Job_Description || "N/A")}
+            variant="outline-success"
+          >
+            Download
+          </Button> &nbsp;
+        <Button
+  onClick={() => viewResumeInPDF(userData?.Job_Description || "N/A")}
+  variant="outline-primary"
+>
+  View
+</Button>
+        </td>
         </tr>
       </tbody>
     </Table>
