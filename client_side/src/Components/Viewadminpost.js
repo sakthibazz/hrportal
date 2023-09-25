@@ -67,7 +67,14 @@ const Viewadminpost = () => {
         </tr>
         <tr>
           <td className="custom-label">Job Title</td>
-          <td>{userData.Tech_stack.map(tech => tech.name).join(', ')}</td>
+          <td>
+  {Array.isArray(userData.Tech_stack) ? (
+    userData.Tech_stack.map(tech => tech.name).join(', ')
+  ) : (
+    userData.Tech_stack || 'Tech Stack Data Missing'
+  )}
+</td>
+      
         </tr>
         <tr>
           <td className="custom-label">Years of Experience</td>

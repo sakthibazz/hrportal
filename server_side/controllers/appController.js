@@ -272,16 +272,19 @@ export async function Adminpost(req, res) {
         transporter.sendMail(email, (err, info) => {
           if (err) {
             console.log(err);
-            return res.status(500).send({ error: "Failed to send email" });
+            return res.status(500).send({ error: 'Failed to send email' });
           } else {
-            console.log("Email sent: " + info.response);
-            res.status(201).send({ msg: "Admin posted successfully", adminModule: result });
+            console.log('Email sent:', info.response);
+            res.status(201).send({ msg: 'Admin posted successfully', adminModule: result });
           }
         });
       })
-      .catch(error => res.status(500).send({ error }));
+      .catch(error => {
+        console.error('Error during save:', error); // Log any errors during save
+        res.status(500).send({ error });
+      });
   } catch (error) {
-    console.log(error);
+    console.error('Catch block error:', error); // Log any errors caught in the try-catch block
     return res.status(500).send(error);
   }
 }

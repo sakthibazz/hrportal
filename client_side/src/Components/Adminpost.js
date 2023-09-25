@@ -354,7 +354,13 @@ const techStackOptions = [
         <p>Budget: {postedDetails.Budget}</p>
       </Col>
       <Col>
-        <p>Tech_stack: {postedDetails.Tech_stack.map(item => item.name).join(', ')}</p>
+      <td>
+  {Array.isArray(postedDetails.Tech_stack) ? (
+    postedDetails.Tech_stack.map(tech => tech.name).join(', ')
+  ) : (
+    postedDetails.Tech_stack || 'Tech Stack Data Missing'
+  )}
+</td>
       </Col>
     </Row>
     <Row>
