@@ -174,7 +174,7 @@ export async function recuterValidate(values,file) {
         errors.exit =toast.error("Location is required");
     }
   
-    if (!values.Mode.trim()) {
+    if (!values.Mode || values.Mode.length === 0) {
         errors.exit =toast.error("Mode Of Work is required");
     }  
     return errors;

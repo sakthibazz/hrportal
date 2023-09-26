@@ -292,7 +292,6 @@ const modeOptions = [
                     </Row>
                     <Row>
   <Col xs={6}>
-    <Form.Label>Job Mode*</Form.Label>
     <Form.Control
       as={Multiselect}
       options={jobModeOptions}
@@ -305,7 +304,6 @@ const modeOptions = [
     />
   </Col>
   <Col xs={6}>
-    <Form.Label>Mode of Work*</Form.Label>
     <Form.Control
       as={Multiselect}
       options={modeOptions}
