@@ -18,7 +18,7 @@ const CounterSchema = new mongoose.Schema({
       type: String,
       required: [true, "Please provide the Client_Name"],
     },
-    Open_position: { 
+    Open_position: {
       type: Number,
       required: [true, "Please provide candidate Open_position"],
     },
@@ -56,15 +56,33 @@ const CounterSchema = new mongoose.Schema({
     Job_Des: {
       type: String,
     },
-    Mode: {
-      type: String,
-    },
+    Mode: [
+      {
+        id: {
+          type: String,
+          required: true,
+        },
+        name: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
     PostedUser: {
       type: String,
     },
-    Job_Mode:{
-      type:String 
-    },
+    Job_Mode: [
+      {
+        id: {
+          type: String,
+          required: true,
+        },
+        name: {
+          type: String,
+          required: true, 
+        },
+      },
+    ],
     date: {
       type: Date,
       default: Date.now,
@@ -77,7 +95,7 @@ const CounterSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.Mixed,
         default: {},
       },
-    }
+    },
   });
   
   // Pre-save middleware to handle auto-increment for Ticket_no

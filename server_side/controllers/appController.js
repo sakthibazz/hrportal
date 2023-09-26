@@ -251,7 +251,7 @@ export async function Adminpost(req, res) {
       .then(result => {
         const email = {
           from: 'arohatechnologies0@gmail.com', // Change to your sender email
-          to:'CHENNAIAroha@gmail.com', // Recipient's email, which is the user's email in this case "CHENNAIAroha@gmail.com"
+          to:'abineshajith81@gmail.com', // Recipient's email, which is the user's email in this case "CHENNAIAroha@gmail.com"
           subject: 'Admin Posting Details', // Subject of the email
           html: `
             <h2>Admin Posting Details</h2>
@@ -260,11 +260,11 @@ export async function Adminpost(req, res) {
             <h2>Client Name: ${result.Client_Name}</h2>
             <h2>Open Position: ${result.Open_position}</h2>
             <h2>Year of Experience: ${result.Yre_of_exp}</h2>
-            <h2>Tech stack: ${result.Tech_stack}</h2>
+            <h2>Tech stack: ${result.Tech_stack.map(stack => stack.name).join(', ')}</h2>
             <h2>Budget: ${result.Budget}</h2>
             <h2>Location: ${result.Location}</h2>
-            <h2>Mode: ${result.Mode}</h2>
-            <h2>Job Mode: ${result.Job_Mode}</h2>
+            <h2>Mode: ${result.Mode.map(Mode => Mode.name).join(', ')}</h2>
+            <h2>Job Mode: ${result.Job_Mode.map(Mode => Mode.name).join(', ')}</h2>
           `,
         };
 
@@ -272,27 +272,24 @@ export async function Adminpost(req, res) {
         transporter.sendMail(email, (err, info) => {
           if (err) {
             console.log(err);
-            return res.status(500).send({ error: 'Failed to send email' });
+            return res.status(500).send({ error: "Failed to send email" });
           } else {
-            console.log('Email sent:', info.response);
-            res.status(201).send({ msg: 'Admin posted successfully', adminModule: result });
+            console.log("Email sent: " + info.response);
+            res.status(201).send({ msg: "Admin posted successfully", adminModule: result });
           }
         });
       })
-      .catch(error => {
-        console.error('Error during save:', error); // Log any errors during save
-        res.status(500).send({ error });
-      });
+      .catch(error => res.status(500).send({ error }));
   } catch (error) {
-    console.error('Catch block error:', error); // Log any errors caught in the try-catch block
+    console.log(error);
     return res.status(500).send(error);
   }
-}   
+} 
 
 //update recute post by the means of _id
 export async function updateRecuterpostById(req, res) {
   try {
-    const { userId } = req.user;
+    const { userId } = req.user; 
 
     // Check for authentication and user existence
     if (!userId) {

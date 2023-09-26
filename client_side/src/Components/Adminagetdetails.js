@@ -7,8 +7,8 @@ function Adminagetdetails() {
   const [counts, setCounts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const resultsPerPage = 10;
-
 
   useEffect(() => {
     async function fetchData() {
@@ -19,19 +19,21 @@ function Adminagetdetails() {
         if (Array.isArray(data)) {
           data.sort((a, b) => b.Ticket_no - a.Ticket_no);
           setCounts(data);
-          setIsLoading(false);
+          setError(null); // Clear any previous errors
         } else {
-          console.error('Data is not an array:', data);
-          setIsLoading(false); // Handle the case where data is not an array
+          setError("Data is not an array");
+          setCounts([]); // Set an empty array to clear any previous data
         }
+
+        setIsLoading(false);
       } catch (error) {
-        console.error(error);
-        setIsLoading(false); // Handle error state
+        setError(error.message); // Set the error message
+        setIsLoading(false);
       }
     }
 
-    fetchData();
-  }, []);
+    fetchData(); 
+  }, []); 
 
   const indexOfLastResult = currentPage * resultsPerPage; 
   const indexOfFirstResult = indexOfLastResult - resultsPerPage;
@@ -43,7 +45,6 @@ function Adminagetdetails() {
     setCurrentPage(page);
   }
 
-  
   if (isLoading) {
     return <Loader />;
   }
@@ -78,13 +79,7 @@ function Adminagetdetails() {
                       <td>{count.Ticket_no}</td>
                       <td>{new Date(count.date).toLocaleDateString("en-GB")}</td>
                       <td>{count.Client_Name}</td>
-                      <td>
-  {Array.isArray(count.Tech_stack) ? (
-    count.Tech_stack.map(tech => tech.name).join(', ')
-  ) : (
-    count.Tech_stack || 'Tech Stack Data Missing' 
-  )}
-</td>
+                      <td>{count.Tech_stack.map(tech => tech.name).join(', ')}</td>
                       <td>{count.status}</td>
                       <td>{count.totalnumber_of_candidates}</td>
                       <td>{count.rejectedbyaroha}</td>

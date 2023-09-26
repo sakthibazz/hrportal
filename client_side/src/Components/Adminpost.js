@@ -38,10 +38,10 @@ const Adminposts = () => {
       }
       values.Job_Description = file || '';
 
-      const AdminpostPromise = Adminpost(values);
+      const AdminpostPromise =Adminpost(values);
       console.log(AdminpostPromise)  // Check if the data is being sent to the server
 
-      resetForm(); 
+      resetForm();
    
 
       toast.promise(AdminpostPromise, { 
@@ -82,6 +82,18 @@ const Adminposts = () => {
     // Ensure selectedList is an array
     if (Array.isArray(selectedList)) {
       formik.setFieldValue('Tech_stack', selectedList);
+    }
+  };
+   const onModeSelect = (selectedList) => {
+    // Ensure selectedList is an array
+    if (Array.isArray(selectedList)) {
+      formik.setFieldValue('Mode', selectedList);
+    }
+  };
+   const onJobModeSelect = (selectedList) => {
+    // Ensure selectedList is an array
+    if (Array.isArray(selectedList)) {
+      formik.setFieldValue('Job_Mode', selectedList);
     }
   };
   // Add IDs to your tech stack options
@@ -161,6 +173,18 @@ const techStackOptions = [
   { id: '71', name: 'Sequelize' },
   { id: '72', name: 'Express' },
   { id: '74', name: 'CSS' },
+];
+
+const jobModeOptions = [
+  { id: '1', name: 'FTE' },
+  { id: '2', name: 'Contract' },
+  { id: '3', name: 'C2H' },
+];
+
+const modeOptions = [
+  { id: '1', name: 'Work from Home' },
+  { id: '2', name: 'Work from Office' },
+  { id: '3', name: 'Hybrid' },
 ];
 
   return (
@@ -267,29 +291,33 @@ const techStackOptions = [
                       </Col>
                     </Row>
                     <Row>
-                      <Col xs={6}>
-                      <Form.Select
-                        {...formik.getFieldProps('Job_Mode')}
-                        required
-                      >
-                        <option value="">Select Job Mode*</option>
-                        <option value="FTE">FTE</option>
-                        <option value="Contract">Contract</option>
-                        <option value="C2H">C2H</option>
-                      </Form.Select>
-                      </Col>
-                      <Col xs={6}>
-                      <Form.Select
-                        {...formik.getFieldProps('Mode')}
-                        required
-                      >
-                        <option value="">Mode of Work*</option>
-                        <option value="Work from home">Work from Home</option>
-                        <option value="Work from office">Work from Office</option>
-                        <option value="Hybrid">Hybrid</option>
-                      </Form.Select>
-                      </Col>
-                    </Row>         
+  <Col xs={6}>
+    <Form.Label>Job Mode*</Form.Label>
+    <Form.Control
+      as={Multiselect}
+      options={jobModeOptions}
+      selectedValues={formik.values.Job_Mode}
+      onSelect={onJobModeSelect}
+      displayValue="name"
+      placeholder="Select Job Mode*"
+      className="w-100 mb-2"
+      required
+    />
+  </Col>
+  <Col xs={6}>
+    <Form.Label>Mode of Work*</Form.Label>
+    <Form.Control
+      as={Multiselect}
+      options={modeOptions}
+      selectedValues={formik.values.Mode}
+      onSelect={onModeSelect}
+      displayValue="name"
+      placeholder="Select Mode of Work*"
+      className="w-100 mb-2"
+      required
+    />
+  </Col>
+</Row>       
                     <br/>
                     <Row>
                          <Col xs={6}>
@@ -356,12 +384,7 @@ const techStackOptions = [
         <p>Budget: {postedDetails.Budget}</p>
       </Col>
       <Col>
-      <p>Tech stack:    
-  {Array.isArray(postedDetails.Tech_stack) ? (
-    postedDetails.Tech_stack.map(tech => tech.name).join(', ')
-  ) : (
-    postedDetails.Tech_stack || 'Tech Stack Data Missing'
-  )}</p>
+      <p>Tech Stack:{postedDetails.Tech_stack.map(tech => tech.name).join(', ')}</p>    
       </Col>
     </Row>
     <Row>
