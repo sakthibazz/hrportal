@@ -287,7 +287,7 @@ export async function Adminpost(req, res) {
     console.error('Catch block error:', error); // Log any errors caught in the try-catch block
     return res.status(500).send(error);
   }
-}
+}   
 
 //update recute post by the means of _id
 export async function updateRecuterpostById(req, res) {
@@ -1059,13 +1059,13 @@ export async function getuserworkingprogress(req, res) {
         },
       },
       {
-        $lookup: {
+        $lookup: { 
           from: "adminupdates",
           localField: "_id.Ticket_no",
           foreignField: "Ticket_no",
-          as: "adminData",
+          as: "adminData", 
         },
-      },
+      }, 
       {
         $unwind: "$adminData",
       },

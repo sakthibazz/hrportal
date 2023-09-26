@@ -63,7 +63,13 @@ const Analiseuserwork = () => {
                       <td>{item.Ticket_no}</td>
                       <td>{item.username}</td>
                       <td>{item.Client_Name}</td>
-                      <td>{item.Tech_stack}</td>
+                      <td>
+  {Array.isArray(item.Tech_stack) ? (
+    item.Tech_stack.map(tech => tech.name).join(', ')
+  ) : (
+    item.Tech_stack || 'Tech Stack Data Missing'
+  )} 
+</td>
                       <td>{item.count}</td>
                     </tr>
                   ))}

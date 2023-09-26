@@ -39,11 +39,12 @@ const Adminposts = () => {
       values.Job_Description = file || '';
 
       const AdminpostPromise = Adminpost(values);
+      console.log(AdminpostPromise)  // Check if the data is being sent to the server
 
-      resetForm();
-  
+      resetForm(); 
+   
 
-      toast.promise(AdminpostPromise, {
+      toast.promise(AdminpostPromise, { 
         loading: 'Updating...',
         success: (data) => {
           setTicketNumber(data.adminModule.Ticket_no); 
@@ -156,9 +157,10 @@ const techStackOptions = [
   { id: '68', name: 'MySQL' },
   { id: '69', name: 'PostgreSQL' },
   { id: '69', name: 'SQL' },
-
-
-  // Add more IT domains as needed
+  { id: '70', name: 'Mongoose' },
+  { id: '71', name: 'Sequelize' },
+  { id: '72', name: 'Express' },
+  { id: '74', name: 'CSS' },
 ];
 
   return (
@@ -354,13 +356,12 @@ const techStackOptions = [
         <p>Budget: {postedDetails.Budget}</p>
       </Col>
       <Col>
-      <td>
+      <p>Tech stack:    
   {Array.isArray(postedDetails.Tech_stack) ? (
     postedDetails.Tech_stack.map(tech => tech.name).join(', ')
   ) : (
     postedDetails.Tech_stack || 'Tech Stack Data Missing'
-  )}
-</td>
+  )}</p>
       </Col>
     </Row>
     <Row>

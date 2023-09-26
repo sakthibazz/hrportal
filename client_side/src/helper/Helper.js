@@ -133,18 +133,20 @@ export async function recuterpost(credentials) {
 // post the recruiter posting details to the server
 export async function Adminpost(credentials) {
   try {
-    const token = localStorage.getItem('token'); // Assuming token is stored in localStorage
+    // Assuming you have a valid token in localStorage
+    const token = localStorage.getItem('token');
+
     const response = await axios.post('/api/Adminpost', credentials, {
       headers: {
         Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json', // Include Content-Type header for POST requests
+        'Content-Type': 'application/json',
       },
     });
 
-    return response.data; // Return the server response data to the calling function
+    return response.data;
   } catch (error) {
     console.error('Error posting recruiter:', error);
-    return { error: "Couldn't post recruiter" }; // Return an error object if the request fails
+    return { error: "Couldn't post recruiter" };
   }
 }
 // updating the recuter posting details

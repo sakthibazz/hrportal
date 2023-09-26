@@ -9,20 +9,29 @@ function Adminagetdetails() {
   const [isLoading, setIsLoading] = useState(true);
   const resultsPerPage = 10;
 
+
   useEffect(() => {
     async function fetchData() {
       try {
         const data = await getCountsForAllTickets();
-        data.sort((a, b) => b.Ticket_no - a.Ticket_no);
-        setCounts(data);
-        setIsLoading(false);
+
+        // Check if data is an array before sorting
+        if (Array.isArray(data)) {
+          data.sort((a, b) => b.Ticket_no - a.Ticket_no);
+          setCounts(data);
+          setIsLoading(false);
+        } else {
+          console.error('Data is not an array:', data);
+          setIsLoading(false); // Handle the case where data is not an array
+        }
       } catch (error) {
         console.error(error);
+        setIsLoading(false); // Handle error state
       }
     }
 
-    fetchData(); 
-  }, []); 
+    fetchData();
+  }, []);
 
   const indexOfLastResult = currentPage * resultsPerPage; 
   const indexOfFirstResult = indexOfLastResult - resultsPerPage;
@@ -73,7 +82,7 @@ function Adminagetdetails() {
   {Array.isArray(count.Tech_stack) ? (
     count.Tech_stack.map(tech => tech.name).join(', ')
   ) : (
-    count.Tech_stack || 'Tech Stack Data Missing'
+    count.Tech_stack || 'Tech Stack Data Missing' 
   )}
 </td>
                       <td>{count.status}</td>
