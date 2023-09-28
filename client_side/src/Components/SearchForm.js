@@ -213,7 +213,7 @@ const SearchForm = () => {
                       <td>{user.CTC}</td>
                       <td>{user.ECTC}</td>
                       <td>{user.Notice_peried}</td>
-                      <td>{user.Current_location}</td> 
+                      <td>{user.Current_location.map(tech => tech.value).join(', ')}</td> 
                       <td>{user.Status}</td> 
                       <td>
                         <Button onClick={() => downloadResume(user?.Upload_resume || "N/A")} variant="outline-success">

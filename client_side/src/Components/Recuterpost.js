@@ -7,6 +7,9 @@ import { recuterValidate } from '../helper/Validate';
 import { useParams } from 'react-router-dom';
 import convertToBase64 from '../helper/Convert';
 import Loader from './Loader';
+import Select from 'react-select';
+import { techStackOptions,customStyles,indianStateswithmetropolitanCities } from '../helper/Option';
+import ReactSelect from 'react-select'; 
 
 const UpdatePost = () => {
   const [file, setFile] = useState();
@@ -112,7 +115,7 @@ const UpdatePost = () => {
   }
 
   return (
-    <Container fluid className="p-0">
+    <Container fluid className="pt-5">
     <Toaster position="top-center" reverseOrder={false}></Toaster>
     <Row>
       <Col xs={12} md={12} lg={12}  >
@@ -173,26 +176,18 @@ const UpdatePost = () => {
                         />
                       </Col>
                       <Col xs={6}>
-                      <Form.Control
-                          {...formik.getFieldProps('Domain')}
-                          list="Domain"
-                          placeholder="Domain*"
-                          className="w-100 mb-2"
-                          required
-                        />
-                        <datalist id="Domain">
-                          <option>DotNet</option>
-                          <option>SAP</option>
-                          <option>Data Engineering</option>
-                          <option>Power BI</option>
-                          <option>DB Developer</option>
-                          <option>Data Scientist</option>
-                          <option>Testing(Manual testing)</option>
-                          <option>Testing(Automation testing)</option>
-                          <option>Web Full Stack</option>
-                          <option>Dot Net Full Stack</option>
-                          <option>Java Full Stack</option>
-                        </datalist>
+                      <Select
+                            options={techStackOptions}
+                            isMulti
+                            value={formik.values.Domain} // Set the value prop to the selected options
+                            onChange={(selectedOptions) => {
+                              formik.setFieldValue('Domain', selectedOptions);
+                            }}
+                            placeholder="Domain*"
+                            className="w-100 mb-2"
+                            styles={customStyles} 
+                            required
+                          />  
                       </Col>
                     </Row>
                     <Row>
@@ -216,67 +211,71 @@ const UpdatePost = () => {
                       </Col>
                     </Row>
                     <Row>
-                      <Col xs={6}>
-                        <Form.Control
-                          {...formik.getFieldProps('Yre_of_expe')}
-                          type="number"
-                          placeholder="Years Of Experience*"
-                          className="w-100 mb-2"
+                      <Col xs={6}>                                   
+                        <ReactSelect
+                          name="Yre_of_expe" // Add a name property
+                          value={formik.values.Yre_of_expe} // Set the value prop
+                          options={Array.from({ length: 50 }, (_, index) => ({
+                            value: index + 1,
+                            label: (index + 1).toString(),
+                          }))}
+                          onChange={(selectedOption) => {
+                            formik.setFieldValue('Yre_of_expe', selectedOption); // Update the field value
+                          }}
+                          styles={customStyles}
+                          isSearchable={true} 
+                          placeholder="Select Years of Experience"
                           required
                         />
                       </Col>
-                      <Col xs={6}>
-                        <Form.Control
-                          {...formik.getFieldProps('Relevent_Yre_of_exp')}
-                          type="number"
-                          placeholder="Relevant Years Of Experience*"
-                          className="w-100 mb-2"
-                          required
-                        />
+                      <Col xs={6}>        
+                      <ReactSelect
+                        name="Relevent_Yre_of_exp" // Add a name property
+                        value={formik.values.Relevent_Yre_of_exp} // Set the value prop
+                        options={Array.from({ length: 50 }, (_, index) => ({
+                          value: index + 1,
+                          label: (index + 1).toString(),
+                        }))}
+                        onChange={(selectedOptions) => {
+                          formik.setFieldValue('Relevent_Yre_of_exp', selectedOptions); // Update the field value
+                        }}
+                        styles={customStyles}
+                        isSearchable={true} 
+                        placeholder="Select Relevant Years of Experience"
+                        required
+                      />
                       </Col>
+                     
                     </Row>
+                    <br/>
                     <Row>
                     <Col xs={6}>
-                      <Form.Control
-                          {...formik.getFieldProps('Current_location')}
-                          list="Current_location"
-                          placeholder="Current location"
-                          className="w-100 mb-2"
-                        />
-                        <datalist id="Current_location">
-                        <option>Bengaluru (Bangalore)</option>
-                          <option>Chennai (Madras)</option>
-                          <option>Delhi</option>
-                          <option>Mumbai</option>
-                          <option>Hyderabad</option>
-                          <option>Kolkata (Calcutta)</option>
-                          <option>Pune</option>
-                          <option>Ahmedabad</option>
-                          <option>Lucknow</option>
-                          <option>Indore</option>
-                          <option>Chandigarh</option>
-                        </datalist>
+                    <Select
+                        options={indianStateswithmetropolitanCities}
+                        value={formik.values.Current_location} // Set the value prop to the selected option
+                        onChange={(selectedOption) => {
+                          formik.setFieldValue('Current_location', selectedOption);
+                        }}
+                        placeholder="Current Location*"
+                        className="w-100 mb-2"
+                        styles={customStyles}
+                        isSearchable={true} 
+                      
+                      />
                       </Col>
                       <Col xs={6}>
-                      <Form.Control
-                          {...formik.getFieldProps('Preffered_location')}
-                          list="Preffered_location"
-                          placeholder="Preffered location"
-                          className="w-100 mb-2"
-                        />
-                        <datalist id="Preffered_location">
-                        <option>Bengaluru (Bangalore)</option>
-                          <option>Chennai (Madras)</option>
-                          <option>Delhi</option>
-                          <option>Mumbai</option>
-                          <option>Hyderabad</option>
-                          <option>Kolkata (Calcutta)</option>
-                          <option>Pune</option>
-                          <option>Ahmedabad</option>
-                          <option>Lucknow</option>
-                          <option>Indore</option>
-                          <option>Chandigarh</option>
-                        </datalist>
+                      <Select
+                        options={indianStateswithmetropolitanCities}
+                        value={formik.values.Preffered_location} // Set the value prop to the selected option
+                        onChange={(selectedOption) => {
+                          formik.setFieldValue('Preffered_location', selectedOption);
+                        }}
+                        placeholder="Preffered Location*"
+                        className="w-100 mb-2"
+                        styles={customStyles}
+                        isSearchable={true} 
+                      
+                      />
                       </Col>
                     </Row>
                     <Row>

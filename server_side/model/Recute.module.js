@@ -17,30 +17,17 @@ export const UserSchema=new mongoose.Schema({
         type:String,
         require:[true,"please provide candidate Email"]
     },
-    Yre_of_expe:{
-        type:Number,
-        require:[true,"please provide Yre_of_exp number"]
-    },
-    Relevent_Yre_of_exp:{
-        type:Number,
-        require:[true,"please provide Relevent_Yre_of_exp number"]
-    },
-    Domain:{
-        type:String,
-        require:[true,"please provide candidate name"]
-    },
+    Yre_of_expe:[],
+    Relevent_Yre_of_exp:[],
+    Domain:[],
     CTC: { 
         type: Number
     },
     ECTC: { 
         type: Number
     },
-    Current_location: { 
-        type: String
-    },
-    Preffered_location: { 
-        type: String
-    },
+    Current_location: [],
+    Preffered_location: [],
     Reason_for_change: { 
         type: String
     },

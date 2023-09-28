@@ -121,21 +121,6 @@ export async function recuterValidate(values,file) {
           toast.error(errors.MobileNumber);
         }
       }
-    if(!values.Yre_of_expe){
-        errors.exit=toast.error("Yre_of_exp Required..!")
-    }else if(isNaN(values.Yre_of_expe)){
-        errors.exit=toast.error("Invalid Yre_of_exp")
-    }
-    if(!values.Relevent_Yre_of_exp){
-        errors.exit=toast.error("Relevent_Yre_of_exp Required..!")
-    }else if(isNaN(values.Relevent_Yre_of_exp)){
-        errors.exit=toast.error("Invalid Relevent_Yre_of_exp")
-    }
-    if(!values.Domain){
-        errors.exit=toast.error("Domain Required..!")
-    }else if(!values.Domain.trim()===""){
-        errors.exit=toast.error("Invalid Domain name")
-    }
     if(!values.CTC){
         errors.exit=toast.error("CTC Required..!")
     }else if(isNaN(values.CTC)){

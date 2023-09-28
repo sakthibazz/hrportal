@@ -156,7 +156,7 @@ const Adminposts = () => {
                             styles={customStyles} 
                             required
                           />   
-                            </Col>
+                      </Col>
                     </Row>
                     <Row>
                       <Col xs={6}>
