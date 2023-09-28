@@ -414,58 +414,13 @@ export async function updateAdminpostById(req, res) {
     // Determine if the status is changing
     const isStatusChanging = existingAdminpost.status !== status;
 
-    // Initialize an empty updatedFields object
-    const updatedFields = {};
-
-    // Function to check if a value is different and not null
-    const hasChanged = (key, newValue) => {
-      return newValue !== null && existingAdminpost[key] !== newValue;
-    };
-
-    // Check each field individually and update updatedFields if changed
-    if (hasChanged('Ticket_no', Ticket_no)) {
-      updatedFields.Ticket_no = Ticket_no;
-    }
-    if (hasChanged('Client_Name', Client_Name)) {
-      updatedFields.Client_Name = Client_Name;
-    }
-    if (hasChanged('Open_position', Open_position)) {
-      updatedFields.Open_position = Open_position;
-    }
-    if (hasChanged('Yre_of_exp', Yre_of_exp)) {
-      updatedFields.Yre_of_exp = Yre_of_exp;
-    }
-    if (hasChanged('Tech_stack', Tech_stack)) {
-      updatedFields.Tech_stack = Tech_stack;
-    }
-    if (hasChanged('Budget', Budget)) {
-      updatedFields.Budget = Budget;
-    }
-    if (hasChanged('Location', Location)) {
-      updatedFields.Location = Location;
-    }
-    if (hasChanged('Job_Description', Job_Description)) {
-      updatedFields.Job_Description = Job_Description;
-    }
-    if (hasChanged('Job_Des', Job_Des)) {
-      updatedFields.Job_Des = Job_Des;
-    }
-    if (hasChanged('Mode', Mode)) {
-      updatedFields.Mode = Mode;
-    }
-    if (hasChanged('Job_Mode', Job_Mode)) {
-      updatedFields.Job_Mode = Job_Mode;
-    }
-    if (hasChanged('status', status)) {
-      updatedFields.status = status;
-    }
-
+    // Construct the updateData object
     const updateData = {
       Ticket_no,
       Client_Name,
       Open_position,
       Yre_of_exp,
-      Tech_stack,
+      Tech_stack, // Updated directly
       Budget,
       Location,
       status,
@@ -475,7 +430,6 @@ export async function updateAdminpostById(req, res) {
       Job_Mode,
       userupdate: {
         lastupdate: username,
-        updatedFields, // Store the updated field and its value
       },
     };
 
@@ -486,7 +440,7 @@ export async function updateAdminpostById(req, res) {
     }
 
     const updatedAdminpost = await AdminModule.findByIdAndUpdate(
-      postId, // Find the record with the given _id
+      postId,
       updateData,
       { new: true } // Return the updated document
     );

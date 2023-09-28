@@ -26,18 +26,7 @@ const CounterSchema = new mongoose.Schema({
       type: Number,
       required: [true, "Please provide Yre_of_exp number"],
     },
-    Tech_stack: [
-      {
-        id: {
-          type: String,
-          required: true,
-        },
-        name: {
-          type: String,
-          required: true,
-        },
-      },
-    ],
+    Tech_stack: [],
     Budget: {
       type: Number,
       required: [true, "Please provide the budget"],
@@ -56,40 +45,18 @@ const CounterSchema = new mongoose.Schema({
     Job_Des: {
       type: String,
     },
-    Mode: [
-      {
-        id: {
-          type: String,
-          required: true,
-        },
-        name: {
-          type: String,
-          required: true,
-        },
-      },
-    ],
+    Mode: [],
     PostedUser: {
       type: String,
     },
-    Job_Mode: [
-      {
-        id: {
-          type: String,
-          required: true,
-        },
-        name: {
-          type: String,
-          required: true, 
-        },
-      },
-    ],
+    Job_Mode: [],
     date: {
       type: Date,
       default: Date.now,
     },
     userupdate: {
       lastupdate: {
-        type: String,
+        type: String, 
       },
       updatedFields: {
         type: mongoose.Schema.Types.Mixed,

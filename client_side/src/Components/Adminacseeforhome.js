@@ -54,7 +54,7 @@ const Adminacseeforhome = () => {
                   {latestAdminPosts.map((user) => (
                      <tr key={user._id}>
                      <td>{new Date(user.date).toLocaleDateString("en-GB")}</td>                  
-                     <td>{user.Ticket_no}</td>
+                     <td>{user.Tech_stack.map(tech => tech.value).join(', ')}</td>
                      <td>{user.Client_Name}</td>
                      <td>{user.Tech_stack}</td>
                      <td>{user.Location}</td>

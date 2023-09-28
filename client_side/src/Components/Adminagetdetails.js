@@ -79,7 +79,11 @@ function Adminagetdetails() {
                       <td>{count.Ticket_no}</td>
                       <td>{new Date(count.date).toLocaleDateString("en-GB")}</td>
                       <td>{count.Client_Name}</td>
-                      <td>{count.Tech_stack.map(tech => tech.name).join(', ')}</td>
+                      <td>
+  {Array.isArray(count.Tech_stack)
+    ? count.Tech_stack.map(tech => tech.value).join(', ')
+    : ''}
+</td>
                       <td>{count.status}</td>
                       <td>{count.totalnumber_of_candidates}</td>
                       <td>{count.rejectedbyaroha}</td>

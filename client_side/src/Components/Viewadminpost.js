@@ -16,7 +16,6 @@ const Viewadminpost = () => {
     const fetchUserData = async () => { 
       try {
         const response = await getAdmindetailsById(userId);
-        console.log(response)
         setUserData(response);
         setIsLoading(false);
       } catch (error) {
@@ -58,8 +57,8 @@ const Viewadminpost = () => {
           <td>{userData.Location}</td>
         </tr>
         <tr>
-          <td className="custom-label">Mode</td>
-          <td>{userData.Mode}</td>
+          <td className="custom-label">Job Mode</td>
+          <td>{userData.Job_Mode.map(tech => tech.value).join(', ')}</td>
         </tr>
         <tr>
           <td className="custom-label">Opening Position</td>
@@ -67,7 +66,7 @@ const Viewadminpost = () => {
         </tr>
         <tr>
           <td className="custom-label">Job Title</td>
-          <td>{userData.Tech_stack.map(tech => tech.name).join(', ')}</td>
+          <td>{userData.Tech_stack.map(tech => tech.value).join(', ')}</td>
         </tr>
         <tr>
           <td className="custom-label">Years of Experience</td>
