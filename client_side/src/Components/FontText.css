@@ -66,4 +66,6 @@
 
   .bold-text {
     font-weight: bold;
+    font-size: 18px; 
+    font-family: Arial, sans-serif;
   }

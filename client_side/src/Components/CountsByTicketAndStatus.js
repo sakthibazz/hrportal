@@ -70,7 +70,7 @@ function CountsByTicketAndStatus() {
             <br />
             <Text style={styles.subtitle}>Ticket Number: {candidateCounts.Ticket_no}</Text>
             <Text style={styles.subtitle}>Client Name: {candidateCounts.Client_Name}</Text>
-            <Text style={styles.subtitle}>Tech stack:{candidateCounts.Tech_stack}</Text>
+            <Text style={styles.subtitle}>Tech stack:{candidateCounts.Tech_stack.map(tech => tech.value).join(', ')}</Text>
           </View>
           <View style={styles.tableContainer}>
             <View style={styles.tableRow}>
@@ -205,7 +205,7 @@ function CountsByTicketAndStatus() {
                           </tr>
                           <tr>
                             <td>Tech stack</td>
-                            <td>{candidateCounts.Tech_stack}</td>
+                            {candidateCounts.Tech_stack.map(tech => tech.value).join(', ')}
                           </tr>
                           <tr>
                             <td>Total Candidates</td>

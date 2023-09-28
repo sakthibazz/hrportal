@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button} from 'react-bootstrap';
 import toast, { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import { updateAdminpostById, getAdmindetailsById, deleteAdminpostById } from '../helper/Helper';
@@ -189,7 +189,7 @@ const UpdatePost = () => {
             />
           </Col>
           <Col xs={3} md={3} lg={3}> 
-            <label>Year of Experience:</label>
+            <label className="bold-text">Year of Experience:</label>
           </Col>
           <Col xs={3} md={3} lg={3}>
             <Form.Control
@@ -203,7 +203,7 @@ const UpdatePost = () => {
         </Row>
         <Row>
           <Col xs={3} md={3} lg={3}>
-            <label>Tech Stack:</label>
+            <label className="bold-text">Tech Stack:</label>
           </Col>
           <Col xs={9} md={9} lg={9}>
             <Select
@@ -222,7 +222,7 @@ const UpdatePost = () => {
         </Row>
         <Row>
           <Col xs={3} md={3} lg={3}>
-            <label>Budget:</label>
+            <label className="bold-text">Budget:</label>
           </Col>
           <Col xs={3} md={3} lg={3}>
             <Form.Control
@@ -234,7 +234,7 @@ const UpdatePost = () => {
             />
           </Col>
           <Col xs={3} md={3} lg={3}>
-            <label>Location:</label>
+            <label className="bold-text">Location:</label>
           </Col>
           <Col xs={3} md={3} lg={3}>
             <Form.Control
@@ -261,7 +261,7 @@ const UpdatePost = () => {
         </Row>
         <Row>
             <Col xs={3} md={3} lg={3}>
-            <label>Job Mode:</label>
+            <label className="bold-text">Job Mode:</label>
           </Col>
           <Col xs={9} md={9} lg={9}>
             <Select
@@ -280,7 +280,7 @@ const UpdatePost = () => {
         </Row>
         <Row>
         <Col xs={3} md={3} lg={3}>
-            <label>Mode:</label>
+            <label className="bold-text">Mode:</label>
           </Col>
           <Col xs={9} md={9} lg={9}>
             <Select
@@ -299,7 +299,7 @@ const UpdatePost = () => {
         </Row>
         <Row>
           <Col xs={3} md={3} lg={3}>
-            <label>Job Description:</label>
+            <label className="bold-text">Job Description:</label>
           </Col>
           <Col xs={9} md={9} lg={9}>
             <Form.Control
@@ -312,12 +312,13 @@ const UpdatePost = () => {
         </Row>
         <Row>
           <Col xs={3} md={3} lg={3}>
-            <Form.Label>Upload Job Description:</Form.Label>
+            <Form.Label className="bold-text">Upload Job Description:</Form.Label>
           </Col>
           <Col xs={9} md={9} lg={9}>
             <Form.Control onChange={onUpload} type="file" id="Upload_resume" name="Upload_resume" />
           </Col>
         </Row>
+        <br/>
         <Row>
           <Col>
             <Button type="submit" variant="outline-info" size="lg">

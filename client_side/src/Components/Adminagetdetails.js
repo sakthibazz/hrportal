@@ -7,7 +7,6 @@ function Adminagetdetails() {
   const [counts, setCounts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
   const resultsPerPage = 10;
 
   useEffect(() => {
@@ -15,25 +14,25 @@ function Adminagetdetails() {
       try {
         const data = await getCountsForAllTickets();
 
-        // Check if data is an array before sorting
         if (Array.isArray(data)) {
           data.sort((a, b) => b.Ticket_no - a.Ticket_no);
           setCounts(data);
-          setError(null); // Clear any previous errors
         } else {
-          setError("Data is not an array");
-          setCounts([]); // Set an empty array to clear any previous data
+          // Log the error to the console
+          console.error("Data is not an array");
+          setCounts([]);
         }
 
         setIsLoading(false);
       } catch (error) {
-        setError(error.message); // Set the error message
+        // Log the error to the console
+        console.error(error.message);
         setIsLoading(false);
       }
     }
 
-    fetchData(); 
-  }, []); 
+    fetchData();
+  }, []);
 
   const indexOfLastResult = currentPage * resultsPerPage; 
   const indexOfFirstResult = indexOfLastResult - resultsPerPage;
