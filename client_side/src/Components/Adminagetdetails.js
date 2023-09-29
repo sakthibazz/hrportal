@@ -55,7 +55,7 @@ function Adminagetdetails() {
           <h2 className="header-title ml-5">Report</h2>
           {counts.length > 0 ? (
             <>
-              <Table className="custom-font" style={{ width: '100%', border: 'none' }} striped hover>
+              <Table className="custom-font" style={{ width: '130%', border: 'none' }} striped hover>
                 {/* Table headers */}
                 <thead>
                   <tr>

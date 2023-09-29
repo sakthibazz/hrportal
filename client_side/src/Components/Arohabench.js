@@ -50,14 +50,14 @@ const SearchForm = () => {
 
   return (
     <div className="pt-5 custom-font"> 
-    <div style={{ maxWidth: '800px', margin: '0 auto' }}> {/* Add custom div with max-width */}
+    <div > {/* Add custom div with max-width */}
       <Container fluid >
       
         {searchResult.length > 0 ? (
           <Row>
             <Col md={12} style={{ marginLeft: '30px' }}>
             <h3 className="custom-font pt-5">Aroha Technologies Bench Candidates</h3>
-            <Table className="custom-font" style={{ width: '120%', border: 'none' }} striped hover>
+            <Table className="custom-font" style={{ width: '110%', border: 'none' }} striped hover>
                 <thead>
                   <tr>
                     <th>Req.No</th>
@@ -78,10 +78,10 @@ const SearchForm = () => {
                       <td>{user.CandidateName}</td>
                       <td>{user.MobileNumber}</td>
                       <td>{user.Email}</td>
-                      <td>{user.Domain}</td>
-                      <td>{user.Yre_of_expe}</td>
+                      <td>{user.Domain.map(tech => tech.value).join(', ')}</td>
+                      <td>{user.Yre_of_expe.map(tech => tech.value).join(', ')}</td>
                     
-                      <td>{user.Current_location}</td>
+                      <td>{user.Current_location.map(tech => tech.value).join(', ')}</td>
                       <td>
                         <Button onClick={() => downloadResume(user?.Upload_resume || "N/A")} className="btn btn-success">
                           Download

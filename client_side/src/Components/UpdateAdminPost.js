@@ -186,7 +186,7 @@ const UpdatePost = () => {
               placeholder="Open position*"
               className="w-100 mb-2"
               required
-            />
+            /> 
           </Col>
           <Col xs={3} md={3} lg={3}> 
             <label className="bold-text">Year of Experience:</label>

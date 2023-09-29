@@ -47,7 +47,7 @@ const Analiseuserwork = () => {
             <Loader />
           ) : data.length > 0 ? (
             <>
-              <Table className="custom-font" style={{ width: '100%', border: 'none' }} striped hover>
+              <Table className="custom-font" style={{ width: '130%', border: 'none' }} striped hover>
                 <thead>
                   <tr>
                     <th>Req.No</th>
